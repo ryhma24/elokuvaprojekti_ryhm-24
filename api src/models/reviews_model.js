@@ -5,7 +5,15 @@ export async function getAllReviews(id) {
 
   console.log(typeof id);
 
-  const result = await pool.query("SELECT reviews FROM reviews WHERE idaccount = $1", [id]);
+  const result = await pool.query("SELECT * FROM reviews WHERE idaccount = $1", [id]);
+  return result.rows; 
+}
+
+export async function getOneReview(id) {
+
+  console.log(typeof id);
+
+  const result = await pool.query("SELECT * FROM reviews WHERE idreviews = $1", [id]);
   return result.rows; 
 }
 
