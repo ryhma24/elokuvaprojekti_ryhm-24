@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
-import accountRouter from "./server/routers/account_router.js";
-import reviewsRouter from "./server/routers/reviews_router.js";
+import accountRouter from "./api src/routers/account_router.js";
+import reviewsRouter from "./api src/routers/reviews_router.js";
 
 const port = process.env.port;
 

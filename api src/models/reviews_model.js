@@ -18,13 +18,14 @@ export async function getOneReview(id) {
 }
 
 export async function addOneReview(userReview) {
-  const result = await pool.query("INSERT INTO reviews (review,rating,idaccount,idmovie) VALUES($1,$2,$3,$4)", [userReview.review, userReview.rating, userReview.idaccount, userReview.idmovie]);
+  console.log("lisätään elokuva");
+  const result = await pool.query("INSERT INTO reviews (review, rating, idaccount, idmovie, date) VALUES($1,$2,$3,$4,$5)", [userReview.review, userReview.rating, userReview.idaccount, userReview.idmovie, userReview.date]);
   return result.rows;
 }
 
 export async function updateOneReview(id, userReview) {
   console.log("update:"+id);
-  const result = await pool.query("UPDATE reviews SET review=$1, rating=$2, idaccount=$3, idmovie=$4", [userReview.review, userReview.rating, userReview.idaccount, userReview.idmovie]);
+  const result = await pool.query("UPDATE reviews SET review=$1, rating=$2, idaccount=$3, idmovie=$4, date=$5", [userReview.review, userReview.rating, userReview.idaccount, userReview.idmovie, userReview.date]);
   return result.rows;
 }
 
