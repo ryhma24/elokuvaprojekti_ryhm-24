@@ -25,5 +25,6 @@ create table reviews (
  idreviews serial primary key,
  review varchar(200),
  rating float,
- idaccount INT NOT NULL CONSTRAINT foreign_idaccount REFERENCES account(idaccount)
+ idaccount INT NOT NULL CONSTRAINT foreign_idaccount REFERENCES account(idaccount),
+ idmovie int
 );
