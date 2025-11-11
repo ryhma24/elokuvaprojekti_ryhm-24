@@ -1,2 +1,3 @@
 # elokuvaprojekti_ryhm-24
-<img width="466" height="338" alt="image" src="https://github.com/user-attachments/assets/4eb86649-c561-41eb-a677-ca0ea072f8ae" />
+
+<img width="625" height="698" alt="moviedb" src="https://github.com/user-attachments/assets/9a416fb3-4f2c-487d-97fc-1da8e654458e" />
