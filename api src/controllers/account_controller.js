@@ -1,5 +1,5 @@
 
-import {getAll, addOne, authenticateAccount, saveRefreshToken, getAccountByRefreshToken, clearRefreshToken } from "../models/account_model.js";
+import {getAll, addOne, authenticateAccount, saveRefreshToken, getAccountByRefreshToken, clearRefreshToken, deleteAccount } from "../models/account_model.js";
 import {generateAccessToken, generateRefreshToken, verifyRefreshToken} from "../utils/jwt.js";
 
 export async function getAccounts(req, res, next) {
@@ -110,6 +110,20 @@ export async function logout(req, res, next) {
     res.clearCookie("refreshToken");
 
     res.json({ message: "Logout successful" });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function deleteOneAccount(req, res, next) {
+  try {
+    console.log("täs on un "+req.params.id)
+    const accountData = await deleteAccount(req.params.id);
+    
+     if (!accountData) {
+      return res.status(404).json({ error: "account not found" });
+    }
+    res.json(accountData);
   } catch (err) {
     next(err);
   }

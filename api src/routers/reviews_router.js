@@ -9,7 +9,7 @@ reviewsRouter.get("/:id", authenticateToken, getReviews); //autenticate tokeni l
 reviewsRouter.get("/review/:id", authenticateToken, getAReview);
 reviewsRouter.post("/",authenticateToken, addReview);
 reviewsRouter.put("/:id", authenticateToken, updateReview);
-reviewsRouter.delete("/:id", authenticateToken, deleteOneReview);
+reviewsRouter.delete("/:id", authenticateToken, deleteOneReview); // :id on parametri urliin
 
 
 export default reviewsRouter;

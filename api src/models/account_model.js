@@ -40,9 +40,6 @@ export async function authenticateAccount(username, password) {
 }
 
 export async function saveRefreshToken(username, refreshToken) {
-
-  console.log("refreshtoken: " +refreshToken);
-
   const result = await pool.query(
     "UPDATE account SET refresh_token = $1 WHERE username = $2 RETURNING username",
     [refreshToken, username]
@@ -64,4 +61,11 @@ export async function clearRefreshToken(username) {
     [username]
   );
   return result.rows[0];
+}
+
+export async function deleteAccount(id) {
+  console.log("delete:"+id); //tässä poistetaan olemassa oleva account idaccountin perusteella.
+  //jos accountilla on tietoa muissa tauluissa, poistuu ne cascade delete-tietokantasäännön avulla.
+  const result = await pool.query("DELETE FROM account WHERE idaccount = $1 ", [id]);
+  return result.rows;
 }
