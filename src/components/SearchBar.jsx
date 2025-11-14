@@ -9,10 +9,13 @@ export const SearchBar = ({ setResults }) => {
     
     const searchMovie = async (value) => { 
         try {
-            const response = await fetch(
+            let response = await fetch(
                 `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(value)}&api_key=${import.meta.env.VITE_API_KEY}`
             )
-            const data = await response.json()
+            let data = await response.json()
+            response = await fetch(
+                `https://api.themoviedb.org/3/search/tv?query=${encodeURIComponent(value)}&api_key=${import.meta.env.VITE_API_KEY}`
+            )
             setResults(data.results || [])
         } catch (error) {
             console.error('Error fetching movie data:', error)
