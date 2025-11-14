@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
+import NavBar from "./components/NavBar"
+import MovieCard from './components/MovieCard';
 
-
-import './App.css'
+//import './App.css'
 
 const apiKey = import.meta.env.VITE_API_KEY;
 function App() {
@@ -29,7 +30,6 @@ function App() {
         }
 //      --url 'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1' \
 //    --url 'https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1' \
-//eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNmY0YmI0ZGI0YjYwNjk3ZGM4Mzg0NGZlMGQ0MDhiOSIsIm5iZiI6MTc2Mjk1MDIxOS4wNDksInN1YiI6IjY5MTQ3YzRiNTgzZjE5ZjZhZTlhY2ViNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.NAo0JpxedzRH6iw5i1GbR8Y6ofNw228UFsjMh8gGeIg
       })
       .then(response => response.json())
       .then(json => {
@@ -42,10 +42,10 @@ function App() {
     }, [])
 
      return (
-        <div>
-            <h3>Now in theathers</h3>
-            <Movies />
-        </div>
+      <>
+        <NavBar/>
+        <MovieCard movie={{title:"vmovie", release_date:"1.2.234"}}/>
+      </>
     )
 }
 export default App;
