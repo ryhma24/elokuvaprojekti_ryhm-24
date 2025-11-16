@@ -9,14 +9,25 @@ export const SearchBar = ({ setResults }) => {
     
     const searchMovie = async (value) => { 
         try {
-            let response = await fetch(
-                `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(value)}&api_key=${import.meta.env.VITE_API_KEY}`
-            )
-            let data = await response.json()
-            response = await fetch(
+
+            const urls = [
+                `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(value)}&api_key=${import.meta.env.VITE_API_KEY}`,
                 `https://api.themoviedb.org/3/search/tv?query=${encodeURIComponent(value)}&api_key=${import.meta.env.VITE_API_KEY}`
-            )
-            setResults(data.results || [])
+            ];
+
+            const getFetch = async (url) => {
+                const res = await fetch(url);
+                return res.json();
+            };
+
+            const responses = await Promise.all(urls.map((url) => getFetch(url)));
+
+            console.log(responses);
+
+            const combined = responses.flatMap(r => r.results || []);
+
+            setResults(combined);
+
         } catch (error) {
             console.error('Error fetching movie data:', error)
         }

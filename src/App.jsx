@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { SearchBar } from './components/SearchBar.jsx'
-import { SearchResults } from './components/SearchResults.jsx';
+import { SearchResults } from './components/SearchResultsList.jsx';
 
 const url = "http://localhost:3001"
 

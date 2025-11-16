@@ -13,9 +13,12 @@
 
 #search-date {
     font-size: 13px;
-    
-
 }
+
+#type {
+    font-size: 13px;
+}
+
 .wrapper
 {
     display: grid;
