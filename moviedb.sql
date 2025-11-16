@@ -1,6 +1,6 @@
 create table account (
  idaccount serial primary key,
- username varchar(45) not null,
+ username varchar(45) not null UNIQUE,
  email varchar(45) not null,
  password varchar (60) not null,
  refresh_token varchar(200)
@@ -29,4 +29,5 @@ create table reviews (
  idmovie int
  date DATE
 );
+
 
