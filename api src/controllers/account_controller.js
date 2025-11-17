@@ -1,5 +1,7 @@
 
-import {getAll, addOne, authenticateAccount, saveRefreshToken, getAccountByRefreshToken, clearRefreshToken, deleteAccount } from "../models/account_model.js";
+import {getAll, addOne, authenticateAccount, saveRefreshToken, getAccountByRefreshToken, 
+       clearRefreshToken, deleteAccount, setDeletionFlag, cancelDeletionFlag, checkDeletionFlag } from "../models/account_model.js";
+
 import {generateAccessToken, generateRefreshToken, verifyRefreshToken} from "../utils/jwt.js";
 
 export async function getAccounts(req, res, next) {
@@ -28,6 +30,36 @@ export async function addAccount(req, res, next) {
     next(err);
   }
 }
+
+export async function setAccountForDeletion(req, res, next) {
+  try {
+      const response = await setDeletionFlag(req.body.username);
+      res.status(200).json({ message: "user flagged succesfully", username: response });
+    } catch (err) {
+      next(err);
+    }
+}
+
+export async function cancelAccountDeletion(req, res, next) {
+  try {
+      const response = await cancelDeletionFlag(req.body.username);
+      res.status(200).json({ message: "user flagging canceled", username: response });
+    } catch (err) {
+      next(err);
+    }
+}
+
+export async function getFlags(req, res, next) {
+  try {
+    //console.log(req);
+    const users = await checkDeletionFlag();
+    res.json(users);
+  } catch (err) {
+    console.log("errorissa");
+    next(err);
+  }
+}
+
 
 export async function login(req, res, next) {
   try {

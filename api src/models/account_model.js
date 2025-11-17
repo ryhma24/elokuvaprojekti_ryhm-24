@@ -1,14 +1,15 @@
 
 import { pool } from "../database.js";
 import  bcrypt  from "bcrypt";
+import { formatDay } from "../middleware/date-formatter.js";
 
 const SALT_ROUNDS = 10;
 
-export async function addOne(username, password, email) {
+export async function addOne(username, password, email, deletion_flag) {
   const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
   const result = await pool.query(
-    "INSERT INTO account (username, password, email) VALUES ($1, $2, $3) RETURNING username",
-    [username, hashedPassword, email]
+    "INSERT INTO account (username, password, email, deletion_flag) VALUES ($1, $2, $3, $4) RETURNING username",
+    [username, hashedPassword, email, deletion_flag]
   );
   return result.rows[0];
 }
@@ -17,6 +18,40 @@ export async function getAll() {
   const result = await pool.query("SELECT username FROM account");
   return result.rows;
 }
+
+export async function setDeletionFlag(username) {
+ 
+  //asetetaan account poistoa varten 2 viikon päähän
+  const deletionDate = formatDay();
+  console.log(deletionDate);
+
+  const result = await pool.query
+  ("UPDATE account SET deletion_flag = TRUE, deletion_date = $1 WHERE username = $2 RETURNING username",
+    [deletionDate, username]
+  );
+  return result.rows;
+  
+}
+
+export async function cancelDeletionFlag(username) {
+
+  //perutetaan käyttäjän poisto
+  const result = await pool.query
+  ("UPDATE account SET deletion_flag = FALSE, deletion_date = NULL WHERE username = $1 RETURNING username",
+    [username]
+  );
+  return result.rows;
+}
+
+export async function checkDeletionFlag() {
+
+  //tarkistetaan kaikkien käyttäjien flagit
+  const result = await pool.query
+  ("SELECT idaccount, deletion_date FROM account WHERE deletion_flag = TRUE"
+  );
+  return result.rows;
+}
+
 
 export async function authenticateAccount(username, password) {
   const result = await pool.query(
