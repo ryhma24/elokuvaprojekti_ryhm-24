@@ -5,7 +5,7 @@ create table account (
  password varchar (60) not null,
  refresh_token varchar(200),
  deletion_flag bool,
- deletion_date date;
+ deletion_date varchar(20);
 );
 
 create table groups (
@@ -31,6 +31,7 @@ create table reviews (
  idmovie int
  date DATE
 );
+
 
 
 
