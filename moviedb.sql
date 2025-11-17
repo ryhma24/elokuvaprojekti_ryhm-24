@@ -1,14 +1,16 @@
 create table account (
  idaccount serial primary key,
- username varchar(45) not null UNIQUE,
+ username varchar(45) not null CONSTRAINT username_unq UNIQUE(username),
  email varchar(45) not null,
  password varchar (60) not null,
- refresh_token varchar(200)
+ refresh_token varchar(200),
+ deletion_flag bool,
+ deletion_date date;
 );
 
 create table groups (
  idgroup serial primary key,
- name varchar(20),
+ name varchar(20) CONSTRAINT name_unq UNIQUE(name), 
  group_color varchar(45),
  member_status boolean,
  movie_list int,
@@ -29,5 +31,6 @@ create table reviews (
  idmovie int
  date DATE
 );
+
 
 
