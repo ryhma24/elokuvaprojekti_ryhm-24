@@ -7,7 +7,7 @@ function NavBar() {
             <div className="navbar-links">
                 <a className="nav-link">Home</a>
                 <a className="nav-link">Movies</a>
-                <a className="nav-link">TV-Series</a>
+                <a className="nav-link">Series</a>
                 <a className="nav-link">Groups</a>
             </div>
             <div className="navbar-actions">

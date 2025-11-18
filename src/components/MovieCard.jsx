@@ -6,7 +6,7 @@ function MovieCard({movie}){
 
     return <div className="movie-card">  
         <div className="movie-poster">
-            <img src={movie.url} alt={movie.title}/>
+            <img className ="movie-image"src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}/>
             <div className="movie-overlay">
                 <button className="favourite-btn" onClick={onFavouriteClick}>
                     Like
@@ -17,6 +17,7 @@ function MovieCard({movie}){
         <div className="movie-info">
             <h3>{movie.title}</h3>
             <p>{movie.release_date}</p>
+            <p>{movie.genre_ids+" "}</p>
         </div>
     </div>
 }

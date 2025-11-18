@@ -1,0 +1,15 @@
+.movie-card {
+    position: relative;
+    background-color: rgb(255, 255, 255);
+
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex: 0 0 25em;
+    height: 30em;
+    
+    
+}
+.movie-image{
+    width: 100%;
+}

@@ -2,13 +2,14 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import NavBar from "./components/NavBar"
 import MovieCard from './components/MovieCard';
+import { getNowInTheathers } from './api/api';
+import Home from './pages/Home';
 
-//import './App.css'
-
-const apiKey = import.meta.env.VITE_API_KEY;
 function App() {
 
-  const [movies, setMovies] = useState([])
+  
+
+  /*const [movies, setMovies] = useState([])
 
   const Movies = () => {
     return (
@@ -28,8 +29,7 @@ function App() {
             Authorization: `Bearer ${apiKey}`,
             'Content-Type':'application/json'
         }
-//      --url 'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1' \
-//    --url 'https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1' \
+
       })
       .then(response => response.json())
       .then(json => {
@@ -39,12 +39,13 @@ function App() {
       .catch(error => {
         console.log(error)
       })
-    }, [])
+    }, [])*/
 
      return (
       <>
         <NavBar/>
-        <MovieCard movie={{title:"vmovie", release_date:"1.2.234"}}/>
+        <Home/>
+        
       </>
     )
 }

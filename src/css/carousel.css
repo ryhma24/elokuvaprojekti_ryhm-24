@@ -1,0 +1,39 @@
+.carousel{
+    width: 85%;
+    overflow-x: auto;
+    margin: 3em auto;
+    display: flex;
+    
+    gap: 1em;
+    scroll-behavior: smooth;
+    anchor-name: --carousel;
+}
+.carousel::-webkit-scrollbar{
+    display: none;
+}
+.carousel::scroll-button(right), .carousel::scroll-button(left){
+    content: '→';
+    border: none;
+    background-color: rgb(39, 39, 39);
+    font-family: Consolas;
+    font-size: 3rem;
+    color: white;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    padding-bottom: .1em;
+    cursor: pointer;
+    position: fixed;
+    position-anchor: --carousel;
+    position-area: right center;
+    translate: -50%;
+}
+.carousel::scroll-button(left){
+    content: '←';
+    position-area: left center;
+    translate: 50%;
+}
+.carousel.carousel::scroll-button(right):disabled,.carousel.carousel::scroll-button(left):disabled{
+    opacity: 0.5;
+    cursor: auto;
+}
