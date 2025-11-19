@@ -5,11 +5,11 @@ import { formatDay } from "../middleware/date-formatter.js";
 
 const SALT_ROUNDS = 10;
 
-export async function addOne(username, password, email, deletion_flag) {
+export async function addOne(username, password, email) {
   const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
   const result = await pool.query(
-    "INSERT INTO account (username, password, email, deletion_flag) VALUES ($1, $2, $3, $4) RETURNING username",
-    [username, hashedPassword, email, deletion_flag]
+    "INSERT INTO account (username, password, email, deletion_flag) VALUES ($1, $2, $3, FALSE) RETURNING username",
+    [username, hashedPassword, email]
   );
   return result.rows[0];
 }
@@ -68,9 +68,10 @@ export async function authenticateAccount(username, password) {
   const isValid = await bcrypt.compare(password, user.password);
 
   if (isValid) {
+    console.log("kirjauduttu käyyäjällä: "+user.username)
     return { username: user.username };
   }
-
+  console.log("salasana tai käyttäjänimi on väärin");
   return null;
 }
 

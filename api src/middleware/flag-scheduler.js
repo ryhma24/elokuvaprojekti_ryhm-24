@@ -7,6 +7,7 @@ async function flagCheck()
     //console.log("testataan flag scheduleria");
     let flaggedAccount;
     const today =  formatToday();
+    //const today =  "03/12/2025";
 
     try {
         const Flaggedusers = await pool.query
@@ -20,7 +21,7 @@ async function flagCheck()
                     {
                         try 
                         {
-                            console.log("poistetaan käyttäjä "+ flaggedaccount)
+                            console.log("poistetaan käyttäjä "+ flaggedAccount)
                             const deletedUser = await pool.query("DELETE FROM account WHERE idaccount = $1 ", [flaggedAccount]);
                         }
                         catch (err) {
@@ -32,5 +33,5 @@ async function flagCheck()
         console.log(err);
       }
 }    
-//cron.schedule("* * * * *", flagCheck); //testiä varten
-cron.schedule("0 12 * * *", flagCheck); //0 12 * * * tarkoittaa, että tää funktio suoritetaan kerran päivässä klo 12.
+cron.schedule("* * * * *", flagCheck); //testiä varten
+//cron.schedule("0 12 * * *", flagCheck); //0 12 * * * tarkoittaa, että tää funktio suoritetaan kerran päivässä klo 12.
