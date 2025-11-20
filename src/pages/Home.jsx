@@ -1,38 +1,74 @@
 import MovieCard from "../components/MovieCard"
-import { getNowInTheathers, getGenre } from "../api/api"
+import { getNowInTheathers, getGenre, getPopularMovies, getPopularSeries } from "../api/api"
 import { useState, useEffect } from "react"
 
 function Home() {
 
     const [movies, setMovies] = useState([])
     const [genres, setGenres] = useState([])
+    const [popularMovies, setPopularMovies] = useState([])
+    const [popularSeries, setPopularSeries] = useState([])
+
     useEffect(() => {
-
-        const loadNowInTheathers = async () => {
+        (async () => {
             try {
-                const nowInTheathers = await getNowInTheathers()
-                setMovies(nowInTheathers)
+                const [now, genreList, popular, series] = await Promise.all([
+                    getNowInTheathers(),
+                    getGenre(),
+                    getPopularMovies(),
+                    getPopularSeries(),
+                ]);
+                setMovies(now || []);
+                setGenres(genreList || []);
+                setPopularMovies(popular || []);
+                setPopularSeries(series || []);
             } catch (err) {
                 console.error(err);
             }
-        };
-        const loadGenre = async () => {
-            try {
-                const genres = await getGenre()
-                setGenres(genres)
-            } catch (err) {
-                console.error(err);
-            }
-        };
-        loadGenre();
-        loadNowInTheathers();
-    }, [])
+        })();
+    }, []);
 
-    return <div className="carousel">
+    return (
+        <div>
+            <h1>Now in theathers</h1>
+            <div className="carousel-wrapper">
+                <div className="carousel">
 
-        {movies.map(movie => <MovieCard movie={movie} genres={genres} key={movie.id} />)}
+                    {movies.map(movie => (
+                        <MovieCard
+                            movie={movie}
+                            genres={genres}
+                            key={movie.id}
+                        />
+                    ))}
 
-    </div>
+                </div>
+            </div>
+            <div className="carousel-wrapper">
+                <div className="carousel">
+                    {popularMovies.map(movie => (
+                        <MovieCard
+                            movie={movie}
+                            genres={genres}
+                            key={movie.id}
+                        />
+                    ))}
+                </div>
+            </div>
+            <div className="carousel-wrapper">
+                <div className="carousel">
+                    {popularSeries.map(movie => (
+                        <MovieCard
+                            movie={movie}
+                            genres={genres}
+                            key={movie.id}
+                        />
+                    ))}
+                </div>
+            </div>
+        </div>
+    )
+
 }
 
 export default Home
