@@ -15,6 +15,16 @@ create table groups (
  owner INT NOT NULL CONSTRAINT foreign_idaccount REFERENCES account(idaccount) ON DELETE CASCADE
 );
 
+CREATE TABLE group_members (
+  id SERIAL PRIMARY KEY,
+  idgroup INT NOT NULL REFERENCES groups(idgroup) ON DELETE CASCADE,
+  idaccount INT NOT NULL REFERENCES account(idaccount) ON DELETE CASCADE,
+  status VARCHAR(20) NOT NULL CHECK (status IN ('pending', 'accepted', 'rejected')),
+  requested_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  responded_at TIMESTAMP,
+  UNIQUE(idgroup, idaccount)
+);
+
 create table favourites (
  idfavourites serial primary key,
  favourites int,
@@ -29,4 +39,5 @@ create table reviews (
  idmovie int
  date DATE
 );
+
 
