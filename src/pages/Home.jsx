@@ -30,7 +30,7 @@ function Home() {
 
     return (
         <div>
-            <h1>Now in theathers</h1>
+            <h1 className="title">Now in theathers</h1>
             <div className="carousel-wrapper">
                 <div className="carousel">
 
@@ -44,6 +44,8 @@ function Home() {
 
                 </div>
             </div>
+            <h1 className="title">Popular Movies</h1>
+
             <div className="carousel-wrapper">
                 <div className="carousel">
                     {popularMovies.map(movie => (
@@ -55,6 +57,8 @@ function Home() {
                     ))}
                 </div>
             </div>
+            <h1 className="title">Popular Series</h1>
+
             <div className="carousel-wrapper">
                 <div className="carousel">
                     {popularSeries.map(movie => (

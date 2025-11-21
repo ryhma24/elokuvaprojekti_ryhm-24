@@ -1,22 +1,23 @@
 .carousel-wrapper {
-    background-color: bisque;
-    anchor-name: --carousel;
-    position: relative; /* important */
+    
+    position: relative; 
     margin: 2em;
 }
 .carousel{
-    width: 85%;
+    width: 100%;
     overflow-x: auto;
     margin: 3em auto;
     display: flex;
     gap: 1em;
     scroll-behavior: smooth;
+    position: relative;
+    scroll-snap-type: x mandatory;
     
 }
 .carousel::-webkit-scrollbar{
     display: none;
 }
-.carousel-wrapper::scroll-button(right), .carousel-wrapper::scroll-button(left){
+.carousel::scroll-button(right), .carousel::scroll-button(left){
     content: '→';
     border: none;
     background-color: rgb(39, 39, 39);
@@ -29,16 +30,17 @@
     padding-bottom: .1em;
     cursor: pointer;
     position: absolute;
-    position-anchor: --carousel;
-    position-area: right center;
-    translate: -50%;
-}
-.carousel-wrapper::scroll-button(left){
-    content: '←';
-    position-area: left center;
+    right: 0%;
+    bottom: 50%;
     translate: 50%;
 }
-.carousel-wrapper::scroll-button(right):disabled,.carousel-wrapper::scroll-button(left):disabled{
+.carousel::scroll-button(left){
+    content: '←';
+    left: 0%;
+    bottom: 50%;
+    translate: -50%;
+}
+.carousel::scroll-button(right):disabled,.carousel::scroll-button(left):disabled{
     opacity: 0.5;
     cursor: auto;
 }

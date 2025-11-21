@@ -10,8 +10,8 @@ function MovieCard({movie}){
                     
             </div>
             <div className="movie-info">
-                <h3>{movie.title}</h3>
-                <h3>{movie.name}</h3>
+                <h3 className="movie-title">{movie.title}</h3>
+                <h3 className="movie-title">{movie.name}</h3>
                 <p>{movie.release_date?.split("-")[0]}</p>
                 <p>{movie.first_air_date?.split("-")[0]}</p>
                 <div className="movie-overlay">

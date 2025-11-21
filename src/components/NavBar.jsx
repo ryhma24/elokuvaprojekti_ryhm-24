@@ -1,5 +1,11 @@
+import { useState } from "react";
+import { SearchBar } from './SearchBar';
+import { SearchResults } from './SearchResultslist';
 
 function NavBar() {
+
+    const [results, setResults] = useState([]);
+
     return (
 
         <nav className="navbar">
@@ -10,12 +16,12 @@ function NavBar() {
                 <a className="nav-link">Series</a>
                 <a className="nav-link">Groups</a>
             </div>
-            <div className="navbar-actions">
-                <form className="search-form">
-                    <input type="text" placeholder="Search..." />
-                </form>
-                <button>Login</button>
+            <div className="search-bar-container">
+                <SearchBar setResults={setResults}/>
+                <SearchResults results={results}/>
+                
             </div>
+            <button>Login</button>
         </nav>
 
 
