@@ -26,11 +26,11 @@ function LoginForm({ onClose }) {
   };
 
   return (
-    <div>
-      <h2>Kirjaudu sisään</h2>
+    <div class= "loginform">
+      <h2>Sign in</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Käyttäjänimi:</label>
+          <label>Username:</label>
           <input
             type="text"
             value={username}
@@ -39,7 +39,7 @@ function LoginForm({ onClose }) {
         </div>
 
         <div>
-          <label>Salasana:</label>
+          <label>Password:</label>
           <input
             type="password"
             value={password}
@@ -48,11 +48,11 @@ function LoginForm({ onClose }) {
         </div>
 
         <button type="submit" disabled={loading}>
-          {loading ? "Ladataan..." : "Kirjaudu sisään"}
+          {loading ? "Loading..." : "Sing in"}
         </button>
 
         <button type="button" onClick={onClose}>
-          Sulje
+          Close
         </button>
 
         {error && <div>{error}</div>}

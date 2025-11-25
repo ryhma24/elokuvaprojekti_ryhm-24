@@ -42,9 +42,9 @@ return (
         <button onClick={() => {
             handlelogin()
             }}>
-            Kirjaudu sisään
+            Login
         </button>
-        <div onClick={() => handleConfirm()}>Eikö sinulla ole käyttäjää?</div>
+        <div id="no-user" onClick={() => handleConfirm()}>Don't have an user?</div>
     </div>
   );
 }
@@ -54,7 +54,7 @@ return (
         <button onClick={() => {
             setConfirm(true) //asetetaan confirm trueksi
             }}>
-            Kirjaudu ulos
+            Logout
         </button>
     </div>
   );
@@ -65,9 +65,9 @@ return (
         <button onClick={() => {
             handleLogout(user)
             }}>
-            Kirjaudu ulos
+            Logout
         </button>
-        <div>Haluatko varmasti kirjautua ulos?</div>
+        <div>confim logout?</div>
     </div>
   );  
 }

@@ -1,0 +1,33 @@
+.movie-card {
+    position: relative;
+    background-color: rgba(196, 192, 192, 0.724);
+
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex: 0 0 24em;
+    height: 20em;
+    scroll-snap-align: start;
+    
+    
+}
+.movie-image:hover{
+    opacity: 0.9;
+    cursor: pointer;
+}
+.movie-title:hover{
+    opacity: 0.7;
+    cursor: pointer;
+}
+.movie-poster{
+    
+}
+.movie-info{
+    padding: 1em;
+    width: 100%;
+}
+.movie-image{
+    height: 100%;
+    border-radius: 8px;
+    
+}

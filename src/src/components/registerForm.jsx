@@ -43,11 +43,11 @@ function RegisterForm({ onClose }) {
   };
 
   return (
-    <div>
-      <h2>Luo käyttäjätili</h2>
+    <div class="registerform">
+      <h2>Create user</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Käyttäjänimi:</label>
+          <label>Username:</label>
           <input
             type="text"
             value={username}
@@ -57,7 +57,7 @@ function RegisterForm({ onClose }) {
         </div>
 
         <div>
-          <label>Salasana:</label>
+          <label>Password:</label>
           <input
             type="password"
             value={password}
@@ -77,11 +77,11 @@ function RegisterForm({ onClose }) {
         </div>
 
         <button type="submit" disabled={loading}>
-          {loading ? "Ladataan..." : "Rekisteröidy"}
+          {loading ? "Loading..." : "Register"}
         </button>
 
         <button type="button" onClick={onClose}>
-          Sulje
+          Close
         </button>
 
         {message && <div>{message}</div>} 
