@@ -139,6 +139,7 @@ export async function refreshAccessToken(req, res, next) {
 export async function logout(req, res, next) {
   try {
     const refreshToken = req.cookies.refreshToken;
+    console.log("kirjaudutaan ulos");
 
     if (refreshToken) {
       const user = await getAccountByRefreshToken(refreshToken);

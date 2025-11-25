@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useRegister } from "../contexts/RegisterContext";
 
 function RegisterForm({ onClose }) {
   const [username, setUsername] = useState(""); //alustetaaan username ,password ja email "" eli tyhjiksi
@@ -8,7 +7,8 @@ function RegisterForm({ onClose }) {
   const [error, setError] = useState("");
   const [message, setMessage] = useState(""); //viesti kertomaan käyttäjälle, onnistuiko rekisteröinti. alustetaan tyhjäksi.
   const [loading, setLoading] = useState(false); //muutetaan login napin teksti ''loading''
-  const { register } = useRegister();
+  const REACT_APP_API_URL = "http://localhost:3001"
+  //const { register } = useRegister();
 
   const handleSubmit = async (e) => {
     e.preventDefault(); //alussa resetoidaan viestit ja estetään default.
@@ -26,12 +26,28 @@ function RegisterForm({ onClose }) {
     }
   };
 
+  const register = async (username, password, email) => {
+    const res = await fetch(`${REACT_APP_API_URL}/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password, email }),
+    });
+
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(error.error || "Rekisteröinti epäonnistui");
+    }
+
+    const data = await res.json();
+    return data;
+  };
+
   return (
     <div>
-      <h2>Sign in</h2>
+      <h2>Luo käyttäjätili</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Username:</label>
+          <label>Käyttäjänimi:</label>
           <input
             type="text"
             value={username}
@@ -41,7 +57,7 @@ function RegisterForm({ onClose }) {
         </div>
 
         <div>
-          <label>Password:</label>
+          <label>Salasana:</label>
           <input
             type="password"
             value={password}
@@ -61,11 +77,11 @@ function RegisterForm({ onClose }) {
         </div>
 
         <button type="submit" disabled={loading}>
-          {loading ? "Loading..." : "Register"}
+          {loading ? "Ladataan..." : "Rekisteröidy"}
         </button>
 
         <button type="button" onClick={onClose}>
-          Cancel
+          Sulje
         </button>
 
         {message && <div>{message}</div>} 

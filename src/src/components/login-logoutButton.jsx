@@ -1,0 +1,75 @@
+//import { useState } from "react";
+import { useAuth } from "../contexts/AuthContext.jsx";
+import { useState } from "react";
+
+export function LoggedInButton({changeBoolLog, changeBoolReg}) { //otetaan propsina vastaan changeBool funktio, muutetaan sen arvo trueksi.
+
+const { logout, accessToken } = useAuth(); //importataan accestoken
+const { user } = useAuth(); //importataan username
+const [loading, setLoading] = useState(false);
+const [error, setError] = useState("");
+const [confirm, setConfirm] =useState(false); //confirm liittyy uloskirjautumisen varmistukseen, jos true niin sit renderöidään varsinainen logout ikkuna
+
+
+const handlelogin = () => {
+  changeBoolLog(true); //suljetaan rekisteröinti ikkuna, jos auki
+  changeBoolReg(false);
+}
+const handleConfirm = () => {
+  changeBoolLog(false); //suljetaan login ikkuna, jos auki
+  changeBoolReg(true);
+}
+const handleLogout = async (e) => {
+    try 
+    {
+      await logout(user);
+      setLoading(true);
+      console.log("kirjaudutaan ulos");
+    } catch (err) 
+    {
+      setError(err.message); //catchataan virheet
+    } finally
+    {
+      setLoading(false); //resetoidaan boolean muuttujat
+      setConfirm(false);
+    }
+  };
+
+if(!accessToken)
+{
+return (
+    <div>
+        <button onClick={() => {
+            handlelogin()
+            }}>
+            Kirjaudu sisään
+        </button>
+        <div onClick={() => handleConfirm()}>Eikö sinulla ole käyttäjää?</div>
+    </div>
+  );
+}
+if(accessToken && !confirm){
+return (
+    <div>
+        <button onClick={() => {
+            setConfirm(true) //asetetaan confirm trueksi
+            }}>
+            Kirjaudu ulos
+        </button>
+    </div>
+  );
+}
+if(confirm)
+return (
+    <div>
+        <button onClick={() => {
+            handleLogout(user)
+            }}>
+            Kirjaudu ulos
+        </button>
+        <div>Haluatko varmasti kirjautua ulos?</div>
+    </div>
+  );  
+}
+
+

@@ -33,6 +33,7 @@ export function AuthProvider({ children }) {
   };
 
   const logout = async () => {
+    console.log("const logoutissa")
     await fetch(`${REACT_APP_API_URL}/logout`, {
       method: "POST",
       credentials: "include",

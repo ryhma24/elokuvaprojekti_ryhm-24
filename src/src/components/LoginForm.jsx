@@ -15,7 +15,7 @@ function LoginForm({ onClose }) {
 
     try {
       await login(username, password);
-      console.log("tässä on accesstoken: "+accessToken);
+      //console.log("tässä on accesstoken: "+accessToken);
       onClose(); //täällä suljetaan login komponentti automaattisesti
 
     } catch (err) {
@@ -27,34 +27,32 @@ function LoginForm({ onClose }) {
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2>Kirjaudu sisään</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Username:</label>
+          <label>Käyttäjänimi:</label>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            //required
           />
         </div>
 
         <div>
-          <label>Password:</label>
+          <label>Salasana:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            //required
           />
         </div>
 
         <button type="submit" disabled={loading}>
-          {loading ? "Loading..." : "Login"}
+          {loading ? "Ladataan..." : "Kirjaudu sisään"}
         </button>
 
         <button type="button" onClick={onClose}>
-          Cancel
+          Sulje
         </button>
 
         {error && <div>{error}</div>}
