@@ -1,10 +1,14 @@
+import { useNavigate } from 'react-router-dom';
+
 function MovieCard({movie}){
+    const navigate = useNavigate();
+    const typeLabel = movie.release_date ? "movie" : movie.first_air_date ? "tv" : "";
+
 
     function onFavouriteClick(){
         alert("clickewd")
     }
-    
-    return <div className="movie-card">  
+    return <div className="movie-card" onClick={(e) => {navigate(`/${typeLabel}/title/${movie.id}`)}}>  
             <div className="movie-poster">
                 <img className ="movie-image"src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}/>
                     
