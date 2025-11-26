@@ -7,14 +7,14 @@ const accountRouter = Router();
 // Julkiset reitit
 accountRouter.post("/register", addAccount);
 accountRouter.post("/login", login);
-accountRouter.post("/refresh", refreshAccessToken);
 accountRouter.post("/logout", logout);
-accountRouter.put("/setDeletionFlag", setAccountForDeletion); //vie tää suojatuksi myöhemmin
-accountRouter.put("/cancelDeletionFlag", cancelAccountDeletion);
-accountRouter.get("/getflagged", getFlags);
+accountRouter.post("/refresh", refreshAccessToken);
+//accountRouter.get("/getflagged", getFlags);
 
 // Suojatut reitit (vaativat autentikoinnin)
 accountRouter.get("/getaccounts", authenticateToken, getAccounts);
 accountRouter.delete("/deleteaccount/:id", authenticateToken, deleteOneAccount);
+accountRouter.put("/setDeletionFlag", authenticateToken, setAccountForDeletion); //vie tää suojatuksi myöhemmin
+accountRouter.put("/cancelDeletionFlag", authenticateToken, cancelAccountDeletion);
 
 export default accountRouter;

@@ -9,7 +9,7 @@ export const getNowInTheathers = async () => {
         }
     })
     const data = await response.json();
-    console.log("Now in theathers API: ",data);
+    //console.log("Now in theathers API: ",data);
     return data.results; 
 }
 export const getGenre = async () => {
@@ -20,7 +20,7 @@ export const getGenre = async () => {
         }
     })
     const data = await response.json();
-    console.log("Genres for movies API: ", data);
+    //console.log("Genres for movies API: ", data);
     return data.results;
 } 
 export const getPopularMovies = async () => {
@@ -31,7 +31,7 @@ export const getPopularMovies = async () => {
         }
     })
     const data = await response.json();
-    console.log("Popular movies API: ", data);
+    //console.log("Popular movies API: ", data);
     return data.results;
 }
 export const getPopularSeries = async () => {
@@ -42,6 +42,6 @@ export const getPopularSeries = async () => {
         }
     })
     const data = await response.json();
-    console.log("Popular series API: ", data);
+    //console.log("Popular series API: ", data);
     return data.results;
 } 

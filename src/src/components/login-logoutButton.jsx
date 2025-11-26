@@ -67,7 +67,7 @@ return (
             }}>
             Logout
         </button>
-        <div>confim logout?</div>
+        <div id="logout-confirm">confim logout?</div>
     </div>
   );  
 }

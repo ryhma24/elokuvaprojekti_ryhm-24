@@ -75,6 +75,7 @@ export function AuthProvider({ children }) {
         setUser({ username: payload.username });
       }
     } catch (error) {
+      console.log(error)
       console.error("Token refresh failed:", error);
     } finally {
       setLoading(false);

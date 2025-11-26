@@ -1,6 +1,7 @@
 import { verifyAccessToken } from "../utils/jwt.js";
 
 export function authenticateToken(req, res, next) {
+  console.log("autentikointi testi");
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1]; // "Bearer TOKEN"
 

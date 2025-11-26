@@ -111,20 +111,22 @@ export async function login(req, res, next) {
 export async function refreshAccessToken(req, res, next) {
   try {
     const refreshToken = req.cookies.refreshToken;
-
     if (!refreshToken) {
+      console.log("Refresh token required");
       return res.status(401).json({ error: "Refresh token required" });
     }
 
     const decoded = verifyRefreshToken(refreshToken);
 
     if (!decoded) {
+      console.log("Invalid or expired refresh token");
       return res.status(403).json({ error: "Invalid or expired refresh token" });
     }
 
     const user = await getAccountByRefreshToken(refreshToken);
 
     if (!user) {
+      console.log("Invalid refresh token");
       return res.status(403).json({ error: "Invalid refresh token" });
     }
 
