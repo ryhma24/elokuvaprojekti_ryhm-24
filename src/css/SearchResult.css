@@ -1,0 +1,30 @@
+.search-result {
+    padding: 10px 20px;
+    display: flex;
+    flex-wrap: auto auto auto;
+    gap: 0.5ch;
+
+}
+.searchimage{
+    height: 100%;
+    min-width: 3em;
+    background-color: aquamarine;
+}
+.search-result:hover {
+    background-color: #efefef;
+    color: black;
+}
+
+#search-date {
+    font-size: 13px;
+}
+
+#type {
+    font-size: 13px;
+}
+
+.wrapper
+{
+    display: grid;
+    grid-column: auto auto;
+}
