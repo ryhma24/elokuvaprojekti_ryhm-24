@@ -11,14 +11,21 @@ import './css/SearchResultslist.css'
 import './css/SearchBar.css'
 import './css/NavBar.css'
 import './css/login.css'
+import './css/AllMovies.css'
 import TitleItems from './pages/TitleItems.jsx'
 import NotFound from './pages/NotFound.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import AllMovies from "./pages/AllMovies.jsx";
+import AllSeries from "./pages/AllSeries.jsx";
+import Groups from "./pages/Groups.jsx";
 
 const router = createBrowserRouter([
   {path:"/", element: <App/>},
   {path:"/:type/title/:id", element:<TitleItems/>},
   {path:"*", element:<NotFound/>},
+  {path:"/allmovies", element: <AllMovies/>},
+  {path:"/allseries", element: <AllSeries/>},
+  {path:"/groups", element: <Groups/>}
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

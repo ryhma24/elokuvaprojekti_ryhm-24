@@ -29,14 +29,14 @@ function NavBar() {
 
     return (
 
-        <div class="masterwrapper">
+        <div className="masterwrapper">
         <nav className="navbar">
 
             <div className="navbar-links">
-                <a className="nav-link">Home</a>
-                <a className="nav-link">Movies</a>
-                <a className="nav-link">Series</a>
-                <a className="nav-link">Groups</a>
+                <a className="nav-link" href="/">Home</a>
+                <a className="nav-link" href="/allmovies" >Movies</a>
+                <a className="nav-link" href="/allseries">Series</a>
+                <a className="nav-link" href="/groups">Groups</a>
             </div>
             <div className="search-bar-container">
                 <SearchBar setResults={setResults}/>

@@ -8,7 +8,7 @@ import NavBar from "./components/NavBar"
 import MovieCard from './components/MovieCard';
 import { getNowInTheathers } from './api/api';
 import Home from './pages/Home';
-
+import {Routes, Route} from "react-router-dom"
 
 function App() {
   
@@ -17,12 +17,11 @@ function App() {
     //pitää laittaa myöhemmin falseksi, jotta se ei sivun alkaessa näy
 
   return (
-    <>
+    
       <div>
-         <NavBar/>
         <Home/>
       </div>
-     </>
+     
   )
 }
 

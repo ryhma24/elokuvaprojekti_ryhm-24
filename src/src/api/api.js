@@ -1,10 +1,11 @@
-const apiKey = import.meta.env.VITE_API_KEY2;
+
 const BASE_URL = "https://api.themoviedb.org/3";
 
 export const getNowInTheathers = async () => {
+    
     const response = await fetch(`${BASE_URL}/movie/now_playing?language=en-US&page=1`, {
         headers: {
-            Authorization: `Bearer ${apiKey}`,
+            Authorization: `Bearer ${import.meta.env.VITE_API_KEY2}`,
             'Content-Type': 'application/json'
         }
     })
@@ -13,9 +14,10 @@ export const getNowInTheathers = async () => {
     return data.results; 
 }
 export const getGenre = async () => {
+    //console.log("API KEYgende:", import.meta.env.VITE_API_KEY2);
     const response = await fetch(`${BASE_URL}/genre/movie/list?language=en-US&page=1`, {
         headers: {
-            Authorization: `Bearer ${apiKey}`,
+            Authorization: `Bearer ${import.meta.env.VITE_API_KEY2}`,
             'Content-Type': 'application/json'
         }
     })
@@ -26,7 +28,7 @@ export const getGenre = async () => {
 export const getPopularMovies = async () => {
     const response = await fetch(`${BASE_URL}/movie/popular?language=en-US&page=1'`, {
         headers: {
-            Authorization: `Bearer ${apiKey}`,
+            Authorization: `Bearer ${import.meta.env.VITE_API_KEY2}`,
             'Content-Type': 'application/json'
         }
     })
@@ -37,7 +39,7 @@ export const getPopularMovies = async () => {
 export const getPopularSeries = async () => {
     const response = await fetch(`${BASE_URL}/tv/popular?language=en-US&page=1'`, {
         headers: {
-            Authorization: `Bearer ${apiKey}`,
+            Authorization: `Bearer ${import.meta.env.VITE_API_KEY2}`,
             'Content-Type': 'application/json'
         }
     })

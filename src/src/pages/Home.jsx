@@ -1,6 +1,7 @@
 import MovieCard from "../components/MovieCard"
 import { getNowInTheathers, getGenre, getPopularMovies, getPopularSeries } from "../api/api"
 import { useState, useEffect } from "react"
+import NavBar from "../components/NavBar"
 
 function Home() {
 
@@ -30,6 +31,7 @@ function Home() {
 
     return (
         <div>
+            <NavBar/>
             <h1 className="title">Now in theathers</h1>
             <div className="carousel-wrapper">
                 <div className="carousel">

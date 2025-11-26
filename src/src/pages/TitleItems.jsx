@@ -9,8 +9,10 @@ const TitleItems = () => {
  
   useEffect(() => {
     const getTitleInfo = async () => {
+      const apiKey1 = import.meta.env.VITE_API_KEY;
+      console.log("API KEY:ss", import.meta.env.VITE_API_KEY);
       try {
-        const response = await fetch(`https://api.themoviedb.org/3/${type}/${id}?language=en-US&api_key=${import.meta.env.VITE_API_KEY}`)
+        const response = await fetch(`https://api.themoviedb.org/3/${type}/${id}?language=en-US&api_key=${apiKey1}`)
 
         console.log(response);
 
