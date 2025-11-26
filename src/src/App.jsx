@@ -11,10 +11,6 @@ import Home from './pages/Home';
 
 
 function App() {
-  
-   //const [showLogin, setShowLogin] = useState(false)
-   //const [showRegister, setShowRegister] = useState(false) //true/false määrittelee näkyykö login komponentti.
-    //pitää laittaa myöhemmin falseksi, jotta se ei sivun alkaessa näy
 
   return (
     <>

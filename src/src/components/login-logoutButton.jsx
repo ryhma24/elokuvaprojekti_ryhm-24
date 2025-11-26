@@ -2,7 +2,7 @@
 import { useAuth } from "../contexts/AuthContext.jsx";
 import { useState } from "react";
 
-export function LoggedInButton({changeBoolLog, changeBoolReg}) { //otetaan propsina vastaan changeBool funktio, muutetaan sen arvo trueksi.
+export function LoggedInButton({changeBoolLog, changeBoolReg, changeBoolSet}) { //otetaan propsina vastaan changeBool funktio, muutetaan sen arvo trueksi.
 
 const { logout, accessToken } = useAuth(); //importataan accestoken
 const { user } = useAuth(); //importataan username
@@ -19,6 +19,13 @@ const handleConfirm = () => {
   changeBoolLog(false); //suljetaan login ikkuna, jos auki
   changeBoolReg(true);
 }
+const handleSettings = () => {
+  if(accessToken)
+  {
+    changeBoolSet(true);
+  }
+
+}
 const handleLogout = async (e) => {
     try 
     {
@@ -32,6 +39,7 @@ const handleLogout = async (e) => {
     {
       setLoading(false); //resetoidaan boolean muuttujat
       setConfirm(false);
+      changeBoolSet(false);
     }
   };
 
@@ -56,6 +64,7 @@ return (
             }}>
             Logout
         </button>
+        <div id="accountsettings" onClick={() => handleSettings()}>Account settings</div>
     </div>
   );
 }

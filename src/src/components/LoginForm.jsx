@@ -27,7 +27,7 @@ function LoginForm({ onClose }) {
 
   return (
     <div class= "loginform">
-      <h2>Sign in</h2>
+      <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Username:</label>
@@ -48,7 +48,7 @@ function LoginForm({ onClose }) {
         </div>
 
         <button type="submit" disabled={loading}>
-          {loading ? "Loading..." : "Sing in"}
+          {loading ? "Loading..." : "Login"}
         </button>
 
         <button type="button" onClick={onClose}>
