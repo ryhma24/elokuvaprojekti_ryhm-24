@@ -1,18 +1,21 @@
 import NavBar from "../components/NavBar"
 import MovieCard from "../components/MovieCard"
-import { getNowInTheathers } from "../api/api"
+import { getDiscoverMovies } from "../api/api"
 import { useState, useEffect } from "react"
-function AllMovies() {
-const [movies, setMovies] = useState([])
 
-useEffect(() => {
+function AllMovies() {
+
+    const [discover, setDiscover] = useState([])
+    
+
+    useEffect(() => {
         (async () => {
             try {
-                const [now] = await Promise.all([
-                    getNowInTheathers(),
+                const [movies] = await Promise.all([
+                    getDiscoverMovies(),
                     
                 ]);
-                setMovies(now || []);
+                setDiscover(movies || []);
                 
             } catch (err) {
                 console.error(err);
@@ -26,7 +29,7 @@ useEffect(() => {
         <h1>allmovies</h1>
         <div className="allmovies-container">
 
-                    {movies.map(movie => (
+                    {discover.map(movie => (
                         <MovieCard
                             movie={movie}
                             key={movie.id}

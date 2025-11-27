@@ -26,7 +26,7 @@ export const getGenre = async () => {
     return data.results;
 } 
 export const getPopularMovies = async () => {
-    const response = await fetch(`${BASE_URL}/movie/popular?language=en-US&page=1'`, {
+    const response = await fetch(`${BASE_URL}/movie/popular?language=en-US&page=1`, {
         headers: {
             Authorization: `Bearer ${import.meta.env.VITE_API_KEY2}`,
             'Content-Type': 'application/json'
@@ -45,5 +45,18 @@ export const getPopularSeries = async () => {
     })
     const data = await response.json();
     console.log("Popular series API: ", data);
+    return data.results;
+}
+
+let pageNumber = "3";
+export const getDiscoverMovies = async () => {
+    const response = await fetch(`${BASE_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${pageNumber}&sort_by=popularity.desc'`, {
+        headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_API_KEY2}`,
+            'Content-Type': 'application/json'
+        }
+    })
+    const data = await response.json();
+    console.log("Discover movies API: ", data);
     return data.results;
 } 
