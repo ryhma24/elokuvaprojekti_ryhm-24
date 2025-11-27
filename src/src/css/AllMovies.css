@@ -2,8 +2,8 @@
     
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1rem; /* spacing between cards */
-  padding: 1rem;
+    gap: 1rem;
+    padding: 5vh;
 }
 .allmovies-container .movie-card{
     background-color: transparent;
@@ -13,18 +13,30 @@
 }
 .allmovies-container .movie-card{
 
-    
+    max-width: max-content;
 }
 @media (max-width: 1028px){
     .allmovies-container{
         display: grid;
         grid-template-columns: repeat(3, 1fr);
     }
+    .allmovies-container .movie-image{
+        max-width: 100%;
+        max-height: auto;
+        aspect-ratio: 1 / 1;
+        object-fit: contain;
+    }
 }
 @media (max-width: 800px){
     .allmovies-container{
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+    }
+    .allmovies-container .movie-image{
+        max-width: 100%;
+        max-height: auto;
+        aspect-ratio: 1 / 1;
+        object-fit: contain;
     }
 }
 @media (max-width: 570px){

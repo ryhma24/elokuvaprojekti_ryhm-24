@@ -1,5 +1,6 @@
-
 const BASE_URL = "https://api.themoviedb.org/3";
+
+
 
 export const getNowInTheathers = async () => {
     
@@ -48,8 +49,7 @@ export const getPopularSeries = async () => {
     return data.results;
 }
 
-let pageNumber = "3";
-export const getDiscoverMovies = async () => {
+export const getDiscoverMovies = async (pageNumber) => {
     const response = await fetch(`${BASE_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${pageNumber}&sort_by=popularity.desc'`, {
         headers: {
             Authorization: `Bearer ${import.meta.env.VITE_API_KEY2}`,
