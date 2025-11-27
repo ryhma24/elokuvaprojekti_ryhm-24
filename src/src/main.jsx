@@ -7,7 +7,7 @@ import './App.css'
 import './css/MovieCard.css'
 import './css/carousel.css'
 import './css/SearchResult.css'
-import './css/SearchResultslist.css'
+import './css/SearchResultsList.css'
 import './css/SearchBar.css'
 import './css/NavBar.css'
 import './css/login.css'
@@ -22,10 +22,10 @@ import Groups from "./pages/Groups.jsx";
 const router = createBrowserRouter([
   {path:"/", element: <App/>},
   {path:"/:type/title/:id", element:<TitleItems/>},
-  {path:"*", element:<NotFound/>},
   {path:"/allmovies", element: <AllMovies/>},
   {path:"/allseries", element: <AllSeries/>},
-  {path:"/groups", element: <Groups/>}
+  {path:"/groups", element: <Groups/>},
+  {path:"*", element:<NotFound/>},
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

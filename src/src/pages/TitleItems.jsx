@@ -26,15 +26,15 @@ const TitleItems = () => {
     getTitleInfo();
   }, [type, id]);
 
-  if (!data) return <p>Ladataan...</p>;
+  if (!data) return <p>Loading...</p>;
 
   return (
     <div>
         <NavBar/>
       <h1>{data.title || data.name}</h1>
-      <p>Kuvaus: {data.overview}</p>
-      <p>Julkaisupäivä: {data.release_date || data.first_air_date}</p>
-      <p>Arvosana: {data.vote_average}</p>
+      <p>Description: {data.overview}</p>
+      <p>Release date: {data.release_date || data.first_air_date}</p>
+      <p>Rating: {data.vote_average}</p>
       {data.poster_path && (
         <img
           src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
