@@ -1,6 +1,6 @@
 
 import {getAll, addOne, authenticateAccount, saveRefreshToken, getAccountByRefreshToken, 
-       clearRefreshToken, deleteAccount, setDeletionFlag, cancelDeletionFlag, checkDeletionFlag } from "../models/account_model.js";
+       clearRefreshToken, deleteAccount, setDeletionFlag, cancelDeletionFlag, checkDeletionFlagFromuser, getDeletionDate } from "../models/account_model.js";
 
 import {generateAccessToken, generateRefreshToken, verifyRefreshToken} from "../utils/jwt.js";
 
@@ -8,6 +8,17 @@ export async function getAccounts(req, res, next) {
   try {
     const users = await getAll();
     res.json(users);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getDeletionDateFromAcc(req, res, next) {
+  try {
+    const { username } = req.params;
+    console.log("toimiiko ajan haku?")
+    const deletionDate = await getDeletionDate(username);
+    res.json(deletionDate);
   } catch (err) {
     next(err);
   }
@@ -43,8 +54,9 @@ export async function addAccount(req, res, next) {
 
 export async function setAccountForDeletion(req, res, next) {
   try {
+      console.log("tässä on res.rows "+JSON.stringify(req.body.username))
       const response = await setDeletionFlag(req.body.username);
-      res.status(200).json({ message: "Käyttäjä poistetaan seuraavan 14 vrk aikana", username: response });
+      res.status(200).json({username: response[0].username, deletion_date: response[0].deletion_date });
     } catch (err) {
       next(err);
     }
@@ -61,9 +73,11 @@ export async function cancelAccountDeletion(req, res, next) {
 
 export async function getFlags(req, res, next) {
   try {
-    //console.log(req);
-    const users = await checkDeletionFlag();
-    res.json(users);
+    const { username } = req.params;
+    console.log(username)
+    const flag = await checkDeletionFlagFromuser(username);
+    res.json(flag);
+    console.log(flag)
   } catch (err) {
     console.log("errorissa");
     next(err);

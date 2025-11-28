@@ -22,9 +22,9 @@ function NavBar() {
 
             <div className="navbar-links">
                 <a className="nav-link">Home</a>
-                <a className="nav-link">Movies</a>
-                <a className="nav-link">Series</a>
-                <a className="nav-link">Groups</a>
+                 <a className="nav-link" href="/allmovies" >Movies</a>
+                <a className="nav-link" href="/allseries">Series</a>
+                <a className="nav-link" href="/groups" >Groups</a>
             </div>
             <div className="search-bar-container">
                 <SearchBar setResults={setResults}/>
@@ -38,7 +38,24 @@ function NavBar() {
             changeBoolReg = {setShowRegister} 
             changeBoolSet = {setShowSettings} />
         </nav>
-            {showLogin && <LoginForm onClose={() => setShowLogin(false)} />} 
+            {showLogin && <LoginForm onClose={() => setShowLogin(false)}
+            changeBoolLog = {setShowLogin} 
+            changeBoolReg = {setShowRegister} 
+            changeBoolSet = {setShowSettings}/>} 
+
+            <nav className="navbar-small-devices">
+                <div className="dropdown">
+                    <button className="dropbtn">Dropdown </button>
+                    
+                    <div className="dropdown-content">
+                        <a className="nav-link" href="/">Home</a>
+                        <a className="nav-link" href="/allmovies" >Movies</a>
+                        <a className="nav-link" href="/allseries">Series</a>
+                        <a className="nav-link" href="/groups">Groups</a>
+                    </div>
+                </div>
+            </nav>
+            
             {showRegister && <RegisterForm onClose={() => setShowRegister(false)} />}
             {showSettings && <SettingsForm onClose={() => setShowSettings(false)} />}
         </div>

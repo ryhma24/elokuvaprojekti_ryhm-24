@@ -19,6 +19,13 @@ export async function getAll() {
   return result.rows;
 }
 
+export async function getDeletionDate(username) {
+  console.log("username getdeletiondatessa on: "+username);
+  const result = await pool.query("SELECT deletion_date FROM account where username = $1", 
+    [username]);
+  return result.rows;
+}
+
 export async function setDeletionFlag(username) {
  
   //asetetaan account poistoa varten 2 viikon päähän
@@ -26,7 +33,7 @@ export async function setDeletionFlag(username) {
   console.log(deletionDate);
 
   const result = await pool.query
-  ("UPDATE account SET deletion_flag = TRUE, deletion_date = $1 WHERE username = $2 RETURNING username",
+  ("UPDATE account SET deletion_flag = TRUE, deletion_date = $1 WHERE username = $2 RETURNING username, deletion_date",
     [deletionDate, username]
   );
   return result.rows;
@@ -43,11 +50,11 @@ export async function cancelDeletionFlag(username) {
   return result.rows;
 }
 
-export async function checkDeletionFlag() {
+export async function checkDeletionFlagFromuser(username) {
 
-  //tarkistetaan kaikkien käyttäjien flagit
+  //tarkistetaan käyttäjän flagi
   const result = await pool.query
-  ("SELECT idaccount, deletion_date FROM account WHERE deletion_flag = TRUE"
+  ("SELECT deletion_flag FROM account WHERE username = $1", [username]
   );
   return result.rows;
 }

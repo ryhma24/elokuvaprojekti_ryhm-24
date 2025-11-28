@@ -52,7 +52,6 @@ return (
             }}>
             Login
         </button>
-        <div id="no-user" onClick={() => handleConfirm()}>Don't have an user?</div>
     </div>
   );
 }
@@ -64,7 +63,11 @@ return (
             }}>
             Logout
         </button>
-        <div id="accountsettings" onClick={() => handleSettings()}>Account settings</div>
+        <button onClick={() => {
+            handleSettings() //asetetaan confirm trueksi
+            }}>
+            Account settings
+        </button>
     </div>
   );
 }
