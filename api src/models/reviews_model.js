@@ -1,7 +1,7 @@
 import { pool } from "../database.js";
 
 
-export async function getAllReviews(id) {
+export async function getAllReviewsFromUser(id) {
 
   console.log(typeof id);
   //tässä haetaan jonkun käyttäjän kaikki reviewit.
@@ -9,7 +9,15 @@ export async function getAllReviews(id) {
   return result.rows; 
 }
 
-export async function getOneReview(id) {
+export async function getReviewByMovieId(id) {
+
+  console.log(typeof id);
+  //haetaan jonkun tietyn elokuvan kaikki reviewit
+  const result = await pool.query("SELECT * FROM reviews WHERE idmovie = $1", [id]);
+  return result.rows; 
+}
+
+export async function getOneReviewByIdreview(id) {
 
   console.log(typeof id);
   //tässä haetaan olemassa oleva review idreviewin perusteella.
