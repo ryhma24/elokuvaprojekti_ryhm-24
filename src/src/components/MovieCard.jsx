@@ -1,12 +1,10 @@
 import { useNavigate } from 'react-router-dom'
+import { FavouritesButton } from './Favourites'
 
 function MovieCard({movie}){
     const navigate = useNavigate();
     const typeLabel = movie.release_date ? "Movie" : movie.first_air_date ? "TV" : "";
 
-    function onFavouriteClick(){
-        alert("clickewd")
-    }
     
     return <div className="movie-card">  
             <div className="movie-poster" onClick={(e) => {navigate(`/${typeLabel}/title/${movie.id}`)}}>
@@ -19,11 +17,9 @@ function MovieCard({movie}){
                 <p>{movie.release_date?.split("-")[0]}</p>
                 <p>{movie.first_air_date?.split("-")[0]}</p>
                 <div className="movie-overlay">
-                        <button className="favourite-btn" onClick={onFavouriteClick}>
-                            Like
-                        </button>
+                    <FavouritesButton />
 
-                    </div>
+                </div>
             </div>
     </div>
 }
