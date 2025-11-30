@@ -2,13 +2,17 @@ import MovieCard from "../components/MovieCard"
 import { getNowInTheathers, getGenre, getPopularMovies, getPopularSeries } from "../api/api"
 import { useState, useEffect } from "react"
 import NavBar from "../components/NavBar"
+import { useAuth } from "../contexts/AuthContext.jsx";
 
 function Home() {
 
+    const { accessToken } = useAuth();
     const [movies, setMovies] = useState([])
     const [genres, setGenres] = useState([])
     const [popularMovies, setPopularMovies] = useState([])
     const [popularSeries, setPopularSeries] = useState([])
+
+    const [favouriteState, setFavouriteState] = useState([]);
 
     useEffect(() => {
         (async () => {
@@ -27,7 +31,19 @@ function Home() {
                 console.error(err);
             }
         })();
-    }, []);
+
+        async function fetchFavourites() {
+            const res = await fetch("http://localhost:3001/favourites/1", { //hardcoded
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`
+                }
+            });
+            const data = await res.json();
+            console.log("Fetched favourites:", data);
+            setFavouriteState(data.map(f => f.favourites));
+        }
+        fetchFavourites();
+    }, [accessToken]);
 
     return (
         <div>
@@ -41,6 +57,8 @@ function Home() {
                             movie={movie}
                             genres={genres}
                             key={movie.id}
+                            favouriteState={favouriteState}
+                            setFavouriteState={setFavouriteState}
                         />
                     ))}
 
@@ -55,6 +73,8 @@ function Home() {
                             movie={movie}
                             genres={genres}
                             key={movie.id}
+                            favouriteState={favouriteState}
+                            setFavouriteState={setFavouriteState}
                         />
                     ))}
                 </div>
@@ -68,6 +88,8 @@ function Home() {
                             movie={movie}
                             genres={genres}
                             key={movie.id}
+                            favouriteState={favouriteState}
+                            setFavouriteState={setFavouriteState}
                         />
                     ))}
                 </div>

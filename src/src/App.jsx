@@ -4,6 +4,7 @@ import LoginForm from './components/LoginForm'
 import RegisterForm from './components/registerForm'
 import { LoggedInButton } from './components/login-logoutButton'
 
+
 import NavBar from "./components/NavBar"
 import MovieCard from './components/MovieCard';
 import { getNowInTheathers } from './api/api';

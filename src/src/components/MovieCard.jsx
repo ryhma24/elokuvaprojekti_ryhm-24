@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import { FavouritesButton } from './Favourites'
 
-function MovieCard({movie}){
+function MovieCard({movie, favouriteState, setFavouriteState}){
     const navigate = useNavigate();
-    const typeLabel = movie.release_date ? "Movie" : movie.first_air_date ? "TV" : "";
+    const typeLabel = movie.release_date ? "movie" : movie.first_air_date ? "tv" : "";
 
     
     return <div className="movie-card">  
@@ -17,8 +17,11 @@ function MovieCard({movie}){
                 <p>{movie.release_date?.split("-")[0]}</p>
                 <p>{movie.first_air_date?.split("-")[0]}</p>
                 <div className="movie-overlay">
-                    <FavouritesButton />
-
+                    <FavouritesButton
+                        movieId={movie.id}
+                        favouriteState={favouriteState}
+                        setFavouriteState={setFavouriteState}
+                    />
                 </div>
             </div>
     </div>
