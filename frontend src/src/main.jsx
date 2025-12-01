@@ -20,20 +20,14 @@ import AllMovies from "./pages/AllMovies.jsx";
 import AllSeries from "./pages/AllSeries.jsx";
 import GroupPage from "./pages/GroupPage.jsx";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import AllMovies from "./pages/AllMovies.jsx";
-import AllSeries from "./pages/AllSeries.jsx";
-import Groups from "./pages/Groups.jsx";
 
 const router = createBrowserRouter([
   {path:"/", element: <App/>},
   {path:"/:type/title/:id", element:<TitleItems/>},
   {path:"/allmovies", element: <AllMovies/>},
   {path:"/allseries", element: <AllSeries/>},
-  {path:"/groups", element: <Groups/>},
-  {path:"*", element:<NotFound/>},
-  {path:"/allmovies", element: <AllMovies/>},
-  {path:"/allseries", element: <AllSeries/>},
-  {path:"/groups", element: <GroupPage />}
+  {path:"/groups", element: <GroupPage/>},
+  {path:"*", element:<NotFound/>}
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

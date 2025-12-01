@@ -2,12 +2,14 @@ import NavBar from "../components/NavBar"
 import MovieCard from "../components/MovieCard"
 import { getDiscoverMovies } from "../api/api"
 import { useState, useEffect } from "react"
+import { FavouritesButton } from '../components/Favourites'
 //import { pageNumber } from "../api/functions"
 
 function AllMovies() {
 
     const [pageNumber, setPageNumber] = useState(1)
     const [discover, setDiscover] = useState([])
+    const [favouriteState, setFavouriteState] = useState([]);
     
 
     const nextPage = () => {
@@ -44,6 +46,8 @@ function AllMovies() {
                     <MovieCard
                         movie={movie}
                         key={movie.id}
+                        favouriteState={favouriteState}
+                        setFavouriteState={setFavouriteState}
                     />
                 ))}
 
