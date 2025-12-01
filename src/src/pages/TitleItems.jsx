@@ -26,7 +26,7 @@ const TitleItems = () => {
     getTitleInfo();
   }, [type, id]);
 
-  if (!data) return <p>Ladataan...</p>;
+  if (!data) return <p>Loading...</p>;
 
   return (
     <div>
