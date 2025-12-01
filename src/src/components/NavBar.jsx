@@ -47,6 +47,18 @@ function NavBar() {
             </div>
             <LoggedInButton changeBoolLog = {setShowLogin} changeBoolReg = {setShowRegister} />
         </nav>
+        <nav className="navbar-small-devices">
+            <div className="dropdown">
+                <button className="dropbtn">Dropdown </button>
+                
+                <div className="dropdown-content">
+                    <a className="nav-link" href="/">Home</a>
+                    <a className="nav-link" href="/allmovies" >Movies</a>
+                    <a className="nav-link" href="/allseries">Series</a>
+                    <a className="nav-link" href="/groups">Groups</a>
+                </div>
+            </div>
+        </nav>
             {showLogin && <LoginForm onClose={() => setShowLogin(false)} />} 
             {showRegister && <RegisterForm onClose={() => setShowRegister(false)} />}
         </div>

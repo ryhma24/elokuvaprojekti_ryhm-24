@@ -7,6 +7,7 @@ import { authenticateToken } from "./api src/middleware/auth.js";
 
 import accountRouter from "./api src/routers/account_router.js";
 import reviewsRouter from "./api src/routers/reviews_router.js";
+import favouritesRouter from "./api src/routers/favourites_router.js";
 
 const port = process.env.port;
 const app = express()
@@ -23,6 +24,7 @@ app.use(cookieParser());
 
 app.use("/", accountRouter);
 app.use("/reviews", authenticateToken, reviewsRouter); // lisätty atenticateToken suojaamaan reitti
+app.use("/favourites", authenticateToken, favouritesRouter);
 
 app.listen(port, () => {
   console.log(`Server is listening port ${port}`);

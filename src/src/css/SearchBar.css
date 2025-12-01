@@ -21,7 +21,3 @@ input {
 input:focus {
     outline:none;
 }
-
-#search-icon {
-    color: #1C1C1E;
-}

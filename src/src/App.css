@@ -1,9 +1,15 @@
 body{
   padding: 0;
+  padding-bottom: 1rem;
   margin: 0;
+  text-align: left;
 }
 #root {
+<<<<<<< HEAD
   max-width: 100 vh;
+=======
+  max-width: 100vf;
+>>>>>>> 98b3678cb81d5a94eebb406d60e957b75e4d5657
   margin: 0 auto;
   
 }
