@@ -1,0 +1,41 @@
+.group-detail-wrapper {
+  padding: 20px;
+}
+
+.group-actions {
+  margin: 20px 0;
+  justify-content: center;
+  display: flex;
+  gap: 10px;
+}
+
+.group-section-header {
+  margin-top: 30px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+
+.group-list-item-detail {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 4px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f9f9;
+}
+
+.group-list-item-detail button {
+  padding: 5px 10px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.group-error-message {
+  color: red;
+  margin-top: 10px;
+  font-weight: bold;
+}

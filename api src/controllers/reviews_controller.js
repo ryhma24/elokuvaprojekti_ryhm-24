@@ -1,8 +1,8 @@
-import { getAllReviews, getOneReview, deleteReview, addOneReview, updateOneReview } from "../models/reviews_model.js";
+import { getAllReviewsFromUser, getOneReviewByIdreview, deleteReview, getReviewByMovieId, updateOneReview } from "../models/reviews_model.js";
 
-export async function getReviews(req, res, next) {
+export async function getReviewsUser(req, res, next) {
   try {
-    const moviedata = await getAllReviews(req.params.id);
+    const moviedata = await getAllReviewsFromUser(req.params.id);
      if (!moviedata) {
       return res.status(404).json({ error: "reviews not found" });
     }
@@ -12,9 +12,21 @@ export async function getReviews(req, res, next) {
   }
 }
 
-export async function getAReview(req, res, next) {
+export async function getAReviewByIdreview(req, res, next) {
   try {
-    const moviedata = await getOneReview(req.params.id);
+    const moviedata = await getOneReviewByIdreview(req.params.id);
+     if (!moviedata) {
+      return res.status(404).json({ error: "review not found" });
+    }
+    res.json(moviedata);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getAReviewbyMovieid(req, res, next) {
+  try {
+    const moviedata = await getReviewByMovieId(req.params.id);
      if (!moviedata) {
       return res.status(404).json({ error: "review not found" });
     }

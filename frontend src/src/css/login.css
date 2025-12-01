@@ -1,0 +1,16 @@
+.loginform, .registerform {
+    border-radius: 15px;
+    background-color:  #2b2b2c solid;
+    border: #2b2b2c solid;
+    border-width: 2px;
+    justify-content: center;
+    width: 300px;
+    height: 200px;
+    
+    background-color: aliceblue;
+}
+
+#no-user
+{
+    
+}
