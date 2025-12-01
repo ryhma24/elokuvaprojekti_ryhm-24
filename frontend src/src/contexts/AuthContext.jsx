@@ -9,6 +9,7 @@ export function AuthProvider({ children }) {
   const [accessToken, setAccessToken] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deletionDate, setDeletionDate] = useState(null);
+  const [idaccount, setIdaccount ] = useState(null);
 
   // Tarkista sessio sivun latautuessa
   useEffect(() => {
@@ -65,8 +66,10 @@ export function AuthProvider({ children }) {
     }
 
     const data = await res.json();
+    setIdaccount({idaccount: data.idaccount});
     setUser({ username: data.username });
     setAccessToken(data.accessToken);
+    console.log(data)
     return data;
   };
 
@@ -120,10 +123,12 @@ export function AuthProvider({ children }) {
       if (res.ok) {
         const data = await res.json();
         setAccessToken(data.accessToken);
-
+        setIdaccount(data.idaccount);
+        //console.log(data)
         // Dekoodaa username tokenista
         const payload = JSON.parse(atob(data.accessToken.split('.')[1]));
         setUser({ username: payload.username });
+
       }
     } catch (error) {
       console.log(error)
@@ -145,7 +150,8 @@ export function AuthProvider({ children }) {
     getDeletionDate,
     getDeletionFlag,
     cancelDeletion,
-    deletionDate
+    deletionDate,
+    idaccount
   };
  
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

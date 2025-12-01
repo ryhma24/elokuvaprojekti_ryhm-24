@@ -6,12 +6,12 @@ export async function getAllFavourites(id) {
 }
 
 export async function addFavourite(favourite) {
-    const result = await pool.query("INSERT INTO favourites (favourites, idaccount) VALUES ($1, $2)", [favourite.favourites, favourite.idaccount])
+    const result = await pool.query("INSERT INTO favourites (movieid, idaccount) VALUES ($1, $2)", [favourite.movieId, favourite.idaccount])
     return result.rows;
 }
 
 export async function deleteFavourite(favourite) {
-    const result = await pool.query("DELETE FROM favourites WHERE favourites = $1 AND idaccount = $2 RETURNING *", [favourite.favourites, favourite.idaccount])
+    const result = await pool.query("DELETE FROM favourites WHERE movieid = $1 AND idaccount = $2 RETURNING *", [favourite.movieId, favourite.idaccount])
     return result.rows;
 
 }

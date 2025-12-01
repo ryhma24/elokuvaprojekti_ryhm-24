@@ -115,7 +115,8 @@ export async function login(req, res, next) {
     res.json({
       message: "Login successful",
       username: user.username,
-      accessToken
+      accessToken,
+      idaccount: user.idaccount
     });
   } catch (err) {
     next(err);
@@ -145,8 +146,10 @@ export async function refreshAccessToken(req, res, next) {
     }
 
     const accessToken = generateAccessToken(user.username);
+    const idaccount = user.idaccount
+    //console.log(idaccount)
 
-    res.json({ accessToken });
+    res.json({ accessToken, idaccount });
   } catch (err) {
     next(err);
   }

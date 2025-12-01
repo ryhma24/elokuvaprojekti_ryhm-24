@@ -62,7 +62,7 @@ export async function checkDeletionFlagFromuser(username) {
 
 export async function authenticateAccount(username, password) {
   const result = await pool.query(
-    "SELECT username, password FROM account WHERE username = $1",
+    "SELECT username, password, idaccount FROM account WHERE username = $1",
     [username]
   );
 
@@ -76,7 +76,8 @@ export async function authenticateAccount(username, password) {
 
   if (isValid) {
     console.log("kirjauduttu käyyäjällä: "+user.username)
-    return { username: user.username };
+    console.log("käyttäjän id: "+user.idaccount)
+    return { username: user.username, idaccount: user.idaccount };
   }
   console.log("salasana tai käyttäjänimi on väärin");
   return null;
@@ -92,11 +93,12 @@ export async function saveRefreshToken(username, refreshToken) {
 
 export async function getAccountByRefreshToken(refreshToken) {
   const result = await pool.query(
-    "SELECT username FROM account WHERE refresh_token = $1",
+    "SELECT username, idaccount FROM account WHERE refresh_token = $1",
     [refreshToken]
   );
   return result.rows.length > 0 ? result.rows[0] : null;
-}
+} 
+
 
 export async function clearRefreshToken(username) {
   const result = await pool.query(

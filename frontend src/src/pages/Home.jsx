@@ -6,7 +6,7 @@ import { useAuth } from "../contexts/AuthContext.jsx";
 
 function Home() {
 
-    const { accessToken } = useAuth();
+    const { accessToken, idaccount } = useAuth();
     const [movies, setMovies] = useState([])
     const [genres, setGenres] = useState([])
     const [popularMovies, setPopularMovies] = useState([])
@@ -33,14 +33,16 @@ function Home() {
         })();
 
         async function fetchFavourites() {
-            const res = await fetch("http://localhost:3001/favourites/1", { //hardcoded
+            const user = idaccount
+            console.log(user)
+            const res = await fetch(`http://localhost:3001/favourites/${user}`, {
                 headers: {
                     "Authorization": `Bearer ${accessToken}`
                 }
             });
             const data = await res.json();
             console.log("Fetched favourites:", data);
-            setFavouriteState(data.map(f => f.favourites));
+            setFavouriteState(data.map(f => f.movieid));
         }
         fetchFavourites();
     }, [accessToken]);

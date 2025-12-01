@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import { useAuth } from "../contexts/AuthContext.jsx";
 import { FaHeart, FaRegHeart } from 'react-icons/fa'
 
-export const FavouritesButton = ({ movieId, idaccount, favouriteState, setFavouriteState }) => {
-    const { accessToken, user } = useAuth();
+export const FavouritesButton = ({ movieId, favouriteState, setFavouriteState }) => {
+    const { accessToken, idaccount } = useAuth();
     const REACT_APP_API_URL = "http://localhost:3001"
 
     const [isFavourite, setIsFavourite] = useState(false);
@@ -24,10 +24,10 @@ export const FavouritesButton = ({ movieId, idaccount, favouriteState, setFavour
                     headers: { "Content-Type": "application/json",
                                 "Authorization": `Bearer ${accessToken}`
                     },
-                    body: JSON.stringify({ idaccount, movieId }),
-                    favourites: movieId,
-                    idaccount: 1
+                    body: JSON.stringify({ idaccount, movieId })
+        
                 })
+                console.log(movieId)
                 setIsFavourite(true);
             } else {
                 await fetch(`${REACT_APP_API_URL}/favourites/deletefavourite`, {
@@ -35,10 +35,10 @@ export const FavouritesButton = ({ movieId, idaccount, favouriteState, setFavour
                     headers: { "Content-Type": "application/json",
                                 "Authorization": `Bearer ${accessToken}`
                     },
-                    body: JSON.stringify({ idaccount, movieId }),
-                    favourites: movieId,
-                    idaccount: 1
+                    body: JSON.stringify({ idaccount, movieId })
+                
                 });
+                console.log(idaccount)
                 setIsFavourite(false);
             }
         
