@@ -1,6 +1,6 @@
 
 import {getAll, addOne, authenticateAccount, saveRefreshToken, getAccountByRefreshToken, 
-       clearRefreshToken, deleteAccount, setDeletionFlag, cancelDeletionFlag, checkDeletionFlagFromuser, getDeletionDate } from "../models/account_model.js";
+       clearRefreshToken, deleteAccount, setDeletionFlag, cancelDeletionFlag, checkDeletionFlagFromuser, getDeletionDate, UpdatePassword } from "../models/account_model.js";
 
 import {generateAccessToken, generateRefreshToken, verifyRefreshToken} from "../utils/jwt.js";
 
@@ -16,12 +16,37 @@ export async function getAccounts(req, res, next) {
 export async function getDeletionDateFromAcc(req, res, next) {
   try {
     const { username } = req.params;
-    console.log("toimiiko ajan haku?")
     const deletionDate = await getDeletionDate(username);
     res.json(deletionDate);
   } catch (err) {
     next(err);
   }
+}
+
+export async function changePassword(req, res, next) {
+  try 
+  {
+    const { username, password} = req.body;
+    const pwLength = password.length; // if lauseke ei jostain syystä tajua password.lengthiä suoraan
+
+    if (!username || !password) 
+    {
+      return res.status(400).json({ error: "password required!" });
+    }
+
+    if (pwLength < 8)
+    {
+      return res.status(400).json( {error: "New password has to be at least 8 characters long!"})
+    }
+
+    const user = await UpdatePassword(username, password);
+    res.status(201).json({ message: "Password changed succesfully!", username: user.username });
+  } 
+  catch (err) 
+  {
+      next(err);
+  }
+  
 }
 
 export async function addAccount(req, res, next) {
@@ -32,16 +57,16 @@ export async function addAccount(req, res, next) {
 
     if (!username || !password || !email) 
     {
-      return res.status(400).json({ error: "Käyttäjänimi, salasana ja email vaaditaan" });
+      return res.status(400).json({ error: "Username, password and email required!" });
     }
 
     if (pwLength < 8)
     {
-      return res.status(400).json( {error: "Salasanan pitää olla vähintään 8 merkkiä pitkä"})
+      return res.status(400).json( {error: "Password has to be at least 8 characters long!"})
     }
 
     const user = await addOne(username, password, email);
-    res.status(201).json({ message: "Käyttäjä luotu onnistuneesti", username: user.username });
+    res.status(201).json({ message: "User created succesfully", username: user.username });
   } 
   catch (err) 
   {
@@ -52,7 +77,7 @@ export async function addAccount(req, res, next) {
   }
 }
 
-export async function setAccountForDeletion(req, res, next) {
+export async function setAccountForDeletion(req, res, next) { //flagaan käyttäjä poistoa varten, flag scheduleri poistaa kaikki flagatut käyttäjät 2vk päästä ko. käyttäjän flagaamisen päivämäärästä alkaen
   try {
       console.log("tässä on res.rows "+JSON.stringify(req.body.username))
       const response = await setDeletionFlag(req.body.username);
@@ -62,16 +87,17 @@ export async function setAccountForDeletion(req, res, next) {
     }
 }
 
-export async function cancelAccountDeletion(req, res, next) {
+export async function cancelAccountDeletion(req, res, next) { //peruutetaan käyttäjän poisto
   try {
+      console.log("cancel deletion username on: "+req.body)
       const response = await cancelDeletionFlag(req.body.username);
-      res.status(200).json({ message: "Tilin poisto keskeytetty", username: response });
+      res.status(200).json({ message: "Account deletion cancelled", username: response });
     } catch (err) {
       next(err);
     }
 }
 
-export async function getFlags(req, res, next) {
+export async function getFlags(req, res, next) { //tää funtio on sitä varten, että flag-scheduleri saa tarkistettua kaikki poistoon flagatut käyttäjät
   try {
     const { username } = req.params;
     console.log(username)
@@ -90,13 +116,13 @@ export async function login(req, res, next) {
     const { username, password } = req.body;
 
     if (!username || !password) {
-      return res.status(400).json({ error: "Käyttäjänimi ja salasana vaaditaan" });
+      return res.status(400).json({ error: "Username and password are required" });
     }
 
     const user = await authenticateAccount(username, password);
 
     if (!user) {
-      return res.status(401).json({ error: "Väärä salasana tai käyttäjänimi" });
+      return res.status(401).json({ error: "Wrong username or password" });
     }
 
     const accessToken = generateAccessToken(user.username);

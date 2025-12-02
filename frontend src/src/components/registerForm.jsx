@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function RegisterForm({ onClose }) {
+function RegisterForm({ onBack }) {
   const [username, setUsername] = useState(""); //alustetaaan username ,password ja email "" eli tyhjiksi
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -44,11 +44,11 @@ function RegisterForm({ onClose }) {
 
   return (
     <div class="registerform">
-      <h2>Create user</h2>
+      <h2>Create an account</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Username:</label>
-          <input
+          <label id="fieldText">Username:</label>
+          <input id="field"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -57,8 +57,8 @@ function RegisterForm({ onClose }) {
         </div>
 
         <div>
-          <label>Password:</label>
-          <input
+          <label id="fieldText">Password:</label>
+          <input id="field"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -67,8 +67,9 @@ function RegisterForm({ onClose }) {
         </div>
 
         <div>
-          <label>email:</label>
-          <input
+          <label id="fieldText">email:</label>
+          <br></br>
+          <input id="field"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -76,13 +77,19 @@ function RegisterForm({ onClose }) {
           />
         </div>
 
-        <button type="submit" disabled={loading}>
+         <br></br>
+
+        <div className="loginBtns">
+        <button id="singleButton" type="submit" disabled={loading}>
           {loading ? "Loading..." : "Register"}
         </button>
 
-        <button type="button" onClick={onClose}>
-          Close
+        <button id="singleButton" type="button" onClick={onBack}>
+          Back
         </button>
+        </div>
+
+         <br></br>
 
         {message && <div>{message}</div>} 
         {error && <div>{error}</div>}

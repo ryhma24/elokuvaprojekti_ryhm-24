@@ -14,6 +14,16 @@ export async function addOne(username, password, email) {
   return result.rows[0];
 }
 
+export async function UpdatePassword(username, newPassword) {
+  const newHashedPassword = await bcrypt.hash(newPassword, SALT_ROUNDS);
+  const result = await pool.query(
+    "UPDATE account SET password = $1 WHERE username = $2 RETURNING username",
+    [newHashedPassword, username]
+  );
+  return result.rows[0];
+}
+
+
 export async function getAll() {
   const result = await pool.query("SELECT username FROM account");
   return result.rows;

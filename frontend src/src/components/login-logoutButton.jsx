@@ -79,6 +79,11 @@ return (
             }}>
             Logout
         </button>
+        <button onClick={() => {
+            setConfirm(false);
+            }}>
+            Cancel
+        </button>
         <div id="logout-confirm">confim logout?</div>
     </div>
   );  

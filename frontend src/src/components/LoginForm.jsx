@@ -31,12 +31,12 @@ const handleConfirm = () => {
   };
 
   return (
-    <div class= "loginform">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username:</label>
-          <input
+    <div className= "loginform">
+      <h1 id="login">Login</h1>
+      <form className="formContainer" onSubmit={handleSubmit}>
+        <div className="formDiv">
+          <label id="fieldText">Username:</label>
+          <input id="field"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -44,22 +44,30 @@ const handleConfirm = () => {
         </div>
       
         <div>
-          <label>Password:</label>
-          <input
+          <label id="fieldText">Password:</label>
+          <input id="field"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+        <br></br>
+        <div className="loginBtns">
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Loading..." : "Login"}
-        </button>
+          <button id="singleButton" type="submit" disabled={loading}>
+            {loading ? "Loading..." : "Login"}
+          </button>
 
-        <button type="button" onClick={onClose}>
-          Close
-        </button>
-        <div id="no-user" onClick={() => handleConfirm()}>Don't have an user?</div>
+          <button id="singleButton" type="button" onClick={onClose}>
+            Close
+          </button>
+
+        </div>
+        <br></br>
+        <div id="no-user" onClick={() => handleConfirm()}>Don't have an account? 
+        <label id="signup"> Sign up!</label>
+        </div>
+        <br></br>
         {error && <div>{error}</div>}
       </form>
     </div>

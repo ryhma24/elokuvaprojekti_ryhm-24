@@ -84,6 +84,26 @@ export function AuthProvider({ children }) {
     setAccessToken(null);
   };
 
+  const changePw = async (password) => {
+    const res = await fetch(`${REACT_APP_API_URL}/changePassword`, {
+      method: "PUT",
+      headers: {
+          "Authorization": `Bearer ${accessToken}`, "Content-Type": "application/json" 
+        },
+      credentials: "include",
+      body: JSON.stringify({ username: user.username, password }),
+    });
+
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(error.error || "pw change failed");
+    }
+
+    const data = await res.json();
+    console.log(data)
+    return data;
+  };
+
   const setAccountForDeletion = async (username) => {
 
     const res = await fetch(`${REACT_APP_API_URL}/setDeletionFlag`, {
@@ -105,12 +125,23 @@ export function AuthProvider({ children }) {
     setDeletionDate(data.deletion_date);
   };
 
-  const cancelDeletion = async (user) => {
-    await fetch(`${REACT_APP_API_URL}/cancelDeletionFlag`, {
+  const cancelDeletion = async () => {
+    console.log("working?")
+    const res = await fetch(`${REACT_APP_API_URL}/cancelDeletionFlag`, {
       method: "PUT",
       credentials: "include",
-      body: JSON.stringify({ user }),
+      body: JSON.stringify({username: user.username}),
+      headers: {
+          "Authorization": `Bearer ${accessToken}`, "Content-Type": "application/json" 
+        },
     });
+
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(error.error || "delete cancel failure");
+    }
+    const data = await res.json();
+    console.log("const data on "+JSON.stringify(data))
   };
 
   const refreshToken = async () => {
@@ -139,6 +170,7 @@ export function AuthProvider({ children }) {
   };
   
   const value = {
+    changePw,
     user,
     accessToken,
     login,

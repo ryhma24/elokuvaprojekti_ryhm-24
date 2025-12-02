@@ -56,7 +56,13 @@ function NavBar() {
                 </div>
             </nav>
             
-            {showRegister && <RegisterForm onClose={() => setShowRegister(false)} />}
+            {showRegister && <RegisterForm onBack={
+                () => 
+                [
+                setShowRegister(false),
+                setShowLogin(true)
+                ]
+                } />}
             {showSettings && <SettingsForm onClose={() => setShowSettings(false)} />}
         </div>
         
