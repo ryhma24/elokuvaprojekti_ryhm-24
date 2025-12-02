@@ -50,7 +50,7 @@ function Home() {
     return (
         <div>
             <NavBar/>
-            <h1 className="title">Now in theathers</h1>
+            <h1 className="big-titles">Now in theathers</h1>
             <div className="carousel-wrapper">
                 <div className="carousel">
 
@@ -66,7 +66,7 @@ function Home() {
 
                 </div>
             </div>
-            <h1 className="title">Popular Movies</h1>
+            <h1 className="big-titles">Popular Movies</h1>
 
             <div className="carousel-wrapper">
                 <div className="carousel">
@@ -81,7 +81,7 @@ function Home() {
                     ))}
                 </div>
             </div>
-            <h1 className="title">Popular Series</h1>
+            <h1 className="big-titles">Popular Series</h1>
 
             <div className="carousel-wrapper">
                 <div className="carousel">

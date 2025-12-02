@@ -1,4 +1,5 @@
 import { useState } from "react";
+import NavBar from "../components/NavBar";
 import GroupList from "../components/GroupList";
 import GroupDetail from "../components/GroupDetail";
 import CreateGroupForm from "../components/CreateGroupForm";
@@ -22,7 +23,8 @@ function GroupPage() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div>
+      <NavBar/>
       {/* 1. Render the Create Group Form  */}
       {showCreateGroup && <CreateGroupForm onClose={handleCreateGroupClose} />}
 

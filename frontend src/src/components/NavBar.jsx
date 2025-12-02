@@ -17,7 +17,7 @@ function NavBar() {
 
     return (
 
-        <div class="masterwrapper">
+        <div className="masterwrapper">
         <nav className="navbar">
 
             <div className="navbar-links">
