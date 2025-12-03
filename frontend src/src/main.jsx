@@ -19,6 +19,7 @@ import NotFound from './pages/NotFound.jsx'
 import AllMovies from "./pages/AllMovies.jsx";
 import AllSeries from "./pages/AllSeries.jsx";
 import GroupPage from "./pages/GroupPage.jsx";
+import Profile from "./pages/Profile.jsx";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 const router = createBrowserRouter([
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
   {path:"/allmovies", element: <AllMovies/>},
   {path:"/allseries", element: <AllSeries/>},
   {path:"/groups", element: <GroupPage/>},
+  {path:"/profile", element:<Profile/>},
   {path:"*", element:<NotFound/>}
 ]);
 
