@@ -1,8 +1,13 @@
 
-import {getAll, addOne, authenticateAccount, saveRefreshToken, getAccountByRefreshToken, 
-       clearRefreshToken, deleteAccount, setDeletionFlag, cancelDeletionFlag, checkDeletionFlagFromuser, getDeletionDate, UpdatePassword } from "../models/account_model.js";
+import {
+       getAll, addOne, authenticateAccount, saveRefreshToken, getAccountByRefreshToken, 
+       clearRefreshToken, deleteAccount, setDeletionFlag, 
+       cancelDeletionFlag, checkDeletionFlagFromuser, 
+       getDeletionDate, UpdatePassword, UpdateEmail 
+       } from "../models/account_model.js";
 
 import {generateAccessToken, generateRefreshToken, verifyRefreshToken} from "../utils/jwt.js";
+import { validateEmail } from "../middleware/ValidateEmail.js";
 
 export async function getAccounts(req, res, next) {
   try {
@@ -49,6 +54,33 @@ export async function changePassword(req, res, next) {
   
 }
 
+export async function changeEmail(req, res, next) {
+
+    try 
+    {
+      const { username, email} = req.body;
+
+      if (!username) 
+      {
+        return res.status(400).json({ error: "username required!" });
+      }
+
+      if(!validateEmail(email))
+      {
+        res.status(400).json({ error: "Please use correct email format!"});
+      }
+
+
+      const user = await UpdateEmail(username, email);
+      res.status(201).json({ message: "Email changed succesfully!", username: user.username, newemail: user.email });
+    } 
+    catch (err) 
+    {
+        next(err);
+    }
+
+}
+
 export async function addAccount(req, res, next) {
   try 
   {
@@ -65,13 +97,18 @@ export async function addAccount(req, res, next) {
       return res.status(400).json( {error: "Password has to be at least 8 characters long!"})
     }
 
+    if(!validateEmail(email))
+    {
+      res.status(400).json({ error: "Please use correct email format!"});
+    }
+
     const user = await addOne(username, password, email);
     res.status(201).json({ message: "User created succesfully", username: user.username });
   } 
   catch (err) 
   {
     if (err.code === '23505') { // PostgreSQL unique violation
-      return res.status(409).json({ error: "Käyttäjänimi on jo olemassa" });
+      return res.status(409).json({ error: "Username already exists" });
     }
     next(err);
   }

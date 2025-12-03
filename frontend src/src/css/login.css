@@ -1,10 +1,24 @@
-.loginform, .registerform {
+.loginform
+{
     border-radius: 5px;
     background-color:  white;
     border: #9b9ba3 solid;
     border-width: 2px;
     width: 300px;
     height: 360px;
+    text-align: center;
+    position: absolute; right: 0px;
+    z-index: 1;
+}
+
+.registerform 
+{
+    border-radius: 5px;
+    background-color:  white;
+    border: #9b9ba3 solid;
+    border-width: 2px;
+    width: 300px;
+    height: 400px;
     text-align: center;
     position: absolute; right: 0px;
     z-index: 1;

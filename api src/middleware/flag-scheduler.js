@@ -4,10 +4,8 @@ import { formatToday } from "../middleware/date-formatter.js";
 
 async function flagCheck() 
 {
-    //console.log("testataan flag scheduleria");
     let flaggedAccount;
     const today =  formatToday();
-    //const today =  "03/12/2025";
 
     try {
         const Flaggedusers = await pool.query
@@ -33,5 +31,4 @@ async function flagCheck()
         console.log(err);
       }
 }    
-cron.schedule("* * * * *", flagCheck); //testiä varten
-//cron.schedule("0 12 * * *", flagCheck); //0 12 * * * tarkoittaa, että tää funktio suoritetaan kerran päivässä klo 12.
+cron.schedule("0 12 * * *", flagCheck); //0 12 * * * tarkoittaa, että tää funktio suoritetaan kerran päivässä klo 12.

@@ -3,6 +3,7 @@ import { useState } from "react";
 function RegisterForm({ onBack }) {
   const [username, setUsername] = useState(""); //alustetaaan username ,password ja email "" eli tyhjiksi
   const [password, setPassword] = useState("");
+  const [passwordAgain, setPasswordAgain] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [message, setMessage] = useState(""); //viesti kertomaan käyttäjälle, onnistuiko rekisteröinti. alustetaan tyhjäksi.
@@ -16,12 +17,20 @@ function RegisterForm({ onBack }) {
     setMessage("");
     setLoading(true);
 
+    if(password === passwordAgain)
+  {
     try {
-      await register(username, password, email);
-      setMessage("Rekisteröinti onnistui! Voit sulkea ikkunan.")
+      const res = await register(username, password, email);
+      setMessage(res.message)
     } catch (err) {
       setError(err.message); //catchataan virheet
     } finally {
+      setLoading(false); 
+    }
+  }
+    else
+    {
+      setError("passwords don't match!");
       setLoading(false); 
     }
   };
@@ -67,6 +76,16 @@ function RegisterForm({ onBack }) {
         </div>
 
         <div>
+          <label id="fieldText">Password again:</label>
+          <input id="field"
+            type="password"
+            value={passwordAgain}
+            onChange={(e) => setPasswordAgain(e.target.value)}
+            //required
+          />
+        </div>
+
+        <div>
           <label id="fieldText">email:</label>
           <br></br>
           <input id="field"
@@ -91,8 +110,8 @@ function RegisterForm({ onBack }) {
 
          <br></br>
 
-        {message && <div>{message}</div>} 
-        {error && <div>{error}</div>}
+        {message && <div id="fieldText">{message}</div>} 
+        {error && <div id="fieldText">{error}</div>}
       </form>
     </div>
   );
