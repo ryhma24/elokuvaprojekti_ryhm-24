@@ -11,11 +11,14 @@ function SettingsForm({ onClose }) {
 
   const [passWindowVisible, setPassWindowVisible] = useState(false)
   const [mainWindowVisible, setmainWindowVisible] = useState(true)
+  const [emailWindowVisible, setemailWindowVisible] = useState(false)
   const [confirmDeletion, setConfirmDeletion] = useState(false)
   const [error, setError] = useState("");
   const [loading, setLoading] = useState("");
   const [message, setMessage] = useState("");
-  const { accessToken, setAccountForDeletion, getDeletionFlag, deletionDate, getDeletionDate, cancelDeletion, changePw} = useAuth();
+  const { accessToken, setAccountForDeletion, 
+          getDeletionFlag, deletionDate, getDeletionDate, 
+          cancelDeletion, changePw, changeEmail } = useAuth();
   const currentuser = currentUser();
 
   
@@ -84,7 +87,19 @@ if(accessToken)
       {
         setError("Passwords don't match!")
       }
-    
+  };
+const changeEmailFrontend = async (e) => {
+    e.preventDefault();
+    setError("");
+    setMessage("");
+
+         try 
+        {
+          await changeEmail(newEmail);
+          setMessage("Email changed succesfully!"); 
+        } catch (err) {
+          setError(err.message)
+        } 
   };
 
 if(!confirmDeletion && accessToken && mainWindowVisible){
@@ -102,6 +117,9 @@ if(!confirmDeletion && accessToken && mainWindowVisible){
         </button>
         <button id="singleButton" onClick={() => {
             setMessage("");
+            setNewEmail("");
+            setemailWindowVisible(true);
+            setmainWindowVisible(false);
             }}>
             Change email
         </button>
@@ -243,9 +261,44 @@ if(passWindowVisible && accessToken)
     </div>
   )
 }
+if(emailWindowVisible && accessToken)
+{
+  return (
+   <div class= "loginform">
+      <h2>Account settings</h2>   
+
+      <form className="formContainer" onSubmit={changeEmailFrontend}>
+        <div>
+          <label id="fieldText">Give your new email:</label>
+          <input id="field"
+            type="text"
+            value={newEmail}
+            onChange={(e) => setNewEmail(e.target.value)}/>
+            <br></br>
+            <br></br>
+        </div>
+          <button id="singleButton" type="submit" disabled={loading}>
+          {loading ? "Loading..." : "Change email"}
+        </button>
+      </form>
+      <br></br>
+        <button id="singleButton" onClick={() => {
+            setemailWindowVisible(false)
+            setmainWindowVisible(true);
+            setError("");
+            setMessage("");
+            }}>
+            Back
+        </button>
+            <br></br>
+            <br></br>
+        {error && <div id="fieldText">{error}</div>}
+        {message && <div id="fieldText">{message}</div>}
+
+    </div>
+  )
 }
 
-
-
+}
 
 export default SettingsForm;

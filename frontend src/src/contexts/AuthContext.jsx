@@ -104,6 +104,26 @@ export function AuthProvider({ children }) {
     return data;
   };
 
+  const changeEmail = async (email) => {
+    const res = await fetch(`${REACT_APP_API_URL}/changeEmail`, {
+      method: "PUT",
+      headers: {
+          "Authorization": `Bearer ${accessToken}`, "Content-Type": "application/json" 
+        },
+      credentials: "include",
+      body: JSON.stringify({ username: user.username, email }),
+    });
+
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(error.error || "email change failed");
+    }
+
+    const data = await res.json();
+    console.log(data)
+    return data;
+  };
+
   const setAccountForDeletion = async (username) => {
 
     const res = await fetch(`${REACT_APP_API_URL}/setDeletionFlag`, {
@@ -183,7 +203,8 @@ export function AuthProvider({ children }) {
     getDeletionFlag,
     cancelDeletion,
     deletionDate,
-    idaccount
+    idaccount,
+    changeEmail
   };
  
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

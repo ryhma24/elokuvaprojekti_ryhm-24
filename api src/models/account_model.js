@@ -23,6 +23,14 @@ export async function UpdatePassword(username, newPassword) {
   return result.rows[0];
 }
 
+export async function UpdateEmail(username, newEmail) {
+  
+  const result = await pool.query(
+    "UPDATE account SET email = $1 WHERE username = $2 RETURNING username, email",
+    [newEmail, username]
+  );
+  return result.rows[0];
+}
 
 export async function getAll() {
   const result = await pool.query("SELECT username FROM account");
