@@ -59,3 +59,14 @@ export const getDiscoverMovies = async (pageNumber) => {
     console.log("Discover movies API: ", data);
     return data.results;
 }
+export const getDiscoverSeries = async (pageNumber) => {
+    const response = await fetch(`${BASE_URL}/discover/tv?include_adult=false&language=en-US&page=${pageNumber}&sort_by=popularity.desc'`, {
+        headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_API_KEY2}`,
+            'Content-Type': 'application/json'
+        }
+    })
+    const data = await response.json();
+    console.log("Discover movies API: ", data);
+    return data.results;
+}

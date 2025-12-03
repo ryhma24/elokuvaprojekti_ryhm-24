@@ -39,7 +39,7 @@ function AllMovies() {
             <NavBar />
             
 
-            <h1>allmovies</h1>
+            <h1 className="big-titles">All Movies</h1>
             <div className="allmovies-container">
 
                 {discover.map(movie => (
