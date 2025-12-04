@@ -1,3 +1,4 @@
+import { response } from "express";
 import { getAllFavourites, addFavourite, deleteFavourite } from "../models/favourites_model.js";
 
 export async function getFavourites(req, res, next) {
@@ -18,6 +19,8 @@ export async function addAFavourite(req, res, next) {
      const response= await addFavourite(req.body)
      res.json(response);
   } catch (err) {
+    console.log(err)
+    res.json(response);
     next(err);
   }
 }
