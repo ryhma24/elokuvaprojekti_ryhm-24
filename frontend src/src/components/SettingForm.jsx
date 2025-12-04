@@ -104,7 +104,7 @@ const changeEmailFrontend = async (e) => {
 
 if(!confirmDeletion && accessToken && mainWindowVisible){
   return (
-    <div class= "loginform">
+    <div className= "loginform">
       <h2>Account settings</h2>  
       <br></br> 
       <div className="settingBtns">

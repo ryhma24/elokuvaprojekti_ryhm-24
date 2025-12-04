@@ -93,7 +93,7 @@ export async function authenticateAccount(username, password) {
   const isValid = await bcrypt.compare(password, user.password);
 
   if (isValid) {
-    console.log("kirjauduttu käyyäjällä: "+user.username)
+    console.log("kirjauduttu käyttäjällä: "+user.username)
     console.log("käyttäjän id: "+user.idaccount)
     return { username: user.username, idaccount: user.idaccount };
   }
