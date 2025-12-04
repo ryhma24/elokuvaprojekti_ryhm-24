@@ -41,8 +41,9 @@ function Home() {
                 }
             });
             const data = await res.json();
-            console.log("Fetched favourites:", data);
             setFavouriteState(data.map(f => f.movieid));
+            console.log("Fetched favourites:", data);
+            
         }
         fetchFavourites();
     }, [accessToken]);
