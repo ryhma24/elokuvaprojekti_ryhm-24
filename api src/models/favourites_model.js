@@ -6,7 +6,7 @@ export async function getAllFavourites(id) {
 }
 
 export async function addFavourite(favourite) {
-    const result = await pool.query("INSERT INTO favourites (movieid, idaccount) VALUES ($1, $2)", [favourite.movieId, favourite.idaccount])
+    const result = await pool.query("INSERT INTO favourites (movieid, idaccount, ismovie) VALUES ($1, $2, $3)", [favourite.movieId, favourite.idaccount, favourite.ismovie ])
     return result.rows;
 }
 

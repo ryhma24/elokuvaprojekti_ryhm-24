@@ -21,6 +21,7 @@ function MovieCard({movie, favouriteState, setFavouriteState}){
                         movieId={movie.id}
                         favouriteState={favouriteState}
                         setFavouriteState={setFavouriteState}
+                        typeLabel = {typeLabel}
                     />
                 </div>
             </div>
