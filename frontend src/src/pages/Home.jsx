@@ -31,8 +31,11 @@ function Home() {
                 console.error(err);
             }
         })();
-
-        async function fetchFavourites() {
+        
+        async function fetchFavourites() 
+        {
+            if(accessToken)
+            {
             const user = idaccount
             console.log(user)
             const res = await fetch(`http://localhost:3001/favourites/${user}`, {
@@ -43,8 +46,9 @@ function Home() {
             const data = await res.json();
             setFavouriteState(data.map(f => f.movieid));
             console.log("Fetched favourites:", data);
-            
+            }
         }
+
         fetchFavourites();
     }, [accessToken]);
 

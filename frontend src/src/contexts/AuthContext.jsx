@@ -14,7 +14,8 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     refreshToken();
   }, []);
-
+  
+  
   const getDeletionDate = async () => {
   const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/getdeletiondate/${user.username}`, {
       credentials: "include", // Lähetä ja vastaanota cookies
