@@ -4,5 +4,5 @@
 Ohjeet databasen pystyttämiseen pgadminissa dump tiedostoa käyttäen:
 1. Tee pgAdminissa tyhjä database oikealla nimellä
 2. Klikkaa hiiren oikealla napilla tehtyä databasea ja valitse restore
-3. Valitse filename kohtaan moviedb_backup.sql tiedosto ja valitse filetype plain ja paina restore.
+3. Valitse filename kohtaan moviedb_backup.sql tiedosto ja paina restore.
 Tällä pitäs lähtä database käyntiin
