@@ -8,8 +8,6 @@ function RegisterForm({ onBack }) {
   const [error, setError] = useState("");
   const [message, setMessage] = useState(""); //viesti kertomaan käyttäjälle, onnistuiko rekisteröinti. alustetaan tyhjäksi.
   const [loading, setLoading] = useState(false); //muutetaan login napin teksti ''loading''
-  const REACT_APP_API_URL = "http://localhost:3001"
-  //const { register } = useRegister();
 
   const handleSubmit = async (e) => {
     e.preventDefault(); //alussa resetoidaan viestit ja estetään default.
@@ -36,7 +34,7 @@ function RegisterForm({ onBack }) {
   };
 
   const register = async (username, password, email) => {
-    const res = await fetch(`${REACT_APP_API_URL}/register`, {
+    const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password, email }),
