@@ -14,6 +14,7 @@ import './css/NavBar.css'
 import './css/login.css'
 import './css/AllMovies.css'
 import './css/Favourites.css'
+import './css/Profile.css'
 import TitleItems from './pages/TitleItems.jsx'
 import NotFound from './pages/NotFound.jsx'
 import AllMovies from "./pages/AllMovies.jsx";
