@@ -1,10 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
+import { useFavourites } from "../contexts/FavouritesContext";
+import { FavouritesButton } from "../components/Favourites";
 
 const TitleItems = () => {
   const { type, id } = useParams();
   const [data, setData] = useState(null);
+  const { favouriteState, setFavouriteState } = useFavourites();
 
  
   useEffect(() => {
@@ -24,6 +27,8 @@ const TitleItems = () => {
         }
     }
     getTitleInfo();
+    console.log("type",type)
+    console.log("id",id)
   }, [type, id]);
 
   if (!data) return <p>Loading...</p>;
@@ -32,6 +37,12 @@ const TitleItems = () => {
     <div>
         <NavBar/>
       <h1>{data.title || data.name}</h1>
+      <FavouritesButton
+        typeLabel={type}
+        movieId={Number(id)}
+        favouriteState={favouriteState}
+        setFavouriteState={setFavouriteState}
+      />
       <p>Description: {data.overview}</p>
       <p>Release date: {data.release_date || data.first_air_date}</p>
       <p>Rating: {data.vote_average}</p>

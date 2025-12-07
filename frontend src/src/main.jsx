@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { AuthProvider } from "./contexts/AuthContext";
 import { GroupsProvider } from "./contexts/GroupsContext";
+import { FavouritesProvider } from "./contexts/FavouritesContext";
 
 import './App.css'
 import './css/MovieCard.css'
@@ -26,8 +27,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 const router = createBrowserRouter([
   {path:"/", element: <App/>},
   {path:"/:type/title/:id", element:<TitleItems/>},
-  {path:"/allmovies", element: <AllMovies/>},
-  {path:"/allseries", element: <AllSeries/>},
+  {path:"/:type", element: <AllMovies/>},
+  {path:"/:type", element: <AllSeries/>},
   {path:"/groups", element: <GroupPage/>},
   {path:"/profile", element:<Profile/>},
   {path:"*", element:<NotFound/>}
@@ -38,7 +39,9 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <GroupsProvider>
-        <RouterProvider router={router}/>  
+        <FavouritesProvider>
+          <RouterProvider router={router}/>  
+        </FavouritesProvider>
       </GroupsProvider>    
     </AuthProvider>
   </React.StrictMode>

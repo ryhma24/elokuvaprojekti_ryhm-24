@@ -7,18 +7,15 @@ export const FavouritesButton = ({ typeLabel, movieId, favouriteState, setFavour
     const REACT_APP_API_URL = "http://localhost:3001"
     const [ismovie, setIsmovie ] = useState(null)
     
-    
-    
     const [isFavourite, setIsFavourite] = useState(false);
     
     useEffect(() => {
-        console.log("tybeöavbe",typeLabel)
         if(typeLabel === "movie"){
                 setIsmovie(true)
             }else{
                 setIsmovie(false)
             }
-        if (favouriteState.includes(movieId)) {
+        if (Array.isArray(favouriteState) && favouriteState.includes(movieId)) {
             setIsFavourite(true);
         } else {
             setIsFavourite(false);
@@ -27,7 +24,6 @@ export const FavouritesButton = ({ typeLabel, movieId, favouriteState, setFavour
 
     async function onFavouriteClick(){
         try {
-            console.log("vittu",ismovie)
             if(!isFavourite) {
                 await fetch(`${REACT_APP_API_URL}/favourites/addfavourite`, {
                     method: "POST",
@@ -38,7 +34,7 @@ export const FavouritesButton = ({ typeLabel, movieId, favouriteState, setFavour
         
                 })
                 console.log(movieId)
-                setIsFavourite(true);
+                setFavouriteState(prev => [...prev, movieId]);
             } else {
                 await fetch(`${REACT_APP_API_URL}/favourites/deletefavourite`, {
                     method: "DELETE",
@@ -49,7 +45,7 @@ export const FavouritesButton = ({ typeLabel, movieId, favouriteState, setFavour
                 
                 });
                 console.log(idaccount)
-                setIsFavourite(false);
+                setFavouriteState(prev => prev.filter(id => id !== movieId));
             }
         
         } catch (err) {
