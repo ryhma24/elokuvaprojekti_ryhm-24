@@ -1,0 +1,15 @@
+body{
+  padding: 0;
+  padding-bottom: 1rem;
+  margin: 0;
+  text-align: left;
+}
+#root {
+  max-width: 100 vh;
+  margin: 0 auto;
+  
+}
+
+.big-titles{
+  text-align: center;
+}
