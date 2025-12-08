@@ -22,14 +22,7 @@ const Profile = () => {
             console.log("Favourites:", data);
             setFavourites(data);
             console.log("user:")
-            /*const resp =await fetch(`http://localhost:3001/groups/${currentUser}/${idaccount}`, {
-                headers: {
-                    "Authorization": `Bearer ${accessToken}`
-                }
-            })
-            const respData= await resp.json()
-            setOwnedGroups(respData)
-            console.log("Owned groups:", respData)*/
+           
 
             const results = await Promise.all(
                 data.map(async (item) => {
