@@ -51,6 +51,9 @@ else
                 <p>{movie.release_date?.split("-")[0]}</p>
                 <p>{movie.first_air_date?.split("-")[0]}</p>
                 <div className="movie-overlay"></div>
+                 <FetchRating
+                        vote_average={movie.vote_average}
+                />
             </div>
     </div>
 }
