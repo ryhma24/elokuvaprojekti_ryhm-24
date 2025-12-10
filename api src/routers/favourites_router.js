@@ -6,7 +6,6 @@ import { authenticateToken } from "../middleware/auth.js";
 const favouritesRouter = Router();
 
 favouritesRouter.get("/", getFavourites); //id tulee urliin
-favouritesRouter.get("/", authenticateToken, getFavourites);
 favouritesRouter.post("/addfavourite", authenticateToken, addAFavourite); //näissä parametrit tulee requestin bodyssa.
 favouritesRouter.delete("/deletefavourite", authenticateToken, deleteAFavourite);
 
