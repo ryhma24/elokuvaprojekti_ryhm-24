@@ -8,7 +8,7 @@ const Profile = () => {
     const [favourites, setFavourites] = useState([])
     const { accessToken, idaccount } = useAuth()
     const [movieDetails, setMovieDetails] = useState([])
-    const [ownedGroups, setOwnedGroups] = useState([])
+    
 
     useEffect(() => {
         async function fetchFavourites() {
@@ -45,12 +45,18 @@ const Profile = () => {
             );
             setMovieDetails(results);
             console.log("movie detauils", results)
+
+            
         }
         console.log("ACCESS TOKEN:", accessToken);
 
         fetchFavourites();
     }, [accessToken, idaccount]);
-
+        function copyUrl(){
+            alert("URL copied to clipboard")
+            const shareUrl=`http://localhost:5173/favourites/${idaccount}`
+            navigator.clipboard.writeText(shareUrl)
+            }
 
 
     return (
@@ -66,11 +72,9 @@ const Profile = () => {
                         </li>
                     ))}
                 </ul>
+                <h3 className="shareList" onClick={copyUrl}>Click to share your list</h3>
             </div>
-            <h2>Groups owned by you</h2>
-            <ul>
-
-            </ul>
+            
         </div>
     )
 }

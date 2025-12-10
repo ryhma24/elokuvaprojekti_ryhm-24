@@ -22,15 +22,17 @@ import AllMovies from "./pages/AllMovies.jsx";
 import AllSeries from "./pages/AllSeries.jsx";
 import GroupPage from "./pages/GroupPage.jsx";
 import Profile from "./pages/Profile.jsx";
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import FavouriteShare from "./pages/FavouriteShare.jsx";
+import { createBrowserRouter, RouterProvider, } from 'react-router-dom'
 
 const router = createBrowserRouter([
   {path:"/", element: <App/>},
   {path:"/:type/title/:id", element:<TitleItems/>},
-  {path:"/:type", element: <AllMovies/>},
-  {path:"/:type", element: <AllSeries/>},
+  {path:"/tv", element: <AllSeries/>},
+  {path:"/movie", element: <AllMovies/>},
   {path:"/groups", element: <GroupPage/>},
   {path:"/profile", element:<Profile/>},
+  {path:"/favourites/:id",element:<FavouriteShare/>},
   {path:"*", element:<NotFound/>}
 ]);
 
