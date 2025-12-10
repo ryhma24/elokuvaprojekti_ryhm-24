@@ -2,9 +2,6 @@ import { useNavigate } from 'react-router-dom'
 import { FavouritesButton } from './Favourites'
 import { useFavourites } from "../contexts/FavouritesContext";
 import { useAuth } from "../contexts/AuthContext.jsx";
-import { useEffect, useState } from 'react';
-
-
 
 function MovieCard({movie}){
 
