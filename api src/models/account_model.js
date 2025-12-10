@@ -42,6 +42,11 @@ export async function getIdFromAccount(username) {
   return result.rows;
 }
 
+export async function getEmailFromAccount(username) {
+  const result = await pool.query("SELECT email FROM account WHERE username = $1", [username]);
+  return result.rows;
+}
+
 export async function getDeletionDate(username) {
   console.log("username getdeletiondatessa on: "+username);
   const result = await pool.query("SELECT deletion_date FROM account where username = $1", 

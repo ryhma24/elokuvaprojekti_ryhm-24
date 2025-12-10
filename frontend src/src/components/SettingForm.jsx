@@ -18,7 +18,8 @@ function SettingsForm({ onClose }) {
   const [message, setMessage] = useState("");
   const { accessToken, setAccountForDeletion, 
           getDeletionFlag, deletionDate, getDeletionDate, 
-          cancelDeletion, changePw, changeEmail } = useAuth();
+          cancelDeletion, changePw, changeEmail,
+          getEmail, accEmail } = useAuth();
   const currentuser = currentUser();
 
   
@@ -27,6 +28,7 @@ function SettingsForm({ onClose }) {
 useEffect(() => {
 if(accessToken)
    {
+   getEmail()
    getDeletionFlag()
    }
 }, []);
@@ -99,7 +101,11 @@ const changeEmailFrontend = async (e) => {
           setMessage("Email changed succesfully!"); 
         } catch (err) {
           setError(err.message)
-        } 
+        }
+        finally
+        {
+          getEmail()
+        }
   };
 
 if(!confirmDeletion && accessToken && mainWindowVisible){
@@ -294,6 +300,8 @@ if(emailWindowVisible && accessToken)
             <br></br>
         {error && <div id="fieldText">{error}</div>}
         {message && <div id="fieldText">{message}</div>}
+        <br></br>
+        <div id="fieldText">Your current email: <div id="hiddenfield">{accEmail}</div></div>
 
     </div>
   )
