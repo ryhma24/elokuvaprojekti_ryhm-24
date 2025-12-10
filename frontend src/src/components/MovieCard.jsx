@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { FavouritesButton } from './Favourites'
 import { useFavourites } from "../contexts/FavouritesContext";
+import { FetchRating } from "../components/Rating"
 import { useAuth } from "../contexts/AuthContext.jsx";
 
 function MovieCard({movie}){
@@ -23,12 +24,16 @@ if(accessToken)
                 <p>{movie.release_date?.split("-")[0]}</p>
                 <p>{movie.first_air_date?.split("-")[0]}</p>
                 <div className="movie-overlay">
-                   <FavouritesButton
-                    typeLabel={typeLabel}
-                    movieId={movie.id}
-                    favouriteState={favouriteState}
-                    setFavouriteState={setFavouriteState}
+                    <FetchRating
+                        vote_average={movie.vote_average}
                     />
+                    <FavouritesButton
+                        typeLabel={typeLabel}
+                        movieId={movie.id}
+                        favouriteState={favouriteState}
+                        setFavouriteState={setFavouriteState}
+                    />
+                    
                 </div>
             </div>
     </div>
