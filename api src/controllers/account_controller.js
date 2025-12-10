@@ -144,6 +144,11 @@ export async function cancelAccountDeletion(req, res, next) { //peruutetaan käy
   try {
       console.log("cancel deletion username on: "+req.body)
       const response = await cancelDeletionFlag(req.body.username);
+      if(!response.username)
+      {
+        console.log("käyttäjää ei löytynyt poistoa varten. "+response.username)
+        return res.status(404).json({message: "user not found"})
+      }
       res.status(200).json({ message: "Account deletion cancelled", username: response });
     } catch (err) {
       next(err);
