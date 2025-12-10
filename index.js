@@ -36,3 +36,4 @@ app.use("/groups", groupsRouter);
 app.listen(port, () => {
   console.log(`Server is listening port ${port}`);
 });
+export default app;
