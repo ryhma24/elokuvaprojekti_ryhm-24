@@ -107,6 +107,7 @@ button:hover, .nav-link:hover {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
 .dropbtn{
     padding: 0.5rem;
     border-radius: 20px;
@@ -117,7 +118,9 @@ button:hover, .nav-link:hover {
     .navbar{
         display: none;
     }
-    
+    .loginform{
+        margin-top: 14vh;
+    }
 }
 
 @media (min-width: 770px){
