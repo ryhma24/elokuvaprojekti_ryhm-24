@@ -46,7 +46,7 @@ const handleLogout = async (e) => {
 if(!accessToken)
 {
 return (
-    <div>
+    <div className="loginBtns">
         <button onClick={() => {
             handlelogin()
             }}>
@@ -57,7 +57,7 @@ return (
 }
 if(accessToken && !confirm){
 return (
-    <div>
+    <div className="loginBtns">
         <button onClick={() => {
             setConfirm(true) //asetetaan confirm trueksi
             }}>
@@ -73,7 +73,7 @@ return (
 }
 if(confirm)
 return (
-    <div>
+    <div className="loginBtns">
         <button onClick={() => {
             handleLogout(user)
             }}>

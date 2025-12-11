@@ -15,6 +15,7 @@
     background-color: transparent;
 }
 .allmovies-container .movie-info{
+    
     display: block;
     
 }
@@ -51,6 +52,9 @@
     .allmovies-container .movie-info{
     display:none;
 }
+.allmovies-container .movie-card{
+    height: auto;
+}
 }
 @media (max-width: 800px){
     .allmovies-container{
@@ -58,23 +62,14 @@
         grid-template-columns: repeat(2, 1fr);
     }
     .allmovies-container .movie-image{
-        max-width: 100%;
+        
         max-height: auto;
         aspect-ratio: 1 / 1;
-        object-fit: contain;
+        
     }
+    
     .allmovies-container .movie-info{
     display:none;
 }
 }
-@media (max-width: 570px){
-    .allmovies-container .movie-image{
-        max-width: 100%;
-        max-height: auto;
-        aspect-ratio: 1 / 1;
-        object-fit: contain;
-    }
-    .allmovies-container .movie-info{
-    display:none;
-}
-}
+
