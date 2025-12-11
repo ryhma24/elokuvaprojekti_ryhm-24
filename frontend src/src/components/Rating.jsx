@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react'
 import { useAuth } from "../contexts/AuthContext.jsx";
 import { FaStar, FaRegStar, FaStarHalfStroke } from 'react-icons/fa6'
 import { useReview } from "../contexts/ReviewContext";
+import { formatToday } from '../middleware/date-formatter.js';
 
-const StarRating = ({ movieId }) => {
+const StarRating = ({ typeLabel, movieId }) => {
     const [rating, setRating] = useState(null)
     const [hover, setHover] = useState(null)
+    const [ismovie, setIsmovie ] = useState(null)
     const { accessToken, idaccount } = useAuth();
     const { reviewState, setReviewState } = useReview();
     const review = reviewState.find(r => r.idmovie === movieId);
@@ -18,14 +20,23 @@ const StarRating = ({ movieId }) => {
         if (existingReview) {
         setRating(existingReview.rating);
         }
+        if(typeLabel === "movie"){
+                setIsmovie(true)
+            }else{
+                setIsmovie(false)
+            }
     }, [reviewState, movieId]);
 
     async function onRatingStarClick(currentRating){
         try {
-            console.log("review",review)
-            console.log("idreviews",idreviews)
-            await fetch(`${REACT_APP_API_URL}/reviews/${idreviews}`, {
-                method: "PUT",
+            const url = idreviews
+                ? `${REACT_APP_API_URL}/reviews/${idreviews}`
+                : `${REACT_APP_API_URL}/reviews`;
+
+            const method = idreviews ? "PUT" : "POST";
+
+            const res = await fetch(url, {
+                method: method,
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${accessToken}`
@@ -33,19 +44,23 @@ const StarRating = ({ movieId }) => {
                 body: JSON.stringify({
                     review: review?.review || "",
                     rating: currentRating,
-                    idaccount,
+                    idaccount: idaccount,
                     idmovie: movieId,
-                    date: new Date().toISOString()
+                    date: formatToday(),
+                    ismovie: ismovie
                 })
             });
 
             const updated = await res.json();
 
-            setRating(currentRating);
-
             setReviewState(prev =>
-            prev.map(r => r.idreviews === updated.idreviews ? updated : r)
+                prev.map(r =>
+                    r.idreviews === idreviews
+                    ? { ...r, ...updated, rating: currentRating }
+                    : r
+                )
             );
+   
         
         } catch (err) {
             console.error("Error updating review:", err);
@@ -53,7 +68,6 @@ const StarRating = ({ movieId }) => {
     }
 
     return  <div className='rating'>
-                <p className='ratingLabel'>Your Rating</p>
                 {[...Array(5)].map((star, i) => {
                     const ratingValue = i + 1;
                     
@@ -103,4 +117,77 @@ const FetchRating = ({vote_average}) => {
     )
 }
 
-export { StarRating, FetchRating }
+const MakeAComment = ({ movieId, typeLabel }) => {
+    const [comment, setComment] = useState("");
+    const [ismovie, setIsmovie ] = useState(null)
+    const { accessToken, idaccount } = useAuth();
+    const { reviewState, setReviewState } = useReview();
+    const { user } = useAuth();
+    const review = reviewState.find(r => r.idmovie === movieId);
+    const idreviews = review?.idreviews;
+    const currentComment = review?.review || "";
+    const REACT_APP_API_URL = "http://localhost:3001"
+
+    useEffect(() => {
+        if(typeLabel === "movie"){
+                setIsmovie(true)
+            }else{
+                setIsmovie(false)
+            }
+    }, [reviewState, movieId]);
+
+    const onReviewSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const url = idreviews
+                ? `${REACT_APP_API_URL}/reviews/${idreviews}`
+                : `${REACT_APP_API_URL}/reviews`;
+
+            const method = idreviews ? "PUT" : "POST";
+
+            const res = await fetch(url, {
+                method: method,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${accessToken}`
+                },
+                body: JSON.stringify({
+                    review: comment,
+                    rating: review?.rating || 0,
+                    idaccount: idaccount,
+                    idmovie: movieId,
+                    date: formatToday(),
+                    ismovie: ismovie
+                })
+            });
+
+            const updated = await res.json();
+
+            setReviewState(prev =>
+                idreviews
+                ? prev.map(r => r.idreviews === updated.idreviews ? updated : r)
+                : [...prev, updated]
+            );
+
+            setComment("");
+        
+        } catch (err) {
+            console.error("Error updating or posting review:", err);
+        }
+    }
+
+    return (
+        <form onSubmit={onReviewSubmit}>
+            <textarea
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder="Write your review..."
+            />
+            
+            <button type="submit">Submit</button>
+        </form>
+    )
+}
+
+export { StarRating, FetchRating, MakeAComment }

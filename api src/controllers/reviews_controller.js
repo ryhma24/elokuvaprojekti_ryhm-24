@@ -39,7 +39,7 @@ export async function getAReviewbyMovieid(req, res, next) {
 export async function addReview(req, res, next) {
   console.log("add called");
   try {
-    console.log(req.body);
+    console.log("Request body:", req.body);
     const response = await addOneReview(req.body);
     res.json(response);
   } catch (err) {

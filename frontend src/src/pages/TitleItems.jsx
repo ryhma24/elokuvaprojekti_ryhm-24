@@ -4,7 +4,7 @@ import NavBar from "../components/NavBar";
 import { useFavourites } from "../contexts/FavouritesContext";
 import { useReview } from "../contexts/ReviewContext";
 import { FavouritesButton } from "../components/Favourites";
-import { FetchRating, StarRating } from "../components/Rating"
+import { FetchRating, StarRating, MakeAComment } from "../components/Rating"
 import { useAuth } from "../contexts/AuthContext.jsx";
 
 
@@ -14,6 +14,7 @@ const TitleItems = () => {
   const { favouriteState, setFavouriteState } = useFavourites();
   const { reviewState, setReviewState } = useReview();
   const { accessToken } = useAuth();
+  const [showCommentForm, setShowCommentForm] = useState(false);
 
  
   useEffect(() => {
@@ -54,7 +55,13 @@ const TitleItems = () => {
               </p>
               <div className="icons-row">
                 <FetchRating vote_average={data.vote_average}/>
-                <StarRating movieId={data.id}/>
+                <div className="your-rating">
+                  <p className='ratingLabel'>Your Rating</p>
+                  <StarRating 
+                  movieId={data.id}
+                  typeLabel={type}/>
+                </div>
+    
                 <FavouritesButton
                   typeLabel={type}
                   movieId={Number(id)}
@@ -65,9 +72,24 @@ const TitleItems = () => {
               <p>Description: {data.overview}</p>
               <p>Release date: {data.release_date || data.first_air_date}</p>
               <div className="review">
-                <button className="addreview-btn">
-                Add Review
-              </button>
+                <button 
+                  className="addreview-btn"
+                  onClick={() => setShowCommentForm(prev => !prev)}
+                >
+                  Add Review
+                </button>
+
+                {showCommentForm && (
+                  <div className="popup">
+                    <StarRating 
+                      movieId={data.id}
+                      typeLabel={type}/>
+                    <MakeAComment
+                      typeLabel={type}
+                      movieId={data.id} />
+                    <button onClick={() => setShowCommentForm(false)}>Close</button>
+                  </div>
+                )}
               </div>
             </div>
             <div className="titleinfo-right">
