@@ -83,13 +83,109 @@ test("9) POST logout → 200, kirjaudutaan ulos onnistuneesti", async () => {
   expect(resposelogout.status).toBe(200);
 });
 
-test("10) DELETE deleteaccount → 200, poistataan käyttäjä", async () => {
+
+test("10) POST reviews → 200, luodaan uusi arvostelu", async () => {
+  
   const token = generateAccessToken("testuser")
   const id = await request(app)
   .get("/getid/testuser")
   .set('Authorization', `Bearer ${token}`)
 
-  const accId = JSON.stringify(id.text).replace(/\D/g, ""); // käyttäjän id tulee hankalassa muodossa, pitää sorttia tällä
+  const accId = JSON.stringify(id.text).replace(/\D/g, ""); // käyttäjän id tulee hankalassa muodossa, pitää sorttia tällä 
+  console.log(accId)
+  
+  const res = await request(app)
+  .post("/reviews")
+  .set('Authorization', `Bearer ${token}`)
+  .send({ review: "Ok elokuva, hieman pitkä mutta riittävästi toimintaa",
+  rating: "7.0", idaccount: parseInt(accId), idmovie: "12341234", date: "12/12/2025", ismovie: "true" });
+
+  expect(res.status).toBe(200);
+
+});
+
+test("11) POST reviews → 409, arvostelu dublikaatti", async () => {
+  
+  const token = generateAccessToken("testuser")
+  const id = await request(app)
+  .get("/getid/testuser")
+  .set('Authorization', `Bearer ${token}`)
+
+  const accId = JSON.stringify(id.text).replace(/\D/g, ""); // käyttäjän id tulee hankalassa muodossa, pitää sorttia tällä 
+  console.log(accId)
+  
+  const res = await request(app)
+  .post("/reviews")
+  .set('Authorization', `Bearer ${token}`)
+  .send({ review: "Ok elokuva, hieman pitkä mutta riittävästi toimintaa",
+  rating: "7.0", idaccount: parseInt(accId), idmovie: "12341234", date: "12/12/2025", ismovie: "true" });
+
+  expect(res.status).toBe(409);
+
+});
+
+test("13) POST reviews → 400, puuttuvia arvoja", async () => {
+  
+  const token = generateAccessToken("testuser")
+  const id = await request(app)
+  .get("/getid/testuser")
+  .set('Authorization', `Bearer ${token}`)
+
+  const accId = JSON.stringify(id.text).replace(/\D/g, ""); // käyttäjän id tulee hankalassa muodossa, pitää sorttia tällä 
+  console.log(accId)
+  
+  const res = await request(app)
+  .post("/reviews")
+  .set('Authorization', `Bearer ${token}`)
+  .send({ review: "Ok elokuva, hieman pitkä mutta riittävästi toimintaa",
+  rating: "7.0", idaccount: parseInt(accId), idmovie: "", date: "12/12/2025", ismovie: "true" });
+
+  expect(res.status).toBe(400);
+
+});
+
+
+
+test("13) GET getReviewsUser → 200, haetaan käyttäjän arvostelut", async () => {
+  const token = generateAccessToken("testuser")
+  const id = await request(app)
+  .get("/getid/testuser")
+  .set('Authorization', `Bearer ${token}`)
+
+  const accId = JSON.stringify(id.text).replace(/\D/g, ""); 
+  
+  
+  const res = await request(app)
+  .get(`/reviews/${accId}`)
+  .set('Authorization', `Bearer ${token}`)
+
+  expect(res.status).toBe(200);
+});
+
+test("14) GET getReviewsUser → 404, olematon käyttäjä/ei arvosteluja", async () => {
+  const token = generateAccessToken("testuser")
+  const id = await request(app)
+  .get("/getid/testuser")
+  .set('Authorization', `Bearer ${token}`)
+
+  const accId = JSON.stringify(id.text).replace(/\D/g, ""); 
+  
+  
+  const res = await request(app)
+  .get(`/reviews/123123`)
+  .set('Authorization', `Bearer ${token}`)
+
+  expect(res.status).toBe(404);
+});
+
+
+test("15) DELETE deleteaccount → 200, poistataan käyttäjä", async () => {
+  const token = generateAccessToken("testuser")
+  const id = await request(app)
+  .get("/getid/testuser")
+  .set('Authorization', `Bearer ${token}`)
+
+  const accId = JSON.stringify(id.text).replace(/\D/g, ""); 
   console.log(accId)
   const res = await request(app)
     .delete(`/deleteaccount/${accId}`)
@@ -97,6 +193,4 @@ test("10) DELETE deleteaccount → 200, poistataan käyttäjä", async () => {
   expect(res.status).toBe(200);
 
 });
-
-
 

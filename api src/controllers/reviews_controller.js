@@ -3,7 +3,7 @@ import { getAllReviewsFromUser, getOneReviewByIdreview, addOneReview, deleteRevi
 export async function getReviewsUser(req, res, next) {
   try {
     const moviedata = await getAllReviewsFromUser(req.params.id);
-     if (!moviedata) {
+     if (moviedata.length === 0) {
       return res.status(404).json({ error: "reviews not found" });
     }
     res.json(moviedata);
@@ -37,12 +37,21 @@ export async function getAReviewbyMovieid(req, res, next) {
 }
 
 export async function addReview(req, res, next) {
-  console.log("add called");
   try {
+    const { review, rating, idaccount, idmovie, date } = req.body;
+
+    if (!review || !rating || !idaccount || !idmovie || !date) {
+      return res.status(400).json({ error: "request missing column data!" });
+    }
     console.log("Request body:", req.body);
     const response = await addOneReview(req.body);
     res.json(response);
   } catch (err) {
+    console.log(err);
+    if(err.code === "23505")
+    {
+      return res.status(409).json({ error: "Dublicate review" });
+    }
     next(err);
   }
 }
