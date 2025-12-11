@@ -1,10 +1,15 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
+import { FavouritesButton } from '../components/Favourites'
+import MovieCard from "../components/MovieCard";
 
-const TitleItems = () => {
+
+
+const TitleItems({favouriteState, setFavouriteState}) => {
   const { type, id } = useParams();
   const [data, setData] = useState(null);
+
 
  
   useEffect(() => {
@@ -24,9 +29,12 @@ const TitleItems = () => {
         }
     }
     getTitleInfo();
+    MovieCard();
   }, [type, id]);
 
   if (!data) return <p>Loading...</p>;
+
+
 
   return (
     <div>
@@ -41,6 +49,13 @@ const TitleItems = () => {
           alt={data.title || data.name}
         />
       )}
+      <div className="favourites">
+          <FavouritesButton
+            movieId={id}
+            favouriteState={favouriteState}
+            setFavouriteState={setFavouriteState}
+          />
+      </div>
     </div>
   );
 };
