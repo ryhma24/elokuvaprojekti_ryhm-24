@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, useEffect } from "react";
-const REACT_APP_API_URL = "http://localhost:3001"
 
 const AuthContext = createContext(null);
 
@@ -10,14 +9,16 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [deletionDate, setDeletionDate] = useState(null);
   const [idaccount, setIdaccount ] = useState(null);
+  const [accEmail, setAccEmail ] = useState(null)
 
   // Tarkista sessio sivun latautuessa
   useEffect(() => {
     refreshToken();
   }, []);
-
+  
+  
   const getDeletionDate = async () => {
-  const res = await fetch(`${REACT_APP_API_URL}/getdeletiondate/${user.username}`, {
+  const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/getdeletiondate/${user.username}`, {
       credentials: "include", // Lähetä ja vastaanota cookies
       headers: {
           "Authorization": `Bearer ${accessToken}`, 
@@ -34,8 +35,26 @@ export function AuthProvider({ children }) {
     setDeletionDate(dateOfDeletion[0].deletion_date);
   }
 
+  const getEmail = async () => {
+  const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/getemail/${user.username}`, {
+      credentials: "include",
+      headers: {
+          "Authorization": `Bearer ${accessToken}`, 
+        },
+    });
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(error.error || "cant get email date");
+    }
+
+    const accoountEmail = await res.json();
+    console.log("acc email on: "+JSON.stringify(accoountEmail[0].email))
+    
+    setAccEmail(accoountEmail[0].email);
+  }
+
   const getDeletionFlag = async () => {
-  const res = await fetch(`${REACT_APP_API_URL}/getflagged/${user.username}`, {
+  const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/getflagged/${user.username}`, {
       credentials: "include", // Lähetä ja vastaanota cookies
       headers: {
           "Authorization": `Bearer ${accessToken}`
@@ -53,7 +72,7 @@ export function AuthProvider({ children }) {
 
 
   const login = async (username, password) => {
-    const res = await fetch(`${REACT_APP_API_URL}/login`, {
+    const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include", // Lähetä ja vastaanota cookies
@@ -69,13 +88,12 @@ export function AuthProvider({ children }) {
     setIdaccount({idaccount: data.idaccount});
     setUser({ username: data.username });
     setAccessToken(data.accessToken);
-    console.log(data)
     return data;
   };
 
   const logout = async () => {
     console.log("const logoutissa")
-    await fetch(`${REACT_APP_API_URL}/logout`, {
+    await fetch(`${import.meta.env.VITE_APP_API_URL}/logout`, {
       method: "POST",
       credentials: "include",
     });
@@ -85,7 +103,7 @@ export function AuthProvider({ children }) {
   };
 
   const changePw = async (password) => {
-    const res = await fetch(`${REACT_APP_API_URL}/changePassword`, {
+    const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/changePassword`, {
       method: "PUT",
       headers: {
           "Authorization": `Bearer ${accessToken}`, "Content-Type": "application/json" 
@@ -105,7 +123,7 @@ export function AuthProvider({ children }) {
   };
 
   const changeEmail = async (email) => {
-    const res = await fetch(`${REACT_APP_API_URL}/changeEmail`, {
+    const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/changeEmail`, {
       method: "PUT",
       headers: {
           "Authorization": `Bearer ${accessToken}`, "Content-Type": "application/json" 
@@ -126,7 +144,7 @@ export function AuthProvider({ children }) {
 
   const setAccountForDeletion = async (username) => {
 
-    const res = await fetch(`${REACT_APP_API_URL}/setDeletionFlag`, {
+    const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/setDeletionFlag`, {
       method: "PUT",
       body: JSON.stringify({ username }),
       credentials: "include",
@@ -147,7 +165,7 @@ export function AuthProvider({ children }) {
 
   const cancelDeletion = async () => {
     console.log("working?")
-    const res = await fetch(`${REACT_APP_API_URL}/cancelDeletionFlag`, {
+    const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/cancelDeletionFlag`, {
       method: "PUT",
       credentials: "include",
       body: JSON.stringify({username: user.username}),
@@ -166,7 +184,7 @@ export function AuthProvider({ children }) {
 
   const refreshToken = async () => {
     try {
-      const res = await fetch(`${REACT_APP_API_URL}/refresh`, {
+      const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/refresh`, {
         method: "POST",
         credentials: "include", // Lähetä cookie
       });
@@ -204,7 +222,9 @@ export function AuthProvider({ children }) {
     cancelDeletion,
     deletionDate,
     idaccount,
-    changeEmail
+    changeEmail,
+    getEmail,
+    accEmail
   };
  
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -4,10 +4,11 @@ import MovieCard from "../components/MovieCard"
 import { getDiscoverMovies, getDiscoverSeries } from "../api/api"
 import { useState, useEffect } from "react"
 import { FavouritesButton } from '../components/Favourites'
+import { useAuth } from "../contexts/AuthContext.jsx";
 //import { pageNumber } from "../api/functions"
 
 function AllSeries() {
-
+    const { accessToken, idaccount } = useAuth();
     const [pageNumber, setPageNumber] = useState(1)
     const [discover, setDiscover] = useState([])
     const [favouriteState, setFavouriteState] = useState([]);
@@ -33,7 +34,24 @@ function AllSeries() {
                 console.error(err);
             }
         })();
-    }, [pageNumber]);
+        async function fetchFavourites() 
+        {
+            if(accessToken)
+            {
+            const user = idaccount
+            console.log(user)
+            const res = await fetch(`http://localhost:3001/favourites/${user}`, {
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`
+                }
+            });
+            const data = await res.json();
+            setFavouriteState(data.map(f => f.movieid));
+            console.log("Fetched favourites:", data);
+            }
+        }
+        fetchFavourites()
+    }, [pageNumber, accessToken]);
 
     return (
         <div>

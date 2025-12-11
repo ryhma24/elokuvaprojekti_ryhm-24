@@ -22,9 +22,10 @@ function NavBar() {
 
             <div className="navbar-links">
                 <a className="nav-link" href="/">Home</a>
-                 <a className="nav-link" href="/allmovies" >Movies</a>
-                <a className="nav-link" href="/allseries">Series</a>
+                 <a className="nav-link" href="/movie" >Movies</a>
+                <a className="nav-link" href="/tv">Series</a>
                 <a className="nav-link" href="/groups" >Groups</a>
+                <a className="nav-link" href="/profile" >Profile</a>
             </div>
             <div className="search-bar-container">
                 <SearchBar setResults={setResults}/>
@@ -49,8 +50,8 @@ function NavBar() {
                     
                     <div className="dropdown-content">
                         <a className="nav-link" href="/">Home</a>
-                        <a className="nav-link" href="/allmovies" >Movies</a>
-                        <a className="nav-link" href="/allseries">Series</a>
+                        <a className="nav-link" href="/movie" >Movies</a>
+                        <a className="nav-link" href="/tv">Series</a>
                         <a className="nav-link" href="/groups">Groups</a>
                     </div>
                 </div>

@@ -3,6 +3,7 @@ import { getNowInTheathers, getGenre, getPopularMovies, getPopularSeries } from 
 import { useState, useEffect } from "react"
 import NavBar from "../components/NavBar"
 import { useAuth } from "../contexts/AuthContext.jsx";
+import { useFavourites } from "../contexts/FavouritesContext";
 
 function Home() {
 
@@ -12,7 +13,8 @@ function Home() {
     const [popularMovies, setPopularMovies] = useState([])
     const [popularSeries, setPopularSeries] = useState([])
 
-    const [favouriteState, setFavouriteState] = useState([]);
+    const { favouriteState, setFavouriteState } = useFavourites();
+
 
     useEffect(() => {
         (async () => {
@@ -31,22 +33,7 @@ function Home() {
                 console.error(err);
             }
         })();
-
-        async function fetchFavourites() {
-            const user = idaccount
-            console.log(user)
-            const res = await fetch(`http://localhost:3001/favourites/${user}`, {
-                headers: {
-                    "Authorization": `Bearer ${accessToken}`
-                }
-            });
-            const data = await res.json();
-            console.log("Fetched favourites:", data);
-            setFavouriteState(data.map(f => f.movieid));
-        }
-        fetchFavourites();
-    }, [accessToken]);
-
+    },[]);
     return (
         <div>
             <NavBar/>

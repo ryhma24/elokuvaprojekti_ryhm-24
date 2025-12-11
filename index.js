@@ -10,6 +10,7 @@ import reviewsRouter from "./api src/routers/reviews_router.js";
 import favouritesRouter from './api src/routers/favourites_router.js';
 import groupsRouter from './api src/routers/groups_router.js';
 import groupMembersRouter from './api src/routers/group_members_router.js';
+import { getFavourites } from './api src/controllers/favourites_controller.js';
 
 const port = process.env.port;
 const app = express()
@@ -26,6 +27,7 @@ app.use(cookieParser());
 
 app.use("/", accountRouter);
 
+app.get("/favourites/:id", getFavourites);
 // tästä alaspäin kaikki reitit suojataan //
 
 app.use("/favourites", authenticateToken, favouritesRouter)
@@ -36,3 +38,4 @@ app.use("/groups", groupsRouter);
 app.listen(port, () => {
   console.log(`Server is listening port ${port}`);
 });
+export default app;
