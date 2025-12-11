@@ -4,7 +4,9 @@
     height: 2rem;
     padding-top: 0.5rem;
     display: flex;
+    
     align-items: center;
+    margin-left: 0.5rem;
 }
 
 input {

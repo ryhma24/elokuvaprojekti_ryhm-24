@@ -63,7 +63,7 @@
 .loginBtns
 {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 1ch;
     margin: auto;
     align-content: center;

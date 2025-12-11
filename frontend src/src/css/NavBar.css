@@ -8,11 +8,15 @@
     align-items: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     max-height: 8vh;
-    position: fixed;
-    top: 0px;
-    z-index: 2;
+    
 }
-
+.masterwrapper{
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    z-index: 999;
+}
+    
 
 .navbar-links {
     color: aliceblue;
@@ -29,7 +33,7 @@
     color: aliceblue;
 }
 
-.navbar button {
+.navbar button, .navbar-small-devices button {
     padding: 10px 15px;
     background-color: rgb(27, 27, 28);
     color: rgb(255, 255, 255);
@@ -73,9 +77,13 @@ button:hover, .nav-link:hover {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-height: 8 vh;
-
+    max-height: 7vh;
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    z-index: 999;
 }
+
 .dropdown-content {
   display: none;
   position: absolute;
@@ -105,14 +113,21 @@ button:hover, .nav-link:hover {
     color: #ddd;
     background-color: rgba(0, 0, 0, 0.128);
 }
-@media (max-width: 570px){
+@media (max-width: 769px){
     .navbar{
         display: none;
     }
     
 }
-@media (min-width: 571px){
+
+@media (min-width: 770px){
     .navbar-small-devices{
+        display: none;
+    }
+    
+}
+@media (max-width: 900px){
+    .welcome-user{
         display: none;
     }
     
