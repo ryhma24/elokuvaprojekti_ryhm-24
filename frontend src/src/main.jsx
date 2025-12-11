@@ -4,6 +4,7 @@ import App from "./App";
 import { AuthProvider } from "./contexts/AuthContext";
 import { GroupsProvider } from "./contexts/GroupsContext";
 import { FavouritesProvider } from "./contexts/FavouritesContext";
+import { ReviewProvider } from "./contexts/ReviewContext";
 
 import './App.css'
 import './css/MovieCard.css'
@@ -17,6 +18,7 @@ import './css/AllMovies.css'
 import './css/Favourites.css'
 import './css/Rating.css'
 import './css/Profile.css'
+import './css/TitleItems.css'
 import TitleItems from './pages/TitleItems.jsx'
 import NotFound from './pages/NotFound.jsx'
 import AllMovies from "./pages/AllMovies.jsx";
@@ -43,7 +45,9 @@ root.render(
     <AuthProvider>
       <GroupsProvider>
         <FavouritesProvider>
-          <RouterProvider router={router}/>  
+          <ReviewProvider>
+            <RouterProvider router={router}/> 
+          </ReviewProvider> 
         </FavouritesProvider>
       </GroupsProvider>    
     </AuthProvider>
