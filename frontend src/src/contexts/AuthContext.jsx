@@ -9,6 +9,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [deletionDate, setDeletionDate] = useState(null);
   const [idaccount, setIdaccount ] = useState(null);
+  const [accEmail, setAccEmail ] = useState(null)
 
   // Tarkista sessio sivun latautuessa
   useEffect(() => {
@@ -32,6 +33,24 @@ export function AuthProvider({ children }) {
     console.log("deletion date on: "+JSON.stringify(dateOfDeletion[0].deletion_date))
     
     setDeletionDate(dateOfDeletion[0].deletion_date);
+  }
+
+  const getEmail = async () => {
+  const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/getemail/${user.username}`, {
+      credentials: "include",
+      headers: {
+          "Authorization": `Bearer ${accessToken}`, 
+        },
+    });
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(error.error || "cant get email date");
+    }
+
+    const accoountEmail = await res.json();
+    console.log("acc email on: "+JSON.stringify(accoountEmail[0].email))
+    
+    setAccEmail(accoountEmail[0].email);
   }
 
   const getDeletionFlag = async () => {
@@ -203,7 +222,9 @@ export function AuthProvider({ children }) {
     cancelDeletion,
     deletionDate,
     idaccount,
-    changeEmail
+    changeEmail,
+    getEmail,
+    accEmail
   };
  
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

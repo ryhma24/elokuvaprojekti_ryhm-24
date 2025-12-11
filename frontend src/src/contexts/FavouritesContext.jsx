@@ -9,16 +9,22 @@ export const FavouritesProvider = ({ children }) => {
 
   useEffect(() => {
     async function fetchFavourites() {
-      if (!accessToken) return;
+      if (!accessToken || !idaccount) return;
 
-      const res = await fetch(`http://localhost:3001/favourites/${idaccount}`, {
-        headers: {
-          "Authorization": `Bearer ${accessToken}`
-        }
-      });
+      try {
+        const res = await fetch(`http://localhost:3001/favourites/${idaccount}`, {
+          headers: {
+            "Authorization": `Bearer ${accessToken}`
+          }
+        });
 
-      const data = await res.json();
-      setFavouriteState(data.map(f => f.movieid));
+        const data = await res.json();
+        setFavouriteState(data.map(f => f.movieid));
+
+      } catch (err) {
+        console.error("Error fetching favourites:", err);
+        setFavouriteState([]);
+      }
     }
 
     fetchFavourites();

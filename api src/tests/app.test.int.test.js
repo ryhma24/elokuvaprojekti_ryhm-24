@@ -4,12 +4,7 @@ dotenv.config();
 import app from "/index.js"
 import { pool } from "../database.js";
 import {generateAccessToken} from "../utils/jwt.js";
-/**
- * Apuohjelmafunktio: Luo kelvollinen JWT-tunnus testausta varten.
- * Käytetään simuloimaan onnistuneesti sisäänkirjautunutta käyttäjää.
- * @param {string} user 
- * @returns {string} -
- */
+
 let credentials;
 
 afterAll(async () => {
@@ -17,7 +12,6 @@ afterAll(async () => {
   await pool.end();
 });
 
-// --- Testitapaukset ---
 test("1) POST register → 400, liian lyhyt salasana", async () => {
   const res = await request(app)
     .post("/register") 
@@ -47,7 +41,7 @@ test("4) POST register → 409, tarkastaa username dublikaatit, unique constrain
 });
 
 
-test("5) POST set account for deletion → 200, asettaa käyttäjän poistoa varten", async () => {
+test("5) PUT set account for deletion → 200, asettaa käyttäjän poistoa varten", async () => {
     const token = generateAccessToken("testuser")
     const res = await request(app)
     .put("/setDeletionFlag")
@@ -70,32 +64,35 @@ test("7) POST login → 401, väärä salasana", async () => {
   expect(res.status).toBe(401);
 });
 
-test("8) POST login & logout → 200, kirjaudutaan sisälle ja ulos onnistuneesti", async () => {
+test("8) POST login → 200, kirjaudutaan sisälle onnistuneesti", async () => {
   const res = await request(app)
     .post("/login")
     .send({ username: "testuser", password: "12341234"});
   expect(res.status).toBe(200);
 
   credentials = JSON.stringify(res.headers["set-cookie"])
-  credentials = credentials.slice(credentials.indexOf('[') + 2, credentials.indexOf(']') -1)
-  console.log("tässä on cookie data: "+credentials) //haetaan refreshtoken 
+  credentials = credentials.slice(credentials.indexOf('[') + 2, credentials.indexOf(']') -1) //haetaan refreshtoken myöhempää käyttöä varten
 
+});
+test("9) POST logout → 200, kirjaudutaan ulos onnistuneesti", async () => {
+
+  console.log("tässä on cookie data: "+credentials)
   const resposelogout = await request(app)
     .post("/logout")
     .set('Cookie', [credentials])
   expect(resposelogout.status).toBe(200);
 });
 
-test("9) POST deleteaccount → 200", async () => {
+test("10) DELETE deleteaccount → 200, poistataan käyttäjä", async () => {
   const token = generateAccessToken("testuser")
   const id = await request(app)
   .get("/getid/testuser")
   .set('Authorization', `Bearer ${token}`)
 
-  const numbers = JSON.stringify(id.text).replace(/\D/g, ""); // käyttäjän id tulee hankalassa muodossa, pitää sorttia tällä
-  console.log(numbers)
+  const accId = JSON.stringify(id.text).replace(/\D/g, ""); // käyttäjän id tulee hankalassa muodossa, pitää sorttia tällä
+  console.log(accId)
   const res = await request(app)
-    .delete(`/deleteaccount/${numbers}`)
+    .delete(`/deleteaccount/${accId}`)
     .set('Authorization', `Bearer ${token}`)
   expect(res.status).toBe(200);
 

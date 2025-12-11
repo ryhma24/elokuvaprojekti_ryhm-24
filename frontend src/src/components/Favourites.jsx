@@ -27,8 +27,9 @@ export const FavouritesButton = ({ typeLabel, movieId, favouriteState, setFavour
             if(!isFavourite) {
                 await fetch(`${REACT_APP_API_URL}/favourites/addfavourite`, {
                     method: "POST",
-                    headers: { "Content-Type": "application/json",
-                                "Authorization": `Bearer ${accessToken}`
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${accessToken}`
                     },
                     body: JSON.stringify({ idaccount, movieId ,ismovie})
         

@@ -3,7 +3,7 @@ import {
        getAll, addOne, authenticateAccount, saveRefreshToken, getAccountByRefreshToken, 
        clearRefreshToken, deleteAccount, setDeletionFlag, 
        cancelDeletionFlag, checkDeletionFlagFromuser, 
-       getDeletionDate, UpdatePassword, UpdateEmail, getIdFromAccount
+       getDeletionDate, UpdatePassword, UpdateEmail, getIdFromAccount, getEmailFromAccount
        } from "../models/account_model.js";
 
 import {generateAccessToken, generateRefreshToken, verifyRefreshToken} from "../utils/jwt.js";
@@ -23,6 +23,17 @@ export async function getId(req, res, next) {
     const { username }  = req.params;
     console.log("tässä on un "+ username)
     const userId = await getIdFromAccount(username);
+    res.json(userId);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getEmail(req, res, next) {
+  try {
+    const { username }  = req.params;
+    console.log("tässä on un "+ username)
+    const userId = await getEmailFromAccount(username);
     res.json(userId);
   } catch (err) {
     next(err);
@@ -144,6 +155,11 @@ export async function cancelAccountDeletion(req, res, next) { //peruutetaan käy
   try {
       console.log("cancel deletion username on: "+req.body)
       const response = await cancelDeletionFlag(req.body.username);
+      if(!response.username)
+      {
+        console.log("käyttäjää ei löytynyt poistoa varten. "+response.username)
+        return res.status(404).json({message: "user not found"})
+      }
       res.status(200).json({ message: "Account deletion cancelled", username: response });
     } catch (err) {
       next(err);
