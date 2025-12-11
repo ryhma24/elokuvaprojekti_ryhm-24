@@ -3,12 +3,14 @@ import React from "react";
 import { useState, useEffect } from "react"
 import NavBar from "../components/NavBar"
 import { currentUser } from "../middleware/currentUser.jsx";
+import { useNavigate } from 'react-router-dom'
 
-const Profile = () => {
+function Profile() {
+    const navigate = useNavigate();
     const [favourites, setFavourites] = useState([])
     const { accessToken, idaccount } = useAuth()
     const [movieDetails, setMovieDetails] = useState([])
-    
+
 
     useEffect(() => {
         async function fetchFavourites() {
@@ -22,7 +24,8 @@ const Profile = () => {
             console.log("Favourites:", data);
             setFavourites(data);
             console.log("user:")
-           
+
+
 
             const results = await Promise.all(
                 data.map(async (item) => {
@@ -46,35 +49,38 @@ const Profile = () => {
             setMovieDetails(results);
             console.log("movie detauils", results)
 
-            
+
         }
         console.log("ACCESS TOKEN:", accessToken);
 
         fetchFavourites();
     }, [accessToken, idaccount]);
-        function copyUrl(){
-            alert("URL copied to clipboard")
-            const shareUrl=`http://localhost:5173/favourites/${idaccount}`
-            navigator.clipboard.writeText(shareUrl)
-            }
+    function copyUrl() {
+        alert("URL copied to clipboard")
+        const shareUrl = `http://localhost:5173/favourites/${idaccount}`
+        navigator.clipboard.writeText(shareUrl)
+    }
 
 
     return (
         <div>
             <NavBar />
             <div className="favMovieListContainer">
-                <h2>Your Favourite Movies and Series</h2>
+                <h2 className="big-titles">Your Favourite Movies and Series</h2>
                 <ul className="favlist">
-                    {movieDetails.map((fav) => (
-                        <li key={fav.id}>
-                            <img className="profile-movie" src={`https://image.tmdb.org/t/p/w500${fav.poster_path}`} alt={movieDetails?.title || movieDetails?.name} />
+                    {movieDetails.map((fav) => {
+                        const type = fav.title ? "movie" : "tv";
+                        return <li key={fav.id} >
+                            <img className="profile-movie" onClick={() => navigate(`/${type}/title/${fav.id}`)}
+                                src={`https://image.tmdb.org/t/p/w500${fav.poster_path}`}
+                                alt={fav.title || fav.name} />
                             {fav.title || fav.name}
                         </li>
-                    ))}
+                    })}
                 </ul>
                 <h3 className="shareList" onClick={copyUrl}>Click to share your list</h3>
             </div>
-            
+
         </div>
     )
 }

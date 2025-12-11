@@ -1,4 +1,4 @@
-import { getAllReviewsFromUser, getOneReviewByIdreview, deleteReview, getReviewByMovieId, updateOneReview } from "../models/reviews_model.js";
+import { getAllReviewsFromUser, getOneReviewByIdreview, addOneReview, deleteReview, getReviewByMovieId, updateOneReview } from "../models/reviews_model.js";
 
 export async function getReviewsUser(req, res, next) {
   try {
@@ -39,7 +39,7 @@ export async function getAReviewbyMovieid(req, res, next) {
 export async function addReview(req, res, next) {
   console.log("add called");
   try {
-    console.log(req.body);
+    console.log("Request body:", req.body);
     const response = await addOneReview(req.body);
     res.json(response);
   } catch (err) {
@@ -49,6 +49,7 @@ export async function addReview(req, res, next) {
 
 export async function updateReview(req, res, next) {
   try {
+    console.log("Request body:", req.body);
     const response = await updateOneReview(req.params.id, req.body);
     res.json(response);
   } catch (err) {

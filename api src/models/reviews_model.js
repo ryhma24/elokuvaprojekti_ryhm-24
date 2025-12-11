@@ -27,13 +27,13 @@ export async function getOneReviewByIdreview(id) {
 
 export async function addOneReview(userReview) {
   console.log("lisätään elokuva"); //tässä luodaan automaattisesti autoinkrementillä uusi review, missä idreview sarake luodaan automaattisesi.
-  const result = await pool.query("INSERT INTO reviews (review, rating, idaccount, idmovie, date) VALUES($1,$2,$3,$4,$5)", [userReview.review, userReview.rating, userReview.idaccount, userReview.idmovie, userReview.date]);
+  const result = await pool.query("INSERT INTO reviews (review, rating, idaccount, idmovie, date, ismovie) VALUES($1,$2,$3,$4,$5,$6)", [userReview.review, userReview.rating, userReview.idaccount, userReview.idmovie, userReview.date, userReview.ismovie]);
   return result.rows;
 }
 
 export async function updateOneReview(id, userReview) {
   console.log("update:"+id); //tässä päivitetään olemassa oleva review idreviewsin perusteella.
-  const result = await pool.query("UPDATE reviews SET review=$1, rating=$2, idaccount=$3, idmovie=$4, date=$5 WHERE idreviews = $6", [userReview.review, userReview.rating, userReview.idaccount, userReview.idmovie, userReview.date, id]);
+  const result = await pool.query("UPDATE reviews SET review=$1, rating=$2, idaccount=$3, idmovie=$4, date=$5, ismovie=$6 WHERE idreviews = $7", [userReview.review, userReview.rating, userReview.idaccount, userReview.idmovie, userReview.date, userReview.ismovie, id]);
   return result.rows;
 }
 
