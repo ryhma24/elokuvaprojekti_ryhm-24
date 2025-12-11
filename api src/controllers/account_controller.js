@@ -32,9 +32,9 @@ export async function getId(req, res, next) {
 export async function getEmail(req, res, next) {
   try {
     const { username }  = req.params;
-    console.log("tässä on un "+ username)
-    const userId = await getEmailFromAccount(username);
-    res.json(userId);
+    const userEmail = await getEmailFromAccount(username);
+    console.log("user email: "+JSON.stringify(userEmail))
+    res.json(userEmail);
   } catch (err) {
     next(err);
   }
@@ -89,7 +89,7 @@ export async function changeEmail(req, res, next) {
 
       if(!validateEmail(email))
       {
-        res.status(400).json({ error: "Please use correct email format!"});
+        return res.status(400).json({ error: "Please use correct email format!"});
       }
 
 
