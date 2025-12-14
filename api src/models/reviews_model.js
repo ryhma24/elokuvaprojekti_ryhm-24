@@ -39,6 +39,6 @@ export async function updateOneReview(id, userReview) {
 
 export async function deleteReview(id) {
   console.log("delete:"+id); //tässä poistetaan olemassa oleva review idreviewsin perusteella.
-  const result = await pool.query("DELETE FROM reviews WHERE idreviews = $1", [id]);
+  const result = await pool.query("DELETE FROM reviews WHERE idreviews = $1 RETURNING idreviews", [id]);
   return result.rows;
 }
