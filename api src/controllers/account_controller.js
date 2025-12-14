@@ -279,7 +279,7 @@ export async function logout(req, res, next) {
 
 export async function deleteOneAccount(req, res, next) {
   try {
-    console.log("täs on un "+req.params.id)
+    console.log("poistetaan käyttäjä: "+req.params.id)
     const accountData = await deleteAccount(req.params.id);
     
      if (!accountData) {

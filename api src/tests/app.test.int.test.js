@@ -111,7 +111,7 @@ test("11) POST reviews → 409, arvostelu dublikaatti", async () => {
   .get("/getid/testuser")
   .set('Authorization', `Bearer ${token}`)
 
-  const accId = JSON.stringify(id.text).replace(/\D/g, ""); // käyttäjän id tulee hankalassa muodossa, pitää sorttia tällä 
+  const accId = JSON.stringify(id.text).replace(/\D/g, "");
   console.log(accId)
   
   const res = await request(app)
@@ -131,7 +131,7 @@ test("13) POST reviews → 400, puuttuvia arvoja", async () => {
   .get("/getid/testuser")
   .set('Authorization', `Bearer ${token}`)
 
-  const accId = JSON.stringify(id.text).replace(/\D/g, ""); // käyttäjän id tulee hankalassa muodossa, pitää sorttia tällä 
+  const accId = JSON.stringify(id.text).replace(/\D/g, "");
   console.log(accId)
   
   const res = await request(app)

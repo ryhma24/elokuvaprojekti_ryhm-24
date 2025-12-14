@@ -38,14 +38,14 @@ export async function getAReviewbyMovieid(req, res, next) {
 
 export async function addReview(req, res, next) {
   try {
-    const { review, rating, idaccount, idmovie, date } = req.body;
+    const { review, rating, idaccount, idmovie, date, ismovie } = req.body;
 
-    if (!review || !rating || !idaccount || !idmovie || !date) {
+    if (!review || !rating || !idaccount || !idmovie || !date || !ismovie) {
       return res.status(400).json({ error: "request missing column data!" });
     }
     console.log("Request body:", req.body);
     const response = await addOneReview(req.body);
-    res.json(response);
+    res.json({message: "review added successfully!"}, response);
   } catch (err) {
     console.log(err);
     if(err.code === "23505")
@@ -69,10 +69,12 @@ export async function updateReview(req, res, next) {
 export async function deleteOneReview(req, res, next) {
   try {
     const moviedata = await deleteReview(req.params.id);
-     if (!moviedata) {
+    if (moviedata.length === 0) {
       return res.status(404).json({ error: "review not found" });
     }
-    res.json(moviedata);
+    res.json(
+    {message: "review deleted", id: req.params.id}, 
+    moviedata);
   } catch (err) {
     next(err);
   }
