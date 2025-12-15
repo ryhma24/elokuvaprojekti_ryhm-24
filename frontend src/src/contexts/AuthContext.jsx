@@ -102,6 +102,27 @@ export function AuthProvider({ children }) {
     setAccessToken(null);
   };
 
+  const checkPass = async (password) => {
+    const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/checkpass`, {
+      method: "POST",
+      headers: {
+          "Authorization": `Bearer ${accessToken}`, "Content-Type": "application/json" 
+        },
+      credentials: "include",
+      body: JSON.stringify({ username: user.username, password }),
+    });
+
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(error.error || "password check failed");
+    }
+
+    const PwCheck = await res.json();
+    return PwCheck;
+    
+  };
+
+
   const changePw = async (password) => {
     const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/changePassword`, {
       method: "PUT",
@@ -175,6 +196,7 @@ export function AuthProvider({ children }) {
     });
 
     if (!res.ok) {
+      console.log("joku ongelma: "+JSON.stringify(res))
       const error = await res.json();
       throw new Error(error.error || "delete cancel failure");
     }
@@ -224,7 +246,8 @@ export function AuthProvider({ children }) {
     idaccount,
     changeEmail,
     getEmail,
-    accEmail
+    accEmail,
+    checkPass
   };
  
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -111,6 +111,27 @@ export async function authenticateAccount(username, password) {
   return null;
 }
 
+export async function comparePassword(username, password) {
+  const result = await pool.query(
+    "SELECT username, password, idaccount FROM account WHERE username = $1",
+    [username]
+  );
+
+  if (result.rows.length === 0) {
+    console.log("käyttäjää ei löytynyt");
+    return null;
+  }
+
+  const user = result.rows[0];
+  const isValid = await bcrypt.compare(password, user.password);
+
+  if (isValid) 
+  {
+  return {"passcheck":true};
+  }
+  return {"passcheck":false};
+}
+
 export async function saveRefreshToken(username, refreshToken) {
   const result = await pool.query(
     "UPDATE account SET refresh_token = $1 WHERE username = $2 RETURNING username",
