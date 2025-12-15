@@ -10,31 +10,47 @@ const StarRating = ({ typeLabel, movieId }) => {
     const [ismovie, setIsmovie ] = useState(null)
     const { accessToken, idaccount } = useAuth();
     const { reviewState, setReviewState } = useReview();
-    const review = reviewState.find(r => r.idmovie === movieId);
+    const review = Array.isArray(reviewState)
+        ? reviewState.find(r => r.idmovie === movieId)
+        : undefined;
     const idreviews = review?.idreviews;
     const currentRating = review?.rating || 0;
     const REACT_APP_API_URL = "http://localhost:3001"
 
     useEffect(() => {
-        const existingReview = reviewState.find(r => r.idmovie === movieId);
-        if (existingReview) {
-        setRating(existingReview.rating);
-        }
-        if(typeLabel === "movie"){
-                setIsmovie(true)
-            }else{
-                setIsmovie(false)
+        if (Array.isArray(reviewState)) {
+            const existingReview = reviewState.find(r => r.idmovie === movieId);
+        
+            if (existingReview) {
+                setRating(existingReview.rating);
             }
-    }, [reviewState, movieId]);
+        }
+            if(typeLabel === "movie"){
+                console.log("typeLabel", typeLabel)
+                    setIsmovie(true)
+                }else{
+                    setIsmovie(false)
+                }
+    }, [reviewState, movieId, typeLabel]);
+
+    
 
     async function onRatingStarClick(currentRating){
         try {
+            console.log("idreviews",idreviews)
             const url = idreviews
                 ? `${REACT_APP_API_URL}/reviews/${idreviews}`
                 : `${REACT_APP_API_URL}/reviews`;
 
             const method = idreviews ? "PUT" : "POST";
-
+            console.log("post:", {
+                review: review?.review || "",
+                    rating: currentRating,
+                    idaccount: idaccount,
+                    idmovie: movieId,
+                    date: formatToday(),
+                    ismovie: ismovie
+            })
             const res = await fetch(url, {
                 method: method,
                 headers: {
@@ -52,20 +68,28 @@ const StarRating = ({ typeLabel, movieId }) => {
             });
 
             const updated = await res.json();
+            //console.log("typeLabel", typeLabel)
+            //console.log("ismovie", ismovie)
 
-            setReviewState(prev =>
-                prev.map(r =>
-                    r.idreviews === idreviews
-                    ? { ...r, ...updated, rating: currentRating }
-                    : r
-                )
-            );
+            setReviewState(prev => {
+                if(idreviews) {
+                    return prev.map(r =>
+                        r.idreviews === idreviews
+                        ? { ...r, ...updated, rating: currentRating }
+                        : r
+                    )
+                } else {
+                    return [...prev, { ...updated, rating: currentRating }];
+                }
+            });
    
         
         } catch (err) {
             console.error("Error updating review:", err);
         }
     }
+
+    
 
     return  <div className='rating'>
                 {[...Array(5)].map((star, i) => {
@@ -98,7 +122,6 @@ const FetchRating = ({vote_average}) => {
     return (
         <div className="tooltip">
             <div className='ratingResult'>
-                <p className='ratingResultLabel'>TMDB Rating</p>
                 {[...Array(5)].map((star, i) => {
                     const ratingValue = i + 1;
                     return (
@@ -123,9 +146,10 @@ const MakeAComment = ({ movieId, typeLabel }) => {
     const { accessToken, idaccount } = useAuth();
     const { reviewState, setReviewState } = useReview();
     const { user } = useAuth();
-    const review = reviewState.find(r => r.idmovie === movieId);
+    const review = Array.isArray(reviewState)
+        ? reviewState.find(r => r.idmovie === movieId)
+        : undefined;
     const idreviews = review?.idreviews;
-    const currentComment = review?.review || "";
     const REACT_APP_API_URL = "http://localhost:3001"
 
     useEffect(() => {
@@ -134,10 +158,10 @@ const MakeAComment = ({ movieId, typeLabel }) => {
             }else{
                 setIsmovie(false)
             }
+        
     }, [reviewState, movieId]);
 
     const onReviewSubmit = async (e) => {
-        e.preventDefault();
 
         try {
             const url = idreviews

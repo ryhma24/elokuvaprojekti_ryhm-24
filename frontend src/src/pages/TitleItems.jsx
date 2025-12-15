@@ -12,15 +12,17 @@ const TitleItems = () => {
   const { type, id } = useParams();
   const [data, setData] = useState(null);
   const { favouriteState, setFavouriteState } = useFavourites();
-  const { reviewState, setReviewState } = useReview();
-  const { accessToken } = useAuth();
+  const { reviewState, movieReviews, fetchReviewsByMovieId } = useReview();
+  const { accessToken, user } = useAuth();
   const [showCommentForm, setShowCommentForm] = useState(false);
 
  
   useEffect(() => {
+
     const getTitleInfo = async () => {
       const apiKey1 = import.meta.env.VITE_API_KEY;
       console.log("API KEY:ss", import.meta.env.VITE_API_KEY);
+      console.log("moviereviews", movieReviews);
       try {
         const response = await fetch(`https://api.themoviedb.org/3/${type}/${id}?language=en-US&api_key=${apiKey1}`)
 
@@ -29,6 +31,7 @@ const TitleItems = () => {
         const json = await response.json();
         setData(json)
 
+
       } catch (error) {
         console.error('Error fetching movie data:', error)
         }
@@ -36,9 +39,27 @@ const TitleItems = () => {
     getTitleInfo();
     console.log("type",type)
     console.log("id",id)
+    
   }, [type, id]);
 
+  useEffect(() => {
+    if (data?.id) {
+      fetchReviewsByMovieId(data.id);
+      console.log("movieid", data.id);
+      console.log("moviereviews", movieReviews);
+    }
+  }, [data]);
+
   if (!data) return <p>Loading...</p>;
+
+  
+
+
+  //console.log("reviewState type:", typeof reviewState, reviewState);
+  const userReview = Array.isArray(reviewState)
+  ? reviewState.find(r => r.idmovie === data?.id)
+  : undefined;
+  //console.log("revireestate", reviewState)
 
   if(accessToken)
   {  
@@ -54,14 +75,20 @@ const TitleItems = () => {
                 </span> 
               </p>
               <div className="icons-row">
-                <FetchRating vote_average={data.vote_average}/>
-                <div className="your-rating">
-                  <p className='ratingLabel'>Your Rating</p>
-                  <StarRating 
-                  movieId={data.id}
-                  typeLabel={type}/>
+                <div className="tmdb-rating">
+                  <p className='ratingResultLabel'>TMDB Rating</p>
+                  <FetchRating vote_average={data.vote_average}/>
                 </div>
-    
+                {userReview && (
+                  <div className="your-rating">
+                    <p className='ratingLabel'>Your Rating</p>
+                    <StarRating 
+                    movieId={data.id}
+                    typeLabel={type}
+                    reviewState={reviewState}
+                    />
+                  </div>
+                )}
                 <FavouritesButton
                   typeLabel={type}
                   movieId={Number(id)}
@@ -69,7 +96,7 @@ const TitleItems = () => {
                   setFavouriteState={setFavouriteState}
                 />
               </div>
-              <p>Description: {data.overview}</p>
+              <p>{data.overview}</p>
               <p>Release date: {data.release_date || data.first_air_date}</p>
               <div className="review">
                 <button 
@@ -83,12 +110,27 @@ const TitleItems = () => {
                   <div className="popup">
                     <StarRating 
                       movieId={data.id}
-                      typeLabel={type}/>
+                      typeLabel={type}
+                      reviewState={reviewState}/>
                     <MakeAComment
                       typeLabel={type}
                       movieId={data.id} />
                     <button onClick={() => setShowCommentForm(false)}>Close</button>
                   </div>
+                )}
+              </div>
+              <div className="all-reviews">
+                <h2>User Reviews</h2>
+                {Array.isArray(movieReviews) && movieReviews.length > 0 ? (
+                  movieReviews.map(r => (
+                    <div key={r.idreviews} className="review-item">
+                      <p><strong>user{r.idaccount}</strong> rated {r.rating}/5</p>
+                      <p>{r.review}</p>
+                      <p className="review-date">{r.date}</p>
+                    </div>
+                  ))
+                ) : (
+                  <p>No reviews yet for this title.</p>
                 )}
               </div>
             </div>
@@ -122,7 +164,22 @@ const TitleItems = () => {
               </div>
               <p>Description: {data.overview}</p>
               <p>Release date: {data.release_date || data.first_air_date}</p>
+              <div className="all-reviews">
+                <h2>User Reviews</h2>
+                {Array.isArray(movieReviews) && movieReviews.length > 0 ? (
+                  movieReviews.map(r => (
+                    <div key={r.idreviews} className="review-item">
+                      <p><strong>user{r.idaccount}</strong> rated {r.rating}/5</p>
+                      <p>{r.review}</p>
+                      <p className="review-date">{r.date}</p>
+                    </div>
+                  ))
+                ) : (
+                  <p>No reviews yet for this title.</p>
+                )}
+              </div>
             </div>
+
             <div className="titleinfo-right">
               {data.poster_path && (
                 <img
