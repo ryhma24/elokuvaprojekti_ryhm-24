@@ -4,14 +4,13 @@ import { useAuth } from "./AuthContext";
 const ReviewContext = createContext();
 
 export const ReviewProvider = ({ children }) => {
-  const { accessToken, idaccount } = useAuth();
+  const { accessToken, idaccount, user } = useAuth();
   const [reviewState, setReviewState] = useState([]);
   const [movieReviews, setMovieReviews] = useState([]);  
 
   useEffect(() => {
     async function fetchReview() {
       if (!accessToken || !idaccount) return;
-
       try {
         const res = await fetch(`http://localhost:3001/reviews/${idaccount}`, {
           headers: {

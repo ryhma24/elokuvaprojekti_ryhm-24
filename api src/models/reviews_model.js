@@ -10,8 +10,6 @@ export async function getAllReviewsFromUser(id) {
 }
 
 export async function getReviewByMovieId(id) {
-
-  console.log(typeof id);
   //haetaan jonkun tietyn elokuvan kaikki reviewit
   const result = await pool.query("SELECT * FROM reviews WHERE idmovie = $1", [id]);
   return result.rows; 
