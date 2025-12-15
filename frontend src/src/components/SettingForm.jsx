@@ -219,7 +219,7 @@ if(confirmDeletion && accessToken && !deletionDate)
     </div>
   )
 }
-if(accessToken && deletionDate && !passWindowVisible)
+if(accessToken && deletionDate && !passWindowVisible && !emailWindowVisible)
   {
     return (
     <div class= "loginform">

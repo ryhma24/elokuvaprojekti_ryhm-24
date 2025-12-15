@@ -11,10 +11,6 @@ export const ReviewProvider = ({ children }) => {
   useEffect(() => {
     async function fetchReview() {
       if (!accessToken || !idaccount) return;
-
-      console.log(accessToken)
-      console.log(idaccount)
-      console.log(user)
       try {
         const res = await fetch(`http://localhost:3001/reviews/${idaccount}`, {
           headers: {

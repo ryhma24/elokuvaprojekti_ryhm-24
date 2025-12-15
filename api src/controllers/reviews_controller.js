@@ -47,7 +47,7 @@ export async function addReview(req, res, next) {
     const response = await addOneReview(req.body);
     res.json({message: "review added successfully!"}, response);
   } catch (err) {
-    console.log(err);
+    console.log("tässä on err:",err);
     if(err.code === "23505")
     {
       return res.status(409).json({ error: "Dublicate review" });
