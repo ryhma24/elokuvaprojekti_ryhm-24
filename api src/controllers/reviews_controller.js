@@ -40,7 +40,7 @@ export async function addReview(req, res, next) {
   try {
     const { review, rating, idaccount, idmovie, date, ismovie } = req.body;
 
-    if ( !rating || !idaccount || !idmovie || !date || ismovie === undefined) {
+    if ( !idaccount || !idmovie || !date || ismovie === undefined) {
       return res.status(400).json({ error: "request missing column data!" });
     }
     console.log("Request body:", req.body);
