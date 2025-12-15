@@ -1,11 +1,13 @@
 services:
   db:
-    image: postgres:18
+    image: postgres:16
     container_name: postgres_db
     env_file:
       - .env
     volumes:
       - pgdata:/var/lib/postgresql/data
+      
+      - ./moviedb3.sql:/docker-entrypoint-initdb.d/moviedb3.sql
     ports:
       - "5432:5432"
   api:
