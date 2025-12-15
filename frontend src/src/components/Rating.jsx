@@ -43,7 +43,14 @@ const StarRating = ({ typeLabel, movieId }) => {
                 : `${REACT_APP_API_URL}/reviews`;
 
             const method = idreviews ? "PUT" : "POST";
-
+            console.log("post:", {
+                review: review?.review || "",
+                    rating: currentRating,
+                    idaccount: idaccount,
+                    idmovie: movieId,
+                    date: formatToday(),
+                    ismovie: ismovie
+            })
             const res = await fetch(url, {
                 method: method,
                 headers: {
