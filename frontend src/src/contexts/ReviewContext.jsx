@@ -23,7 +23,14 @@ export const ReviewProvider = ({ children }) => {
         });
 
         const data = await res.json();
-        setReviewState(data);
+
+        if (Array.isArray(data)) {
+          setReviewState(data);
+        } else if (Array.isArray(data.reviews)) {
+          setReviewState(data.reviews);
+        } else {
+          setReviewState([]);
+        }
 
       } catch (err) {
         console.error("Error fetching reviews:", err);
@@ -42,10 +49,18 @@ export const ReviewProvider = ({ children }) => {
           }
         });
       const data = await res.json();
-      setMovieReviews(data);
+
+      if (Array.isArray(data)) {
+        setMovieReviews(data);
+      } else if (Array.isArray(data.reviews)) {
+        setMovieReviews(data.reviews);
+      } else {
+        setMovieReviews([]);
+      }
 
     } catch (err) {
       console.error("Error fetching reviews:", err);
+      setMovieReviews([]);
     }
   }
 
