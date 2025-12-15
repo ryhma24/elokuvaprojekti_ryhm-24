@@ -9,7 +9,7 @@ const StarRating = ({ typeLabel, movieId }) => {
     const [hover, setHover] = useState(null)
     const [ismovie, setIsmovie ] = useState(null)
     const { accessToken, idaccount } = useAuth();
-    const { reviewState, setReviewState } = useReview();
+    const { reviewState, setReviewState } = useReview([]);
     const review = Array.isArray(reviewState)
         ? reviewState.find(r => r.idmovie === movieId)
         : undefined;
@@ -70,7 +70,8 @@ const StarRating = ({ typeLabel, movieId }) => {
             const updated = await res.json();
             //console.log("typeLabel", typeLabel)
             //console.log("ismovie", ismovie)
-
+            
+  
             setReviewState(prev => {
                 if(idreviews) {
                     return prev.map(r =>
@@ -144,7 +145,7 @@ const MakeAComment = ({ movieId, typeLabel }) => {
     const [comment, setComment] = useState("");
     const [ismovie, setIsmovie ] = useState(null)
     const { accessToken, idaccount } = useAuth();
-    const { reviewState, setReviewState } = useReview();
+    const { reviewState, setReviewState } = useReview([]);
     const { user } = useAuth();
     const review = Array.isArray(reviewState)
         ? reviewState.find(r => r.idmovie === movieId)
