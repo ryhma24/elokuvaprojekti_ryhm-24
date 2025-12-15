@@ -103,15 +103,11 @@ const TitleItems = () => {
                   className="addreview-btn"
                   onClick={() => setShowCommentForm(prev => !prev)}
                 >
-                  Add Review
+                  {userReview ? "Edit Review" : "Add Review"}
                 </button>
 
                 {showCommentForm && (
                   <div className="popup">
-                    <StarRating 
-                      movieId={data.id}
-                      typeLabel={type}
-                      reviewState={reviewState}/>
                     <MakeAComment
                       typeLabel={type}
                       movieId={data.id} />
