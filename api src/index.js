@@ -28,10 +28,10 @@ app.use(cookieParser());
 app.use("/", accountRouter);
 
 app.get("/favourites/:id", getFavourites);
+app.use("/reviews", reviewsRouter);
 // tästä alaspäin kaikki reitit suojataan //
 
 app.use("/favourites", authenticateToken, favouritesRouter)
-app.use("/reviews", authenticateToken, reviewsRouter);
 app.use("/group-members", groupMembersRouter);
 app.use("/groups", groupsRouter);
 
