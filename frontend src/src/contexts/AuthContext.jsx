@@ -18,7 +18,7 @@ export function AuthProvider({ children }) {
   
   
   const getDeletionDate = async () => {
-  const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/getdeletiondate/${user.username}`, {
+  const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/getdeletiondate/${user}`, {
       credentials: "include", // Lähetä ja vastaanota cookies
       headers: {
           "Authorization": `Bearer ${accessToken}`, 
@@ -36,7 +36,7 @@ export function AuthProvider({ children }) {
   }
 
   const getEmail = async () => {
-  const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/getemail/${user.username}`, {
+  const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/getemail/${user}`, {
       credentials: "include",
       headers: {
           "Authorization": `Bearer ${accessToken}`, 
@@ -54,7 +54,7 @@ export function AuthProvider({ children }) {
   }
 
   const getDeletionFlag = async () => {
-  const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/getflagged/${user.username}`, {
+  const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/getflagged/${user}`, {
       credentials: "include", // Lähetä ja vastaanota cookies
       headers: {
           "Authorization": `Bearer ${accessToken}`
@@ -85,8 +85,12 @@ export function AuthProvider({ children }) {
     }
 
     const data = await res.json();
-    setIdaccount({idaccount: data.idaccount});
-    setUser({ username: data.username });
+
+    //setIdaccount({idaccount: data.idaccount}); 
+    //setUser({ username: data.username });
+    
+    setIdaccount(data.idaccount);
+    setUser(data.username);
     setAccessToken(data.accessToken);
     return data;
   };
@@ -109,7 +113,7 @@ export function AuthProvider({ children }) {
           "Authorization": `Bearer ${accessToken}`, "Content-Type": "application/json" 
         },
       credentials: "include",
-      body: JSON.stringify({ username: user.username, password }),
+      body: JSON.stringify({ username: user, password }),
     });
 
     if (!res.ok) {
@@ -130,7 +134,7 @@ export function AuthProvider({ children }) {
           "Authorization": `Bearer ${accessToken}`, "Content-Type": "application/json" 
         },
       credentials: "include",
-      body: JSON.stringify({ username: user.username, password }),
+      body: JSON.stringify({ username: user, password }),
     });
 
     if (!res.ok) {
@@ -150,7 +154,7 @@ export function AuthProvider({ children }) {
           "Authorization": `Bearer ${accessToken}`, "Content-Type": "application/json" 
         },
       credentials: "include",
-      body: JSON.stringify({ username: user.username, email }),
+      body: JSON.stringify({ username: user, email }),
     });
 
     if (!res.ok) {
@@ -189,7 +193,7 @@ export function AuthProvider({ children }) {
     const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/cancelDeletionFlag`, {
       method: "PUT",
       credentials: "include",
-      body: JSON.stringify({username: user.username}),
+      body: JSON.stringify({username: user}),
       headers: {
           "Authorization": `Bearer ${accessToken}`, "Content-Type": "application/json" 
         },
@@ -218,7 +222,7 @@ export function AuthProvider({ children }) {
         //console.log(data)
         // Dekoodaa username tokenista
         const payload = JSON.parse(atob(data.accessToken.split('.')[1]));
-        setUser({ username: payload.username });
+        setUser(payload.username);
 
       }
     } catch (error) {
