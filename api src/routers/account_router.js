@@ -2,7 +2,8 @@ import { Router } from "express";
 
 import { getAccounts, addAccount, login, refreshAccessToken, 
          logout, deleteOneAccount, setAccountForDeletion, cancelAccountDeletion, 
-         getFlags, getDeletionDateFromAcc, changePassword, changeEmail, getId, getEmail
+         getFlags, getDeletionDateFromAcc, changePassword,
+         changeEmail, getId, getEmail, checkPassword
        } from "../controllers/account_controller.js";
 
 import { authenticateToken } from "../middleware/auth.js";
@@ -16,6 +17,7 @@ accountRouter.post("/logout", logout);
 accountRouter.post("/refresh", refreshAccessToken);
 
 // Suojatut reitit (vaativat autentikoinnin)
+accountRouter.post("/checkpass",authenticateToken, checkPassword);
 accountRouter.get("/getemail/:username",authenticateToken, getEmail);
 accountRouter.get("/getflagged/:username",authenticateToken, getFlags);
 accountRouter.get("/getid/:username", authenticateToken, getId);

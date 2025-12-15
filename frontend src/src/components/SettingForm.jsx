@@ -6,6 +6,7 @@ function SettingsForm({ onClose }) {
 
   const [username, setUsername] = useState("");
   const [newEmail, setNewEmail] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordAgain, setNewPasswordAgain] = useState("");
 
@@ -19,7 +20,7 @@ function SettingsForm({ onClose }) {
   const { accessToken, setAccountForDeletion, 
           getDeletionFlag, deletionDate, getDeletionDate, 
           cancelDeletion, changePw, changeEmail,
-          getEmail, accEmail } = useAuth();
+          getEmail, accEmail, checkPass } = useAuth();
   const currentuser = currentUser();
 
   
@@ -62,9 +63,9 @@ if(accessToken)
     
         try 
         {
-          await cancelDeletion(); //funktio flagaamiselle joskus tähän
+          await cancelDeletion();
         } catch (err) {
-          setError() //catchataan virheet
+          setError("cancel deletion error")
         } finally 
         {
           setMessage("Account deletion cancelled!");
@@ -75,6 +76,28 @@ if(accessToken)
     e.preventDefault();
     setError("");
     setMessage("");
+
+    if(oldPassword.length === 0)
+    {
+      return setError("Please enter your current password")
+    }
+    try 
+    {
+      const checkedPass = await checkPass(oldPassword)
+      console.log("tässä on checkedpass: "+JSON.stringify(checkedPass.passcheck));
+    } 
+    catch (error) 
+    {
+      console.log("in error!")
+      return setError("Wrong current password!")
+    }
+    finally
+    {
+      setNewPassword("");
+      setNewPasswordAgain("");
+      setOldPassword("");
+    }
+    
     if(newPassword === newPasswordAgain)
       {
         try 
@@ -83,6 +106,12 @@ if(accessToken)
           setMessage("Password changed succesfully!"); 
         } catch (err) {
           setError(err.message)
+        }
+         finally
+        {
+          setNewPassword("");
+          setNewPasswordAgain("");
+          setOldPassword("");
         }
       }
     else
@@ -160,7 +189,7 @@ if(confirmDeletion && accessToken && !deletionDate)
       <div className="settingBtns">
       <form className="formContainer" onSubmit={deleteaccount}>
         <div >
-          <label id="fieldText">Give your username to confirm:</label>
+          <label id="fieldText">Enter your username to confirm:</label>
           <br></br>
           <br></br>
           <input id="field"
@@ -230,15 +259,22 @@ if(passWindowVisible && accessToken)
       <h2>Account settings</h2>   
 
       <form className="formContainer" onSubmit={changepassFrontend}>
+         <div>
+          <label id="fieldText">Enter your current password:</label>
+          <input id="field"
+            type="password"
+            value={oldPassword}
+            onChange={(e) => setOldPassword(e.target.value)}/>
+        </div>
         <div>
-          <label id="fieldText">Give your new password:</label>
+          <label id="fieldText">Enter your new password:</label>
           <input id="field"
             type="password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}/>
         </div>
         <div>
-          <label id="fieldText">Give your new password again:</label>
+          <label id="fieldText">Enter your new password again:</label>
           <input id="field"
             type="password"
             value={newPasswordAgain}
@@ -275,7 +311,7 @@ if(emailWindowVisible && accessToken)
 
       <form className="formContainer" onSubmit={changeEmailFrontend}>
         <div>
-          <label id="fieldText">Give your new email:</label>
+          <label id="fieldText">Enter your new email:</label>
           <input id="field"
             type="text"
             value={newEmail}
