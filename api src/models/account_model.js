@@ -54,6 +54,26 @@ export async function getDeletionDate(username) {
   return result.rows;
 }
 
+export async function setAvatarId(idavatar, username) {
+ 
+  console.log("idavatar: ",idavatar);
+
+  const result = await pool.query
+  ("UPDATE account SET idavatar = $1 WHERE username = $2 RETURNING username",
+    [idavatar, username]
+  );
+  return result.rows;
+}
+
+export async function getAvatarId(username) {
+ 
+  console.log(username);
+  const result = await pool.query
+  ("SELECT idavatar FROM account WHERE username = $1", [username]
+  );
+  return result.rows;
+}
+
 export async function setDeletionFlag(username) {
  
   //asetetaan account poistoa varten 2 viikon päähän
