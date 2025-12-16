@@ -140,7 +140,9 @@ const TitleItems = () => {
                        <section className="userinfotext">
                           <p className="text"><strong>{r.username}</strong> rated {r.rating}/5<br></br>{r.date}</p>
                           </section>
-                      <p className="text">{r.review}</p>
+                      <section className="commentcontainer">
+                      <p className="comment">{r.review}</p>
+                      </section>
                     </div>
                   ))
                 ) : (
@@ -192,7 +194,7 @@ const TitleItems = () => {
                           </section>
                       <p className="text">{r.review}</p>
                     </div>
-                    
+
                   ))
                 ) : (
                   <p>No reviews yet for this title.</p>

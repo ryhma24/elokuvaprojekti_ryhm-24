@@ -42,9 +42,10 @@
 }
 .review-item
 {
+    gap: 1ch;
     align-items: center;
     width: 500px;
-    height: 150px;
+    height: 160px;
     display: grid;
     grid-template-columns: 150px 100px auto;
     border-radius: 5px;
@@ -72,7 +73,12 @@
   align-items: center;
   padding: 10px;
 }
-#text
+.commentcontainer
 {
-
+    width: 200px;
+    overflow-wrap: break-word;     
+}
+.comment
+{
+text-align: left;
 }
