@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/AuthContext.jsx";
 import { FaStar, FaRegStar, FaStarHalfStroke } from 'react-icons/fa6'
 import { useReview } from "../contexts/ReviewContext";
 import { formatToday } from '../middleware/date-formatter.js';
-import { fetchAvatar, fetchAvatarIndex } from '../middleware/fetchAvatar.jsx';
+import { fetchAvatar } from '../middleware/fetchAvatar.jsx';
 
 const StarRating = ({ typeLabel, movieId }) => {
     const [currentAvatar, setCurrentAvatar] =useState("")
@@ -204,8 +204,7 @@ const MakeAComment = ({ movieId, typeLabel }) => {
     }
 
     const onReviewSubmit = async (e) => {
-        //e.preventDefault()
-        console.log("toimiiko?")
+
         try {
             const url = idreviews
                 ? `${REACT_APP_API_URL}/reviews/${idreviews}`
