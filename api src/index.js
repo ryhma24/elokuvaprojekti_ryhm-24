@@ -14,7 +14,7 @@ import { getFavourites } from './controllers/favourites_controller.js';
 
 const port = process.env.PORT
 const app = express()
-
+const host = process.env.DB_HOST
 
 //app.use(cors())
 app.use(cors({
@@ -37,5 +37,6 @@ app.use("/groups", groupsRouter);
 
 app.listen(port, () => {
   console.log(`Server is listening port ${port}`);
+  console.log(`Server is hosting ${host}`);
 });
 export default app;
