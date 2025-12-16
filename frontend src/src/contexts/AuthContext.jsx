@@ -217,6 +217,7 @@ export function AuthProvider({ children }) {
 
       if (res.ok) {
         const data = await res.json();
+  
         setAccessToken(data.accessToken);
         setIdaccount(data.idaccount);
         //console.log(data)

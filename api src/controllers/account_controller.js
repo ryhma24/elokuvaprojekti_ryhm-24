@@ -4,7 +4,8 @@ import {
        clearRefreshToken, deleteAccount, setDeletionFlag, 
        cancelDeletionFlag, checkDeletionFlagFromuser, 
        getDeletionDate, UpdatePassword, UpdateEmail, 
-       getIdFromAccount, getEmailFromAccount, comparePassword
+       getIdFromAccount, getEmailFromAccount, comparePassword,
+       setAvatarId, getAvatarId
        } from "../models/account_model.js";
 
 import {generateAccessToken, generateRefreshToken, verifyRefreshToken} from "../utils/jwt.js";
@@ -133,6 +134,32 @@ export async function addAccount(req, res, next) {
     if (err.code === '23505') { // PostgreSQL unique violation
       return res.status(409).json({ error: "Username already exists" });
     }
+    next(err);
+  }
+}
+
+export async function setAvatar(req, res, next) {
+  try {
+      const { username, idavatar } = req.body;
+      const response = await setAvatarId(idavatar, username);
+      
+      res.status(200).json({message: "avatar set!"});
+    } catch (err) {
+      next(err);
+    }
+}
+export async function getAvatar(req, res, next) {
+  try {
+    const { username } = req.params;
+
+    const idavatar = await getAvatarId(username);
+    console.log("tässä on un"+JSON.stringify(req.params))
+    if(idavatar.length === 0)
+      {
+        return res.status(404).json({message: "idavatar not found"})
+      }
+    res.json(idavatar);
+  } catch (err) {
     next(err);
   }
 }
