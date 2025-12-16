@@ -39,3 +39,44 @@
   margin-top: 10px;
   font-weight: bold;
 }
+
+.group-right-side {
+  width: 100%;
+  width: 200px;
+  padding: 1rem;
+  background: none;
+}
+
+.addedTitles {
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  min-height: 200px;
+}
+
+.addedTitles .movie-card {
+  flex: 0 1 300px;    
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+}
+
+.addedTitles .movie-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-bottom: 1px solid #eee;
+}
+
+.addedTitles .remove-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  color: #fff;
+  border: none;
+  
+}
