@@ -8,7 +8,7 @@ const SALT_ROUNDS = 10;
 export async function addOne(username, password, email) {
   const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
   const result = await pool.query(
-    "INSERT INTO account (username, password, email, deletion_flag) VALUES ($1, $2, $3, FALSE) RETURNING username",
+    "INSERT INTO account (username, password, email, deletion_flag, idavatar) VALUES ($1, $2, $3, FALSE, 7) RETURNING username",
     [username, hashedPassword, email]
   );
   return result.rows[0];

@@ -220,7 +220,6 @@ export function AuthProvider({ children }) {
   
         setAccessToken(data.accessToken);
         setIdaccount(data.idaccount);
-        //console.log(data)
         // Dekoodaa username tokenista
         const payload = JSON.parse(atob(data.accessToken.split('.')[1]));
         setUser(payload.username);
