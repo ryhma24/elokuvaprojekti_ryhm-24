@@ -37,17 +37,18 @@ export async function getAReviewbyMovieid(req, res, next) {
 }
 
 export async function addReview(req, res, next) {
+  console.log("addreview kutsuttu!")
   try {
-    const { review, rating, idaccount, idmovie, date, ismovie } = req.body;
+    const { review, rating, idaccount, idmovie, date, ismovie, username, idavatar } = req.body;
 
-    if ( !idaccount || !idmovie || !date || ismovie === undefined) {
+    if ( !username || !idaccount || !idmovie || !date || ismovie === undefined) {
       return res.status(400).json({ error: "request missing column data!" });
     }
     console.log("Request body:", req.body);
     const response = await addOneReview(req.body);
     res.json({message: "review added successfully!"}, response);
   } catch (err) {
-    console.log(err);
+    console.log("tässä on err:",err);
     if(err.code === "23505")
     {
       return res.status(409).json({ error: "Dublicate review" });
