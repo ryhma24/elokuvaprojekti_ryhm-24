@@ -6,7 +6,16 @@ import { useReview } from "../contexts/ReviewContext";
 import { FavouritesButton } from "../components/Favourites";
 import { FetchRating, StarRating, MakeAComment } from "../components/Rating"
 import { useAuth } from "../contexts/AuthContext.jsx";
+import { fetchAvatar } from "../middleware/fetchAvatar.jsx";
 
+
+import crying from '/src/icons/crying.png'
+import dead from '/src/icons/dead.png'
+import lemon from '/src/icons/lemon.png'
+import star from '/src/icons/star.png'
+import sus from '/src/icons/suspicious.png'
+import wink from '/src/icons/wink.png'
+import yum from '/src/icons/yum.png'
 
 const TitleItems = () => {
   const { type, id } = useParams();
@@ -15,6 +24,9 @@ const TitleItems = () => {
   const { reviewState, movieReviews, fetchReviewsByMovieId } = useReview();
   const { accessToken, user } = useAuth();
   const [showCommentForm, setShowCommentForm] = useState(false);
+
+  const [fetchedAvatarIndex, setIndex] = useState("")
+  const [currentAvatar, setCurrentAvatar] =useState("")
 
  
   useEffect(() => {
@@ -119,10 +131,16 @@ const TitleItems = () => {
                 <h2>User Reviews</h2>
                 {Array.isArray(movieReviews) && movieReviews.length > 0 ? (
                   movieReviews.map(r => (
+
                     <div key={r.idreviews} className="review-item">
-                      <p><strong>user{r.idaccount}</strong> rated {r.rating}/5</p>
-                      <p>{r.review}</p>
-                      <p className="review-date">{r.date}</p>
+                     
+                      <section className="userinfoicon">
+                        <img id="usericon" src={`/src/icons/${r.idavatar}.png`} width="68" height="68"></img>
+                      </section>
+                       <section className="userinfotext">
+                          <p className="text"><strong>{r.username}</strong> rated {r.rating}/5<br></br>{r.date}</p>
+                          </section>
+                      <p className="text">{r.review}</p>
                     </div>
                   ))
                 ) : (
@@ -165,10 +183,16 @@ const TitleItems = () => {
                 {Array.isArray(movieReviews) && movieReviews.length > 0 ? (
                   movieReviews.map(r => (
                     <div key={r.idreviews} className="review-item">
-                      <p><strong>user{r.idaccount}</strong> rated {r.rating}/5</p>
-                      <p>{r.review}</p>
-                      <p className="review-date">{r.date}</p>
+                     
+                      <section className="userinfoicon">
+                        <img id="usericon" src={`/src/icons/${r.idavatar}.png`} width="68" height="68"></img>
+                      </section>
+                       <section className="userinfotext">
+                          <p className="text"><strong>{r.username}</strong> rated {r.rating}/5<br></br>{r.date}</p>
+                          </section>
+                      <p className="text">{r.review}</p>
                     </div>
+                    
                   ))
                 ) : (
                   <p>No reviews yet for this title.</p>
