@@ -7,7 +7,6 @@ import { formatToday } from '../middleware/date-formatter.js';
 import { fetchAvatar } from '../middleware/fetchAvatar.jsx';
 
 const StarRating = ({ typeLabel, movieId }) => {
-    //const [currentAvatarIndex, setCurrentAvatarIndex] =useState("")
     const [currentAvatar, setCurrentAvatar] =useState("")
 
     const [rating, setRating] = useState(null)
@@ -47,7 +46,6 @@ const StarRating = ({ typeLabel, movieId }) => {
     async function getIconData(user)
     {
     setCurrentAvatar(await fetchAvatar(user))
-    //setCurrentAvatarIndex(await fetchAvatarIndex(user))
     }
 
     async function onRatingStarClick(currentRating){
@@ -152,6 +150,24 @@ const FetchRating = ({vote_average}) => {
     )
 }
 
+const CommentStars = ({rating}) => {   
+
+    return (
+            <div className='commentstars'>
+                {[...Array(5)].map((star, i) => {
+                    const ratingValue = i + 1;
+                    return (
+                        <FaStar
+                            key={ratingValue}
+                            id="FaStarComment"
+                            color={ratingValue <= rating ? "#daa520" : "#e4e5e9"} 
+                        />
+                    )     
+                })}
+            </div>
+    )
+}
+
 const MakeAComment = ({ movieId, typeLabel }) => {
     const [currentAvatar, setCurrentAvatar] =useState("")
 
@@ -185,7 +201,6 @@ const MakeAComment = ({ movieId, typeLabel }) => {
     async function getIconData(user)
     {
     setCurrentAvatar(await fetchAvatar(user))
-    //setCurrentAvatarIndex(await fetchAvatarIndex(user))
     }
 
     const onReviewSubmit = async (e) => {
@@ -270,11 +285,12 @@ const MakeAComment = ({ movieId, typeLabel }) => {
                     onChange={(e) => setComment(e.target.value)}
                     placeholder="Write your review. Max amount of characters is 200."
                 />
-                
-                <button type="submit">Submit</button>
+                <div className='reviewbuttons'>
+                    <button type="submit">Send</button>
+                </div>
             </form>
         </div>
     )
 }
 
-export { StarRating, FetchRating, MakeAComment }
+export { StarRating, FetchRating, MakeAComment, CommentStars }

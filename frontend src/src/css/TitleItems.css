@@ -23,7 +23,7 @@
 }
 
 .review {
-    margin-top: 1rem;
+    margin-top: 2rem;
 }
 
 .addreview-btn {
@@ -39,7 +39,13 @@
     cursor: pointer;
     border-radius: 5px;
     border-width: 1px;
+    transition: background-color 0.2s ease;
 }
+
+.addreview-btn:hover {
+    background-color: #1f1f20;;
+}
+
 .review-item
 {
     gap: 1ch;
@@ -53,6 +59,7 @@
     border: #9b9ba3 solid;
     border-width: 1px;
     text-align: center;
+    box-shadow: 0 0 4px;
 }
 .userinfoimage
 {
@@ -81,4 +88,20 @@
 .comment
 {
 text-align: left;
+
+}
+
+.popup {
+    margin-top: 1rem;
+    border-color: #2c2b2b;
+    outline-color: #2b2b2c;
+    border-radius: 4px;
+    
+}
+
+.popup .popup-left {
+}
+
+.popup .popup-right {
+    display: flex;
 }

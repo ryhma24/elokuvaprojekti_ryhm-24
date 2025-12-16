@@ -1,18 +1,18 @@
-import ("./api src/middleware/flag-scheduler.js")
+import ("./middleware/flag-scheduler.js")
 import express from 'express'
 import cors from 'cors'
 import cookieParser from "cookie-parser";
 import "dotenv/config";
-import { authenticateToken } from "./api src/middleware/auth.js";
+import { authenticateToken } from "./middleware/auth.js";
 
-import accountRouter from "./api src/routers/account_router.js";
-import reviewsRouter from "./api src/routers/reviews_router.js";
-import favouritesRouter from './api src/routers/favourites_router.js';
-import groupsRouter from './api src/routers/groups_router.js';
-import groupMembersRouter from './api src/routers/group_members_router.js';
-import { getFavourites } from './api src/controllers/favourites_controller.js';
+import accountRouter from "./routers/account_router.js";
+import reviewsRouter from "./routers/reviews_router.js";
+import favouritesRouter from './routers/favourites_router.js';
+import groupsRouter from './routers/groups_router.js';
+import groupMembersRouter from './routers/group_members_router.js';
+import { getFavourites } from './controllers/favourites_controller.js';
 
-const port = process.env.port;
+const port = process.env.PORT
 const app = express()
 
 

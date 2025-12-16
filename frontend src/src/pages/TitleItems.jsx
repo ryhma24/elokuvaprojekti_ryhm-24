@@ -4,7 +4,7 @@ import NavBar from "../components/NavBar";
 import { useFavourites } from "../contexts/FavouritesContext";
 import { useReview } from "../contexts/ReviewContext";
 import { FavouritesButton } from "../components/Favourites";
-import { FetchRating, StarRating, MakeAComment } from "../components/Rating"
+import { FetchRating, StarRating, MakeAComment, CommentStars } from "../components/Rating"
 import { useAuth } from "../contexts/AuthContext.jsx";
 import { fetchAvatar } from "../middleware/fetchAvatar.jsx";
 
@@ -115,7 +115,11 @@ const TitleItems = () => {
                   className="addreview-btn"
                   onClick={() => setShowCommentForm(prev => !prev)}
                 >
-                  {userReview ? "Edit Review" : "Add Review"}
+                  {showCommentForm 
+                    ? "Close" 
+                    : userReview 
+                      ? "Edit Review" 
+                      : "Add Review"}
                 </button>
 
                 {showCommentForm && (
@@ -123,7 +127,6 @@ const TitleItems = () => {
                     <MakeAComment
                       typeLabel={type}
                       movieId={data.id} />
-                    <button onClick={() => setShowCommentForm(false)}>Close</button>
                   </div>
                 )}
               </div>
@@ -138,7 +141,10 @@ const TitleItems = () => {
                         <img id="usericon" src={`/src/icons/${r.idavatar}.png`} width="68" height="68"></img>
                       </section>
                        <section className="userinfotext">
-                          <p className="text"><strong>{r.username}</strong> rated {r.rating}/5<br></br>{r.date}</p>
+                          <p className="text"><strong>{r.username}</strong> rated</p>
+                          <CommentStars rating={r.rating}/>
+                      
+                          <p>{r.date}</p>
                           </section>
                       <section className="commentcontainer">
                       <p className="comment">{r.review}</p>
@@ -190,7 +196,10 @@ const TitleItems = () => {
                         <img id="usericon" src={`/src/icons/${r.idavatar}.png`} width="68" height="68"></img>
                       </section>
                        <section className="userinfotext">
-                          <p className="text"><strong>{r.username}</strong> rated {r.rating}/5<br></br>{r.date}</p>
+                          <p className="text"><strong>{r.username}</strong> rated</p>
+                          <CommentStars rating={r.rating}/>
+                      
+                          <p>{r.date}</p>
                           </section>
                       <p className="text">{r.review}</p>
                     </div>

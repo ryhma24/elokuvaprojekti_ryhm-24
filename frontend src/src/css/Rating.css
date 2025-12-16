@@ -22,6 +22,14 @@
     outline: none;
 }
 
+.commentstars {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+}
+
 input[type="radio"] {
     display: none;
 }
@@ -63,4 +71,44 @@ input[type="radio"] {
 
 #FaStarResult {
     font-size: 24px;
+}
+
+#FaStarComment {
+    font-size: 15px;
+}
+
+textarea {
+  width: 100%;
+  max-width: 500px;
+  min-height: 120px;     
+  padding: 12px;       
+  border: 1px solid #9b9ba3;
+  border-radius: 6px;      
+  font-size: 14px;        
+  line-height: 1.4;       
+  resize: none;          
+  outline: none;           
+  transition: border-color 0.2s ease;
+}
+
+textarea:focus {
+  border-color: #9b9ba3;
+  box-shadow: 0 0 4px 
+}
+
+button {
+    margin-top: 5px;
+    margin-right: 5px;
+    padding: 10px 16px;
+    background-color: #2b2b2c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease; 
+}
+
+button:hover {
+  background-color: #1f1f20;
 }
