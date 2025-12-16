@@ -120,7 +120,7 @@ const TitleItems = () => {
                 {Array.isArray(movieReviews) && movieReviews.length > 0 ? (
                   movieReviews.map(r => (
                     <div key={r.idreviews} className="review-item">
-                      <p><strong>user{r.idaccount}</strong> rated {r.rating}/5</p>
+                      <p><strong>{r.username}</strong> rated {r.rating}/5</p>
                       <p>{r.review}</p>
                       <p className="review-date">{r.date}</p>
                     </div>
