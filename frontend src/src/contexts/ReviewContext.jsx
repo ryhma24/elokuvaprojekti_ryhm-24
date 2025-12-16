@@ -12,7 +12,7 @@ export const ReviewProvider = ({ children }) => {
     async function fetchReview() {
       if (!accessToken || !idaccount) return;
       try {
-        const res = await fetch(`http://localhost:3001/reviews/${idaccount}`, {
+        const res = await fetch(`https://elokuvaprojekti-ryhm-24-api-xo2h.onrender.com/reviews/${idaccount}`, {
           headers: {
             "Authorization": `Bearer ${accessToken}`
           }
@@ -39,7 +39,7 @@ export const ReviewProvider = ({ children }) => {
 
   async function fetchReviewsByMovieId(movieId) {
     try {
-      const res = await fetch(`http://localhost:3001/reviews/review/movieid/${movieId}`, {
+      const res = await fetch(`https://elokuvaprojekti-ryhm-24-api-xo2h.onrender.com/reviews/review/movieid/${movieId}`, {
         headers: {
             "Authorization": `Bearer ${accessToken}`
           }

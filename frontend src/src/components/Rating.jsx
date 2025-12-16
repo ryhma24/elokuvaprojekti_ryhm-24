@@ -16,7 +16,7 @@ const StarRating = ({ typeLabel, movieId }) => {
     const idreviews = review?.idreviews;
     const currentRating = review?.rating || 0;
     const [comment, setComment] = useState("");
-    const REACT_APP_API_URL = "http://localhost:3001"
+    const REACT_APP_API_URL = "https://elokuvaprojekti-ryhm-24-api-xo2h.onrender.com"
 
     useEffect(() => {
         if (Array.isArray(reviewState)) {
@@ -147,7 +147,7 @@ const MakeAComment = ({ movieId, typeLabel }) => {
         ? reviewState.find(r => r.idmovie === movieId)
         : undefined;
     const idreviews = review?.idreviews;
-    const REACT_APP_API_URL = "http://localhost:3001"
+    const REACT_APP_API_URL = "https://elokuvaprojekti-ryhm-24-api-xo2h.onrender.com"
 
     useEffect(() => {
         if(typeLabel === "movie"){

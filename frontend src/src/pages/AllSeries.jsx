@@ -40,7 +40,7 @@ function AllSeries() {
             {
             const user = idaccount
             console.log(user)
-            const res = await fetch(`http://localhost:3001/favourites/${user}`, {
+            const res = await fetch(`https://elokuvaprojekti-ryhm-24-api-xo2h.onrender.com/favourites/${user}`, {
                 headers: {
                     "Authorization": `Bearer ${accessToken}`
                 }

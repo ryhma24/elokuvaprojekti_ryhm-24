@@ -4,7 +4,7 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa'
 
 export const FavouritesButton = ({ typeLabel, movieId, favouriteState, setFavouriteState }) => {
     const { accessToken, idaccount } = useAuth();
-    const REACT_APP_API_URL = "http://localhost:3001"
+    const REACT_APP_API_URL = "https://elokuvaprojekti-ryhm-24-api-xo2h.onrender.com"
     const [ismovie, setIsmovie ] = useState(null)
     
     const [isFavourite, setIsFavourite] = useState(false);
