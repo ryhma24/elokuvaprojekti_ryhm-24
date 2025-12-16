@@ -3,7 +3,9 @@ import {
        getAll, addOne, authenticateAccount, saveRefreshToken, getAccountByRefreshToken, 
        clearRefreshToken, deleteAccount, setDeletionFlag, 
        cancelDeletionFlag, checkDeletionFlagFromuser, 
-       getDeletionDate, UpdatePassword, UpdateEmail, getIdFromAccount, getEmailFromAccount
+       getDeletionDate, UpdatePassword, UpdateEmail, 
+       getIdFromAccount, getEmailFromAccount, comparePassword,
+       setAvatarId, getAvatarId
        } from "../models/account_model.js";
 
 import {generateAccessToken, generateRefreshToken, verifyRefreshToken} from "../utils/jwt.js";
@@ -121,7 +123,7 @@ export async function addAccount(req, res, next) {
 
     if(!validateEmail(email))
     {
-      res.status(400).json({ error: "Please use correct email format!"});
+      return res.status(400).json({ error: "Please use correct email format!"});
     }
 
     const user = await addOne(username, password, email);
@@ -132,6 +134,32 @@ export async function addAccount(req, res, next) {
     if (err.code === '23505') { // PostgreSQL unique violation
       return res.status(409).json({ error: "Username already exists" });
     }
+    next(err);
+  }
+}
+
+export async function setAvatar(req, res, next) {
+  try {
+      const { username, idavatar } = req.body;
+      const response = await setAvatarId(idavatar, username);
+      
+      res.status(200).json({message: "avatar set!"});
+    } catch (err) {
+      next(err);
+    }
+}
+export async function getAvatar(req, res, next) {
+  try {
+    const { username } = req.params;
+
+    const idavatar = await getAvatarId(username);
+    console.log("tässä on un"+JSON.stringify(req.params))
+    if(idavatar.length === 0)
+      {
+        return res.status(404).json({message: "idavatar not found"})
+      }
+    res.json(idavatar);
+  } catch (err) {
     next(err);
   }
 }
@@ -153,9 +181,10 @@ export async function setAccountForDeletion(req, res, next) { //flagaan käyttä
 
 export async function cancelAccountDeletion(req, res, next) { //peruutetaan käyttäjän poisto
   try {
-      console.log("cancel deletion username on: "+req.body)
+      console.log("cancel deletion username on: "+req.body.username)
       const response = await cancelDeletionFlag(req.body.username);
-      if(!response.username)
+      console.log(response[0].username)
+      if(!response[0].username)
       {
         console.log("käyttäjää ei löytynyt poistoa varten. "+response.username)
         return res.status(404).json({message: "user not found"})
@@ -213,6 +242,26 @@ export async function login(req, res, next) {
       accessToken,
       idaccount: user.idaccount
     });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function checkPassword(req, res, next) {
+  try {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+      return res.status(400).json({ error: "Username and password are required" });
+    }
+
+    const checkPass = await comparePassword(username, password);
+    console.log(checkPass.passcheck)
+
+    if (checkPass.passcheck === false) {
+      return res.status(401).json({ error: "Wrong password" });
+    }
+    res.json(checkPass);
   } catch (err) {
     next(err);
   }

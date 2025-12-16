@@ -8,7 +8,7 @@ const SALT_ROUNDS = 10;
 export async function addOne(username, password, email) {
   const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
   const result = await pool.query(
-    "INSERT INTO account (username, password, email, deletion_flag) VALUES ($1, $2, $3, FALSE) RETURNING username",
+    "INSERT INTO account (username, password, email, deletion_flag, idavatar) VALUES ($1, $2, $3, FALSE, 7) RETURNING username",
     [username, hashedPassword, email]
   );
   return result.rows[0];
@@ -51,6 +51,26 @@ export async function getDeletionDate(username) {
   console.log("username getdeletiondatessa on: "+username);
   const result = await pool.query("SELECT deletion_date FROM account where username = $1", 
     [username]);
+  return result.rows;
+}
+
+export async function setAvatarId(idavatar, username) {
+ 
+  console.log("idavatar: ",idavatar);
+
+  const result = await pool.query
+  ("UPDATE account SET idavatar = $1 WHERE username = $2 RETURNING username",
+    [idavatar, username]
+  );
+  return result.rows;
+}
+
+export async function getAvatarId(username) {
+ 
+  console.log(username);
+  const result = await pool.query
+  ("SELECT idavatar FROM account WHERE username = $1", [username]
+  );
   return result.rows;
 }
 
@@ -109,6 +129,27 @@ export async function authenticateAccount(username, password) {
   }
   console.log("salasana tai käyttäjänimi on väärin");
   return null;
+}
+
+export async function comparePassword(username, password) {
+  const result = await pool.query(
+    "SELECT username, password, idaccount FROM account WHERE username = $1",
+    [username]
+  );
+
+  if (result.rows.length === 0) {
+    console.log("käyttäjää ei löytynyt");
+    return null;
+  }
+
+  const user = result.rows[0];
+  const isValid = await bcrypt.compare(password, user.password);
+
+  if (isValid) 
+  {
+  return {"passcheck":true};
+  }
+  return {"passcheck":false};
 }
 
 export async function saveRefreshToken(username, refreshToken) {
