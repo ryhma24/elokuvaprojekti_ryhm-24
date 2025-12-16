@@ -12,6 +12,30 @@
     margin-right: 2rem;
     
 }
+.profilecontainer
+{
+    background-color: rgb(227, 247, 227);
+    display: grid;
+    grid-template-columns: auto auto;
+}
+.infosplit
+{
+    display: grid;
+    grid-template-columns: auto auto;
+}
+.baseinfo
+{
+    margin: auto;
+    border-radius: 5px;
+    background-color:  white;
+    border: #9b9ba3 solid;
+    border-width: 1px;
+    width: 400px;
+    height: 500px;
+    
+    text-align: center;
+    z-index: 2;
+}
 
 .registerform 
 {

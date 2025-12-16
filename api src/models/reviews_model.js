@@ -2,8 +2,6 @@ import { pool } from "../database.js";
 
 
 export async function getAllReviewsFromUser(id) {
-
-  console.log(typeof id);
   //tässä haetaan jonkun käyttäjän kaikki reviewit.
   const result = await pool.query("SELECT * FROM reviews WHERE idaccount = $1", [id]);
   return result.rows; 
