@@ -12,7 +12,7 @@ export const FavouritesProvider = ({ children }) => {
       if (!accessToken || !idaccount) return;
 
       try {
-        const res = await fetch(`http://localhost:3001/favourites/${idaccount}`, {
+        const res = await fetch(`${VITE_APP_API_URL}/favourites/${idaccount}`, {
           headers: {
             "Authorization": `Bearer ${accessToken}`
           }

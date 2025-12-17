@@ -1,7 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { useAuth } from "./AuthContext";
 
-const REACT_APP_API_URL = "http://localhost:3001";
 
 const GroupsContext = createContext(null);
 
@@ -19,7 +18,7 @@ export function GroupsProvider({ children }) {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(`${REACT_APP_API_URL}/groups`, {
+      const res = await fetch(`${VITE_APP_API_URL}/groups`, {
         method: "GET",
       });
       if (!res.ok) {
@@ -43,7 +42,7 @@ export function GroupsProvider({ children }) {
     setError("");
 
     try {
-      const res = await fetch(`${REACT_APP_API_URL}/groups/${groupId}`, {
+      const res = await fetch(`${VITE_APP_API_URL}/groups/${groupId}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -80,7 +79,7 @@ export function GroupsProvider({ children }) {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(`${REACT_APP_API_URL}/groups`, {
+      const res = await fetch(`${VITE_APP_API_URL}/groups`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -108,7 +107,7 @@ export function GroupsProvider({ children }) {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(`${REACT_APP_API_URL}/groups/${groupId}`, {
+      const res = await fetch(`${VITE_APP_API_URL}/groups/${groupId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -135,7 +134,7 @@ export function GroupsProvider({ children }) {
     setError("");
     try {
       const res = await fetch(
-        `${REACT_APP_API_URL}/group-members/${groupId}/join`,
+        `${VITE_APP_API_URL}/group-members/${groupId}/join`,
         {
           method: "POST",
           headers: {
@@ -161,7 +160,7 @@ export function GroupsProvider({ children }) {
   const getMembershipStatus = async (groupId) => {
     try {
       const res = await fetch(
-        `${REACT_APP_API_URL}/group-members/${groupId}/status`,
+        `${VITE_APP_API_URL}/group-members/${groupId}/status`,
         {
           method: "GET",
           headers: {
@@ -185,7 +184,7 @@ export function GroupsProvider({ children }) {
   const getGroupMembers = async (groupId) => {
     try {
       const res = await fetch(
-        `${REACT_APP_API_URL}/group-members/${groupId}/members`,
+        `${VITE_APP_API_URL}/group-members/${groupId}/members`,
         {
           method: "GET",
           headers: {
@@ -209,7 +208,7 @@ export function GroupsProvider({ children }) {
   const getPendingRequests = async (groupId) => {
     try {
       const res = await fetch(
-        `${REACT_APP_API_URL}/group-members/${groupId}/pending`,
+        `${VITE_APP_API_URL}/group-members/${groupId}/pending`,
         {
           method: "GET",
           headers: {
@@ -235,7 +234,7 @@ export function GroupsProvider({ children }) {
     setError("");
     try {
       const res = await fetch(
-        `${REACT_APP_API_URL}/group-members/${groupId}/requests/${requestId}`,
+        `${VITE_APP_API_URL}/group-members/${groupId}/requests/${requestId}`,
         {
           method: "PUT",
           headers: {
@@ -265,7 +264,7 @@ export function GroupsProvider({ children }) {
     setError("");
     try {
       const res = await fetch(
-        `${REACT_APP_API_URL}/group-members/${groupId}/members/${memberId}`,
+        `${VITE_APP_API_URL}/group-members/${groupId}/members/${memberId}`,
         {
           method: "DELETE",
           headers: {

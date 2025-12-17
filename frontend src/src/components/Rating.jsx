@@ -20,7 +20,6 @@ const StarRating = ({ typeLabel, movieId }) => {
     const idreviews = review?.idreviews;
     const currentRating = review?.rating || 0;
     const [comment, setComment] = useState("");
-    const REACT_APP_API_URL = "http://localhost:3001"
 
     useEffect(() =>
     {
@@ -53,8 +52,8 @@ const StarRating = ({ typeLabel, movieId }) => {
             console.log("avatarindex avatar: "+currentAvatar);
             console.log("idreviews",idreviews)
             const url = idreviews
-                ? `${REACT_APP_API_URL}/reviews/${idreviews}`
-                : `${REACT_APP_API_URL}/reviews`;
+                ? `${VITE_APP_API_URL}/reviews/${idreviews}`
+                : `${VITE_APP_API_URL}/reviews`;
 
             const method = idreviews ? "PUT" : "POST";
 
@@ -182,7 +181,6 @@ const MakeAComment = ({ movieId, typeLabel }) => {
         ? reviewState.find(r => r.idmovie === movieId)
         : undefined;
     const idreviews = review?.idreviews;
-    const REACT_APP_API_URL = "http://localhost:3001"
 
     useEffect(() =>
     {
@@ -207,8 +205,8 @@ const MakeAComment = ({ movieId, typeLabel }) => {
 
         try {
             const url = idreviews
-                ? `${REACT_APP_API_URL}/reviews/${idreviews}`
-                : `${REACT_APP_API_URL}/reviews`;
+                ? `${VITE_APP_API_URL}/reviews/${idreviews}`
+                : `${VITE_APP_API_URL}/reviews`;
 
             const method = idreviews ? "PUT" : "POST";
             console.log("post body:", {

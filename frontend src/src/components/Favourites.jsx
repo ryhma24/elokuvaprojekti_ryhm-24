@@ -4,7 +4,6 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa'
 
 export const FavouritesButton = ({ typeLabel, movieId, favouriteState, setFavouriteState }) => {
     const { accessToken, idaccount } = useAuth();
-    const REACT_APP_API_URL = "http://localhost:3001"
     const [ismovie, setIsmovie ] = useState(null)
     
     const [isFavourite, setIsFavourite] = useState(false);
@@ -25,7 +24,7 @@ export const FavouritesButton = ({ typeLabel, movieId, favouriteState, setFavour
     async function onFavouriteClick(){
         try {
             if(!isFavourite) {
-                await fetch(`${REACT_APP_API_URL}/favourites/addfavourite`, {
+                await fetch(`${VITE_APP_API_URL}/favourites/addfavourite`, {
                     method: "POST",
                     headers: { 
                         "Content-Type": "application/json",
@@ -37,7 +36,7 @@ export const FavouritesButton = ({ typeLabel, movieId, favouriteState, setFavour
                 console.log(movieId)
                 setFavouriteState(prev => [...prev, movieId]);
             } else {
-                await fetch(`${REACT_APP_API_URL}/favourites/deletefavourite`, {
+                await fetch(`${VITE_APP_API_URL}/favourites/deletefavourite`, {
                     method: "DELETE",
                     headers: { "Content-Type": "application/json",
                                 "Authorization": `Bearer ${accessToken}`
