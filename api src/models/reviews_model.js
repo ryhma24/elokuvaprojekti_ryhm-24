@@ -9,14 +9,7 @@ export async function getAllReviewsFromUser(id) {
 
 export async function getReviewByMovieId(id) {
   //haetaan jonkun tietyn elokuvan kaikki reviewit
-  const result = await pool.query(
-    `SELECT r.*, a.username
-    FROM reviews r
-    JOIN account a ON r.idaccount = a.idaccount
-    WHERE r.idmovie = $1
-    ORDER BY r.date DESC`,
-    [id]
-  );
+  const result = await pool.query("SELECT * FROM reviews WHERE idmovie = $1", [id]);
   return result.rows; 
 }
 
