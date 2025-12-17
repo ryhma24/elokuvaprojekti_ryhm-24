@@ -52,8 +52,8 @@ const StarRating = ({ typeLabel, movieId }) => {
             console.log("avatarindex avatar: "+currentAvatar);
             console.log("idreviews",idreviews)
             const url = idreviews
-                ? `${VITE_APP_API_URL}/reviews/${idreviews}`
-                : `${VITE_APP_API_URL}/reviews`;
+                ? `${import.meta.env.VITE_APP_API_URL}/reviews/${idreviews}`
+                : `${import.meta.env.VITE_APP_API_URL}/reviews`;
 
             const method = idreviews ? "PUT" : "POST";
 
@@ -205,8 +205,8 @@ const MakeAComment = ({ movieId, typeLabel }) => {
 
         try {
             const url = idreviews
-                ? `${VITE_APP_API_URL}/reviews/${idreviews}`
-                : `${VITE_APP_API_URL}/reviews`;
+                ? `${import.meta.env.VITE_APP_API_URL}/reviews/${idreviews}`
+                : `${import.meta.env.VITE_APP_API_URL}/reviews`;
 
             const method = idreviews ? "PUT" : "POST";
             console.log("post body:", {

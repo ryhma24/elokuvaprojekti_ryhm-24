@@ -11,7 +11,7 @@ const FavouriteShare = () => {
     useEffect(() => {
         async function fetchFavourites() {
             
-            const res = await fetch(`${VITE_APP_API_URL}/favourites/${id}`)
+            const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/favourites/${id}`)
             const data = await res.json();
             console.log("Favourites:", data);
             

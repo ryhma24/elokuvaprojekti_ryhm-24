@@ -24,7 +24,7 @@ export const FavouritesButton = ({ typeLabel, movieId, favouriteState, setFavour
     async function onFavouriteClick(){
         try {
             if(!isFavourite) {
-                await fetch(`${VITE_APP_API_URL}/favourites/addfavourite`, {
+                await fetch(`${import.meta.env.VITE_APP_API_URL}/favourites/addfavourite`, {
                     method: "POST",
                     headers: { 
                         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export const FavouritesButton = ({ typeLabel, movieId, favouriteState, setFavour
                 console.log(movieId)
                 setFavouriteState(prev => [...prev, movieId]);
             } else {
-                await fetch(`${VITE_APP_API_URL}/favourites/deletefavourite`, {
+                await fetch(`${import.meta.env.VITE_APP_API_URL}/favourites/deletefavourite`, {
                     method: "DELETE",
                     headers: { "Content-Type": "application/json",
                                 "Authorization": `Bearer ${accessToken}`

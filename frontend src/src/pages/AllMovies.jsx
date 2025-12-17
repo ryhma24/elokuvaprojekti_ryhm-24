@@ -40,7 +40,7 @@ function AllMovies() {
             {
             const user = idaccount
             console.log(user)
-            const res = await fetch(`${VITE_APP_API_URL}/favourites/${user}`, {
+            const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/favourites/${user}`, {
                 headers: {
                     "Authorization": `Bearer ${accessToken}`
                 }
