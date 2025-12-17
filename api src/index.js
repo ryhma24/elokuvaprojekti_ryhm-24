@@ -18,7 +18,7 @@ const host = process.env.DB_HOST
 
 //app.use(cors())
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: "http://10.17.182.208:5173",
   credentials: true // Allow cookies
 }));
 app.use(express.json());
