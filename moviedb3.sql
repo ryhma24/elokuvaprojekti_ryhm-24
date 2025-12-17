@@ -37,7 +37,8 @@ CREATE TABLE public.account (
     password character varying(60) NOT NULL,
     refresh_token character varying(200),
     deletion_flag boolean,
-    deletion_date character varying(20)
+    deletion_date character varying(20),
+    idavatar integer
 );
 
 
@@ -282,8 +283,6 @@ ALTER TABLE ONLY public.reviews ALTER COLUMN idreviews SET DEFAULT nextval('publ
 --
 
 COPY public.account (idaccount, username, email, password, refresh_token, deletion_flag, deletion_date) FROM stdin;
-2	asd	asd@asd.com	$2b$10$7dv4h6jnaKnD39PXvSVWI.Cv.ilrufVNuF/CoRDRrm6a1Z1hcKq6q	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFzZCIsImlhdCI6MTc2NDg0NzI4NiwiZXhwIjoxNzY1NDUyMDg2fQ.Tq_uB5LkeUQlKtG80MRGJoCQraVGIcHyeVyjGjzqAeI	f	\N
-1	eerikp	epezzupit@gmail.com	$2b$10$5sMVUgW61APsjZ7VWDzt8ONtXdN.Jcpaj/ts9d7Vb5uFxIBznRwnG	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVlcmlrcCIsImlhdCI6MTc2NTc1OTAzOCwiZXhwIjoxNzY2MzYzODM4fQ.JjYh_o6nZVDRFDQV5794t-f-EtT49Iw8PXQueLJmQDM	f	\N
 \.
 
 
@@ -294,30 +293,6 @@ COPY public.account (idaccount, username, email, password, refresh_token, deleti
 --
 
 COPY public.favourites (idfavourites, idaccount, movieid, ismovie) FROM stdin;
-9	2	1180831	t
-10	2	1419406	f
-11	2	533533	f
-12	2	66732	f
-16	2	1084242	t
-17	2	200875	f
-24	1	1180831	t
-26	1	1084242	t
-33	1	240459	f
-36	1	1218925	t
-38	1	1419406	t
-40	1	1217602	t
-41	1	1387382	t
-42	1	785663	t
-43	1	79744	f
-45	1	1408	f
-46	1	200875	f
-47	1	1622	f
-48	1	549	f
-49	1	798645	t
-54	1	1429	f
-55	1	4935	t
-61	1	1228246	t
-62	1	66732	f
 \.
 
 
@@ -348,13 +323,6 @@ COPY public.groups (idgroup, name, description, created_at, owner) FROM stdin;
 --
 
 COPY public.reviews (idreviews, review, rating, idaccount, idmovie, date, ismovie) FROM stdin;
-71	testi	4	1	1622	15/12/2025	f
-72	no comment	3	1	549	15/12/2025	f
-73	no comment	2	1	200875	15/12/2025	f
-75	ok	5	1	798645	15/12/2025	t
-81	Tosi hyvä!!!	4	1	1396	15/12/2025	f
-77	nice	4	1	66732	15/12/2025	f
-74		2	1	1084242	15/12/2025	t
 \.
 
 

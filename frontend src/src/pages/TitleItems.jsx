@@ -9,14 +9,6 @@ import { useAuth } from "../contexts/AuthContext.jsx";
 import { fetchAvatar } from "../middleware/fetchAvatar.jsx";
 
 
-import crying from '/src/icons/crying.png'
-import dead from '/src/icons/dead.png'
-import lemon from '/src/icons/lemon.png'
-import star from '/src/icons/star.png'
-import sus from '/src/icons/suspicious.png'
-import wink from '/src/icons/wink.png'
-import yum from '/src/icons/yum.png'
-
 const TitleItems = () => {
   const { type, id } = useParams();
   const [data, setData] = useState(null);
@@ -24,12 +16,28 @@ const TitleItems = () => {
   const { reviewState, movieReviews, fetchReviewsByMovieId } = useReview();
   const { accessToken, user } = useAuth();
   const [showCommentForm, setShowCommentForm] = useState(false);
-
+  
   const [fetchedAvatarIndex, setIndex] = useState("")
   const [currentAvatar, setCurrentAvatar] =useState("")
 
+  async function deleteComment(idreviews, username, idmovie) 
+  {
+    if(username === user){
+    const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/reviews/${idreviews}`, {
+      method: "DELETE",
+      credentials: "include",
+      headers: {
+          "Authorization": `Bearer ${accessToken}`, "Content-Type": "application/json" 
+        },
+    });
+    console.log("deletecomment respone on: " + JSON.stringify(res))
+    fetchReviewsByMovieId(idmovie);
 
- 
+     return;
+   }
+    alert("You can delete your own comments only!")
+  }
+
   useEffect(() => {
 
     const getTitleInfo = async () => {
@@ -141,7 +149,7 @@ const TitleItems = () => {
                     <div key={r.idreviews} className="review-item">
                      
                       <section className="userinfoicon">
-                        <img id="usericon" src={`/src/icons/${r.idavatar}.png`} width="68" height="68"></img>
+                      <img id="usericon" src={`https://i.postimg.cc/${r.idavatar}.png`} width="68" height="68"></img>
                       </section>
                        <section className="userinfotext">
                           <p className="text"><strong>{r.username}</strong> rated</p>
@@ -151,6 +159,7 @@ const TitleItems = () => {
                           </section>
                       <section className="commentcontainer">
                       <p className="comment">{r.review}</p>
+                      <button onClick={() => {deleteComment(r.idreviews, r.username, r.idmovie)}}>Delete comment</button>
                       </section>
                     </div>
                   ))
@@ -198,7 +207,7 @@ const TitleItems = () => {
                     <div key={r.idreviews} className="review-item">
                      
                       <section className="userinfoicon">
-                        <img id="usericon" src={`/src/icons/${r.idavatar}.png`} width="68" height="68"></img>
+                        <img id="usericon" src={`https://i.postimg.cc/${r.idavatar}.png`} width="68" height="68"></img>
                       </section>
                        <section className="userinfotext">
                           <p className="text"><strong>{r.username}</strong> rated</p>

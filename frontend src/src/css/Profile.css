@@ -1,5 +1,11 @@
 .profile-movie{
     height: 5rem;
+    
+}
+.profile-movie:hover{
+    opacity: 0.9;
+    cursor: pointer;
+    border: rgb(0, 0, 0) solid;
 }
 ul, li{
     list-style-type: none;
@@ -12,11 +18,39 @@ ul, li{
 }
 .infosplit
 {
-    display: grid;
-    grid-template-columns: auto auto;
+    display: flex;
+    
+    flex-direction: column;
+}
+.fieldText
+{
+    font-weight: bold;
+}
+.profileImage{
+    margin: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    
+}
+.submitButton
+{
+    background-color: #2b2b2c;
+    border-radius: 5px;
+    color: white;
+    border-width: 1px;
+    margin: auto;
+    align-content: center;
+    justify-content: center;
+}
+.submitButton:hover
+{
+    transition: .1s ease-in-out;
+    box-shadow: 3px 0 3px black; 
 }
 .baseinfo
 {
+    display: flex;
+    justify-content: center;
     margin: auto;
     border-radius: 5px;
     background-color:  white;
@@ -28,9 +62,25 @@ ul, li{
     text-align: center;
     z-index: 2;
 }
+.shareList{
+    text-align: center;
+}
+.shareList:hover{
+    font-size: larger;
+    cursor: pointer;
+}
+.favMovieListContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 @media (max-width: 770px){
     .profilecontainer{
-        background-color: black;
+        display: flex;
+        flex-direction: column;
+    }
+    .favlist{
+        padding-left: 15vh;
     }
     
 }

@@ -86,7 +86,7 @@ button:hover, .nav-link:hover {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-height: 7vh;
+    max-height: 3rem;
     position: fixed;
     width: 100%;
     top: 0px;
@@ -144,4 +144,3 @@ button:hover, .nav-link:hover {
     }
     
 }
-

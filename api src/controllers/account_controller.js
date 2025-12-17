@@ -231,8 +231,8 @@ export async function login(req, res, next) {
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,                              // Ei JavaScript-pääsyä
-      secure: process.env.NODE_ENV === "development", // HTTPS tuotannossa
-      sameSite: "strict",                          // CSRF-suojaus
+      secure: true, // HTTPS tuotannossa
+      sameSite: "none",                          // CSRF-suojaus
       maxAge: 7 * 24 * 60 * 60 * 1000,            // 7 päivää
     });
 

@@ -51,7 +51,8 @@ const FavouriteShare = () => {
         <div>
             <NavBar />
             <div className="favMovieListContainer">
-                <h2>Favourite list</h2>
+                <h2 className="big-titles">Favourite list</h2>
+                
                 <ul className="favlist">
                     {movieDetails.map((fav) => (
                         <li key={fav.id}>

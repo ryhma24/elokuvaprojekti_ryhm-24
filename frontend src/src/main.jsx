@@ -25,6 +25,7 @@ import AllMovies from "./pages/AllMovies.jsx";
 import AllSeries from "./pages/AllSeries.jsx";
 import GroupPage from "./pages/GroupPage.jsx";
 import Profile from "./pages/Profile.jsx";
+import './css/FavouriteShare.css'
 import FavouriteShare from "./pages/FavouriteShare.jsx";
 import { createBrowserRouter, RouterProvider, } from 'react-router-dom'
 

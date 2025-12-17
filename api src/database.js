@@ -14,7 +14,10 @@ const movieDb = () => {
  database: environment === "development" ? process.env.DB_NAME :
  process.env.TEST_DB_NAME,
  password: process.env.DB_PASSWORD,
- port: process.env.DB_PORT
+ port: process.env.DB_PORT,
+ ssl: {
+      rejectUnauthorized: false
+    }
  })
  return pool
 }
