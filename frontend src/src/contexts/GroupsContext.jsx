@@ -1,7 +1,10 @@
 import { createContext, useContext, useState } from "react";
 import { useAuth } from "./AuthContext";
 
+<<<<<<< HEAD
 const REACT_APP_API_URL = "https://elokuvaprojekti-ryhm-24-api-xo2h.onrender.com";
+=======
+>>>>>>> origin/main
 
 const GroupsContext = createContext(null);
 
@@ -19,7 +22,7 @@ export function GroupsProvider({ children }) {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(`${REACT_APP_API_URL}/groups`, {
+      const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/groups`, {
         method: "GET",
       });
       if (!res.ok) {
@@ -43,7 +46,7 @@ export function GroupsProvider({ children }) {
     setError("");
 
     try {
-      const res = await fetch(`${REACT_APP_API_URL}/groups/${groupId}`, {
+      const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/groups/${groupId}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -80,7 +83,7 @@ export function GroupsProvider({ children }) {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(`${REACT_APP_API_URL}/groups`, {
+      const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/groups`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -108,7 +111,7 @@ export function GroupsProvider({ children }) {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(`${REACT_APP_API_URL}/groups/${groupId}`, {
+      const res = await fetch(`${VITE_APP_API_URL}/groups/${groupId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -135,7 +138,7 @@ export function GroupsProvider({ children }) {
     setError("");
     try {
       const res = await fetch(
-        `${REACT_APP_API_URL}/group-members/${groupId}/join`,
+        `${import.meta.env.VITE_APP_API_URL}/group-members/${groupId}/join`,
         {
           method: "POST",
           headers: {
@@ -161,7 +164,7 @@ export function GroupsProvider({ children }) {
   const getMembershipStatus = async (groupId) => {
     try {
       const res = await fetch(
-        `${REACT_APP_API_URL}/group-members/${groupId}/status`,
+        `${import.meta.env.VITE_APP_API_URL}/group-members/${groupId}/status`,
         {
           method: "GET",
           headers: {
@@ -185,7 +188,7 @@ export function GroupsProvider({ children }) {
   const getGroupMembers = async (groupId) => {
     try {
       const res = await fetch(
-        `${REACT_APP_API_URL}/group-members/${groupId}/members`,
+        `${import.meta.env.VITE_APP_API_URL}/group-members/${groupId}/members`,
         {
           method: "GET",
           headers: {
@@ -209,7 +212,7 @@ export function GroupsProvider({ children }) {
   const getPendingRequests = async (groupId) => {
     try {
       const res = await fetch(
-        `${REACT_APP_API_URL}/group-members/${groupId}/pending`,
+        `${import.meta.env.VITE_APP_API_URL}/group-members/${groupId}/pending`,
         {
           method: "GET",
           headers: {
@@ -235,7 +238,7 @@ export function GroupsProvider({ children }) {
     setError("");
     try {
       const res = await fetch(
-        `${REACT_APP_API_URL}/group-members/${groupId}/requests/${requestId}`,
+        `${import.meta.env.VITE_APP_API_URL}/group-members/${groupId}/requests/${requestId}`,
         {
           method: "PUT",
           headers: {
@@ -265,7 +268,7 @@ export function GroupsProvider({ children }) {
     setError("");
     try {
       const res = await fetch(
-        `${REACT_APP_API_URL}/group-members/${groupId}/members/${memberId}`,
+        `${import.meta.env.VITE_APP_API_URL}/group-members/${groupId}/members/${memberId}`,
         {
           method: "DELETE",
           headers: {

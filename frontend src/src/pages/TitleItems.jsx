@@ -28,6 +28,7 @@ const TitleItems = () => {
   const [fetchedAvatarIndex, setIndex] = useState("")
   const [currentAvatar, setCurrentAvatar] =useState("")
 
+
  
   useEffect(() => {
 

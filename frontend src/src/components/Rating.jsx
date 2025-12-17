@@ -20,7 +20,10 @@ const StarRating = ({ typeLabel, movieId }) => {
     const idreviews = review?.idreviews;
     const currentRating = review?.rating || 0;
     const [comment, setComment] = useState("");
+<<<<<<< HEAD
     const REACT_APP_API_URL = "https://elokuvaprojekti-ryhm-24-api-xo2h.onrender.com"
+=======
+>>>>>>> origin/main
 
     useEffect(() =>
     {
@@ -53,8 +56,8 @@ const StarRating = ({ typeLabel, movieId }) => {
             console.log("avatarindex avatar: "+currentAvatar);
             console.log("idreviews",idreviews)
             const url = idreviews
-                ? `${REACT_APP_API_URL}/reviews/${idreviews}`
-                : `${REACT_APP_API_URL}/reviews`;
+                ? `${import.meta.env.VITE_APP_API_URL}/reviews/${idreviews}`
+                : `${import.meta.env.VITE_APP_API_URL}/reviews`;
 
             const method = idreviews ? "PUT" : "POST";
 
@@ -182,7 +185,10 @@ const MakeAComment = ({ movieId, typeLabel }) => {
         ? reviewState.find(r => r.idmovie === movieId)
         : undefined;
     const idreviews = review?.idreviews;
+<<<<<<< HEAD
     const REACT_APP_API_URL = "https://elokuvaprojekti-ryhm-24-api-xo2h.onrender.com"
+=======
+>>>>>>> origin/main
 
     useEffect(() =>
     {
@@ -207,8 +213,8 @@ const MakeAComment = ({ movieId, typeLabel }) => {
 
         try {
             const url = idreviews
-                ? `${REACT_APP_API_URL}/reviews/${idreviews}`
-                : `${REACT_APP_API_URL}/reviews`;
+                ? `${import.meta.env.VITE_APP_API_URL}/reviews/${idreviews}`
+                : `${import.meta.env.VITE_APP_API_URL}/reviews`;
 
             const method = idreviews ? "PUT" : "POST";
             console.log("post body:", {
