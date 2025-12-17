@@ -5,14 +5,6 @@ import NavBar from "../components/NavBar"
 import { currentUser } from "../middleware/currentUser.jsx";
 import { useNavigate } from 'react-router-dom'
 
-import crying from '/src/icons/crying.png'
-import dead from '/src/icons/dead.png'
-import lemon from '/src/icons/lemon.png'
-import star from '/src/icons/star.png'
-import sus from '/src/icons/suspicious.png'
-import wink from '/src/icons/wink.png'
-import yum from '/src/icons/yum.png'
-import smile from '/src/icons/smile.png'
 
 function Profile() {
     const navigate = useNavigate();
@@ -23,6 +15,7 @@ function Profile() {
     const [selectedIcon, setSelectedIcon] = useState(0) //placeholderi value
     const [fetchedAvatarIndex, setIndex] = useState("")
     const [currentAvatar, setCurrentAvatar] =useState("")
+    const [currentAvatarCleaned, setCurrentAvatarCleaned] =useState("")
     
 
 
@@ -100,7 +93,7 @@ function Profile() {
 
    function setAvatar()
    {
-    const icons = ["crying", "dead", "lemon", "star", "suspicious", "wink", "yum", "smile"];
+    const icons = ["wxrxy8ZG/crying", "XJ7NFVnP/dead", "wjX9Gtvr/lemon", "h4Y4zW6v/star", "mkPbX8zP/suspicious", "Tw7dJZw1/wink", "d0FVs2pJ/yum", "SxFydLyW/smile"];
     setCurrentAvatar(icons[fetchedAvatarIndex]);
    }
 
@@ -126,9 +119,7 @@ function Profile() {
             <div className="infosplit">
                 <p>your username: {currentUser()}</p>
                 <p>Account status: {accStatus}</p>
-                <label>Your current avatar: {currentAvatar}</label>
-
-                <img src={`/src/icons/${currentAvatar}.png`} width="128" height="128"></img>
+                <img src={`https://i.postimg.cc/${currentAvatar}.png`} width="128" height="128"></img>
             <form onSubmit={chooseAvatar}>
                 <select 
                 value={selectedIcon} 

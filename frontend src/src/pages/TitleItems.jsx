@@ -9,14 +9,6 @@ import { useAuth } from "../contexts/AuthContext.jsx";
 import { fetchAvatar } from "../middleware/fetchAvatar.jsx";
 
 
-import crying from '/src/icons/crying.png'
-import dead from '/src/icons/dead.png'
-import lemon from '/src/icons/lemon.png'
-import star from '/src/icons/star.png'
-import sus from '/src/icons/suspicious.png'
-import wink from '/src/icons/wink.png'
-import yum from '/src/icons/yum.png'
-
 const TitleItems = () => {
   const { type, id } = useParams();
   const [data, setData] = useState(null);
@@ -155,7 +147,7 @@ const TitleItems = () => {
                     <div key={r.idreviews} className="review-item">
                      
                       <section className="userinfoicon">
-                      <img id="usericon" src={`https://i.postimg.cc/SxFydLyW/smile.png`} width="68" height="68"></img>
+                      <img id="usericon" src={`https://i.postimg.cc/${r.idavatar}.png`} width="68" height="68"></img>
                       </section>
                        <section className="userinfotext">
                           <p className="text"><strong>{r.username}</strong> rated</p>
@@ -211,7 +203,7 @@ const TitleItems = () => {
                     <div key={r.idreviews} className="review-item">
                      
                       <section className="userinfoicon">
-                        <img id="usericon" src={`/src/icons/${r.idavatar}.png`} width="68" height="68"></img>
+                        <img id="usericon" src={`https://i.postimg.cc/${r.idavatar}.png`} width="68" height="68"></img>
                       </section>
                        <section className="userinfotext">
                           <p className="text"><strong>{r.username}</strong> rated</p>
