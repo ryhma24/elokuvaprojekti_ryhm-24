@@ -59,7 +59,7 @@ function Profile() {
     }, [accessToken, idaccount, deletionDate, deletionFlag, fetchedAvatarIndex]);
     function copyUrl() {
         alert("URL copied to clipboard")
-        const shareUrl = `http://localhost:5173/favourites/${idaccount}`
+        const shareUrl = `https://elokuvaprojekti-ryhm-24-front2.onrender.com/favourites/${idaccount}`
         navigator.clipboard.writeText(shareUrl)
     }
     
