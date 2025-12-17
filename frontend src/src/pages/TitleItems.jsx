@@ -28,6 +28,21 @@ const TitleItems = () => {
   const [fetchedAvatarIndex, setIndex] = useState("")
   const [currentAvatar, setCurrentAvatar] =useState("")
 
+  async function deleteComment(idreviews, username) 
+  {
+    if(username === user){
+    const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/reviews/${idreviews}`, {
+      method: "DELETE",
+      credentials: "include",
+      headers: {
+          "Authorization": `Bearer ${accessToken}`, "Content-Type": "application/json" 
+        },
+    });
+     console.log("deletecomment respone on: " + JSON.stringify(res))
+     return;
+   }
+    alert("You can delete your own comments only!")
+  }
 
  
   useEffect(() => {
@@ -149,6 +164,7 @@ const TitleItems = () => {
                           </section>
                       <section className="commentcontainer">
                       <p className="comment">{r.review}</p>
+                      <button onClick={() => {deleteComment(r.idreviews, r.username)}}>Delete comment</button>
                       </section>
                     </div>
                   ))

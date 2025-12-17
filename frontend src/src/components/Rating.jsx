@@ -202,7 +202,7 @@ const MakeAComment = ({ movieId, typeLabel }) => {
     }
 
     const onReviewSubmit = async (e) => {
-
+        e.preventDefault()
         try {
             const url = idreviews
                 ? `${import.meta.env.VITE_APP_API_URL}/reviews/${idreviews}`
