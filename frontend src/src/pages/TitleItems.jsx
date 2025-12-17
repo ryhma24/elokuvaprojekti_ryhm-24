@@ -46,7 +46,6 @@ const TitleItems = () => {
     alert("You can delete your own comments only!")
   }
 
- 
   useEffect(() => {
 
     const getTitleInfo = async () => {
@@ -156,7 +155,7 @@ const TitleItems = () => {
                     <div key={r.idreviews} className="review-item">
                      
                       <section className="userinfoicon">
-                      <img id="usericon" src={`https://i.postimg.cc/wjX9Gtvr/${r.idavatar}.png`} width="68" height="68"></img>
+                      <img id="usericon" src={`https://i.postimg.cc/SxFydLyW/smile.png`} width="68" height="68"></img>
                       </section>
                        <section className="userinfotext">
                           <p className="text"><strong>{r.username}</strong> rated</p>
