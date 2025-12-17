@@ -1,7 +1,7 @@
  
 export async function fetchAvatar(user)
    {
-            const res = await fetch(`http://localhost:3001/getavatar/${user}`, {
+            const res = await fetch(`https://elokuvaprojekti-ryhm-24-api-xo2h.onrender.com/getavatar/${user}`, {
             });
             const data = await res.json();
             const index = JSON.stringify(data[0].idavatar)
