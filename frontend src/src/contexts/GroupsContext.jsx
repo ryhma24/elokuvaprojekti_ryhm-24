@@ -1,10 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { useAuth } from "./AuthContext";
 
-<<<<<<< HEAD
-const REACT_APP_API_URL = "https://elokuvaprojekti-ryhm-24-api-xo2h.onrender.com";
-=======
->>>>>>> origin/main
 
 const GroupsContext = createContext(null);
 

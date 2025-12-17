@@ -40,11 +40,7 @@ function AllMovies() {
             {
             const user = idaccount
             console.log(user)
-<<<<<<< HEAD
-            const res = await fetch(`https://elokuvaprojekti-ryhm-24-api-xo2h.onrender.com/favourites/${user}`, {
-=======
             const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/favourites/${user}`, {
->>>>>>> origin/main
                 headers: {
                     "Authorization": `Bearer ${accessToken}`
                 }

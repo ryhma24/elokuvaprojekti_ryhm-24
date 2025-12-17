@@ -12,11 +12,7 @@ export const ReviewProvider = ({ children }) => {
     async function fetchReview() {
       if (!accessToken || !idaccount) return;
       try {
-<<<<<<< HEAD
-        const res = await fetch(`https://elokuvaprojekti-ryhm-24-api-xo2h.onrender.com/reviews/${idaccount}`, {
-=======
         const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/reviews/${idaccount}`, {
->>>>>>> origin/main
           headers: {
             "Authorization": `Bearer ${accessToken}`
           }
@@ -43,11 +39,7 @@ export const ReviewProvider = ({ children }) => {
 
   async function fetchReviewsByMovieId(movieId) {
     try {
-<<<<<<< HEAD
-      const res = await fetch(`https://elokuvaprojekti-ryhm-24-api-xo2h.onrender.com/reviews/review/movieid/${movieId}`, {
-=======
       const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/reviews/review/movieid/${movieId}`, {
->>>>>>> origin/main
         headers: {
             "Authorization": `Bearer ${accessToken}`
           }

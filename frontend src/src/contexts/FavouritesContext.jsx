@@ -12,11 +12,7 @@ export const FavouritesProvider = ({ children }) => {
       if (!accessToken || !idaccount) return;
 
       try {
-<<<<<<< HEAD
-        const res = await fetch(`https://elokuvaprojekti-ryhm-24-api-xo2h.onrender.com/favourites/${idaccount}`, {
-=======
         const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/favourites/${idaccount}`, {
->>>>>>> origin/main
           headers: {
             "Authorization": `Bearer ${accessToken}`
           }

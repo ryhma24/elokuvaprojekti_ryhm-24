@@ -11,11 +11,7 @@ const FavouriteShare = () => {
     useEffect(() => {
         async function fetchFavourites() {
             
-<<<<<<< HEAD
-            const res = await fetch(`https://elokuvaprojekti-ryhm-24-api-xo2h.onrender.com/favourites/${id}`)
-=======
             const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/favourites/${id}`)
->>>>>>> origin/main
             const data = await res.json();
             console.log("Favourites:", data);
             
