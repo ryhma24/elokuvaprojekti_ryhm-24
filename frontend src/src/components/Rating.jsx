@@ -175,7 +175,8 @@ const MakeAComment = ({ movieId, typeLabel }) => {
     const [comment, setComment] = useState("");
     const [ismovie, setIsmovie ] = useState(null)
     const { accessToken, idaccount } = useAuth();
-    const { reviewState, setReviewState } = useReview();
+    const { reviewState, setReviewState, movieReviews, setMovieReviews } = useReview();
+    const { fetchReviewsByMovieId } = useReview();
     const { user } = useAuth();
     const review = Array.isArray(reviewState)
         ? reviewState.find(r => r.idmovie === movieId)
@@ -202,7 +203,7 @@ const MakeAComment = ({ movieId, typeLabel }) => {
     }
 
     const onReviewSubmit = async (e) => {
-
+        e.preventDefault()
         try {
             const url = idreviews
                 ? `${import.meta.env.VITE_APP_API_URL}/reviews/${idreviews}`
@@ -247,11 +248,15 @@ const MakeAComment = ({ movieId, typeLabel }) => {
             );
 
             setComment("");
+
+            fetchReviewsByMovieId(movieId);
+
         
         } catch (err) {
             console.error("Error updating or posting review:", err);
         }
     }
+
 
     return (
         <div>
