@@ -3,12 +3,28 @@ import React from "react";
 import { useState, useEffect } from "react"
 import NavBar from "../components/NavBar"
 import { currentUser } from "../middleware/currentUser.jsx";
+import { useNavigate } from 'react-router-dom'
 
-const Profile = () => {
+import crying from '/src/icons/crying.png'
+import dead from '/src/icons/dead.png'
+import lemon from '/src/icons/lemon.png'
+import star from '/src/icons/star.png'
+import sus from '/src/icons/suspicious.png'
+import wink from '/src/icons/wink.png'
+import yum from '/src/icons/yum.png'
+import smile from '/src/icons/smile.png'
+
+function Profile() {
+    const navigate = useNavigate();
     const [favourites, setFavourites] = useState([])
-    const { accessToken, idaccount } = useAuth()
+    const {user, accessToken, idaccount, getDeletionDate, deletionDate, deletionFlag, getDeletionFlag} = useAuth()
     const [movieDetails, setMovieDetails] = useState([])
+    const [accStatus, setAccStatus] = useState("Normal")
+    const [selectedIcon, setSelectedIcon] = useState(0) //placeholderi value
+    const [fetchedAvatarIndex, setIndex] = useState("")
+    const [currentAvatar, setCurrentAvatar] =useState("")
     
+
 
     useEffect(() => {
         async function fetchFavourites() {
@@ -19,11 +35,7 @@ const Profile = () => {
                 }
             });
             const data = await res.json();
-            console.log("Favourites:", data);
             setFavourites(data);
-            console.log("user:")
-           
-
             const results = await Promise.all(
                 data.map(async (item) => {
                     const type = item.ismovie ? "movie" : "tv";
@@ -37,45 +49,123 @@ const Profile = () => {
                             }
                         }
                     );
-
-                    const moviedata = await apiCall.json();
-
+                    const moviedata = await apiCall.json()
                     return moviedata
                 })
             );
             setMovieDetails(results);
-            console.log("movie detauils", results)
-
-            
         }
-        console.log("ACCESS TOKEN:", accessToken);
-
+        if(accessToken)
+        {
+        fetchAvatar()
+        setAvatar();
+        getDeletionDate();
+        CheckStatus();
+        }
         fetchFavourites();
-    }, [accessToken, idaccount]);
-        function copyUrl(){
-            alert("URL copied to clipboard")
-            const shareUrl=`http://localhost:5173/favourites/${idaccount}`
-            navigator.clipboard.writeText(shareUrl)
-            }
+    }, [accessToken, idaccount, deletionDate, deletionFlag, fetchedAvatarIndex]);
+    function copyUrl() {
+        alert("URL copied to clipboard")
+        const shareUrl = `http://localhost:5173/favourites/${idaccount}`
+        navigator.clipboard.writeText(shareUrl)
+    }
+    
+    async function CheckStatus()
+    {   
+        if(deletionDate && deletionDate.length > 0)
+        {
+            setAccStatus("Pending deletion")
+        }
+    }
+
+   async function chooseAvatar(e) 
+   {
+    e.preventDefault();
+    const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/setavatar`, {
+      method: "PUT",
+      headers: {
+          "Authorization": `Bearer ${accessToken}`, "Content-Type": "application/json" 
+        },
+      credentials: "include",
+      body: JSON.stringify({ username: user, idavatar: selectedIcon }),
+    });
+
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(error.error || "icon change failed");
+    }
+    fetchAvatar()
+    setAvatar();
+   }
+
+   function setAvatar()
+   {
+    const icons = ["crying", "dead", "lemon", "star", "suspicious", "wink", "yum", "smile"];
+    setCurrentAvatar(icons[fetchedAvatarIndex]);
+   }
+
+   async function fetchAvatar()
+   {
+     if (!accessToken) return;
+            const res = await fetch(`http://localhost:3001/getavatar/${user}`, {
+            });
+            const data = await res.json();
+            const index = JSON.stringify(data[0].idavatar)  
+            setIndex(index)
+            setAvatar();
+   }
+ 
 
 
     return (
         <div>
             <NavBar />
+        <div className="profilecontainer">
+            <div className="baseinfo">
+                <h2>Account info:</h2>
+            <div className="infosplit">
+                <p>your username: {currentUser()}</p>
+                <p>Account status: {accStatus}</p>
+                <label>Your current avatar: {currentAvatar}</label>
+
+                <img src={`/src/icons/${currentAvatar}.png`} width="128" height="128"></img>
+            <form onSubmit={chooseAvatar}>
+                <select 
+                value={selectedIcon} 
+                onChange={e => setSelectedIcon(e.target.value)}>
+                
+                    <option value="selectedIcon" disabled>Choose your avatar</option>
+                    <option value="0">Crying</option>
+                    <option value="1">Dead</option>
+                    <option value="2">Lemon</option>
+                    <option value="3">Star</option>
+                    <option value="4">Sus</option>
+                    <option value="5">Wink</option>
+                    <option value="6">Yum</option>
+                    <option value="7">smile</option>
+                </select>
+                <button type="submit">Submit</button>
+            </form>
+            </div>
+
+            </div>
             <div className="favMovieListContainer">
-                <h2>Your Favourite Movies and Series</h2>
+                <h2 className="big-titles">Your Favourite Movies and Series</h2>
                 <ul className="favlist">
-                    {movieDetails.map((fav) => (
-                        <li key={fav.id}>
-                            <img className="profile-movie" src={`https://image.tmdb.org/t/p/w500${fav.poster_path}`} alt={movieDetails?.title || movieDetails?.name} />
+                    {movieDetails.map((fav) => {
+                        const type = fav.title ? "movie" : "tv";
+                        return <li key={fav.id} >
+                            <img className="profile-movie" onClick={() => navigate(`/${type}/title/${fav.id}`)}
+                                src={`https://image.tmdb.org/t/p/w500${fav.poster_path}`}
+                                alt={fav.title || fav.name} />
                             {fav.title || fav.name}
                         </li>
-                    ))}
+                    })}
                 </ul>
                 <h3 className="shareList" onClick={copyUrl}>Click to share your list</h3>
             </div>
-            
         </div>
+    </div>
     )
 }
 

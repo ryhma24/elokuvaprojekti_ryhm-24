@@ -3,7 +3,7 @@ import { getAllReviewsFromUser, getOneReviewByIdreview, addOneReview, deleteRevi
 export async function getReviewsUser(req, res, next) {
   try {
     const moviedata = await getAllReviewsFromUser(req.params.id);
-     if (!moviedata) {
+     if (moviedata.length === 0) {
       return res.status(404).json({ error: "reviews not found" });
     }
     res.json(moviedata);
@@ -37,12 +37,22 @@ export async function getAReviewbyMovieid(req, res, next) {
 }
 
 export async function addReview(req, res, next) {
-  console.log("add called");
+  console.log("addreview kutsuttu!")
   try {
-    console.log(req.body);
+    const { review, rating, idaccount, idmovie, date, ismovie, username, idavatar } = req.body;
+
+    if ( !username || !idaccount || !idmovie || !date || ismovie === undefined) {
+      return res.status(400).json({ error: "request missing column data!" });
+    }
+    console.log("Request body:", req.body);
     const response = await addOneReview(req.body);
-    res.json(response);
+    res.json({message: "review added successfully!"}, response);
   } catch (err) {
+    console.log("tässä on err:",err);
+    if(err.code === "23505")
+    {
+      return res.status(409).json({ error: "Dublicate review" });
+    }
     next(err);
   }
 }
@@ -60,10 +70,12 @@ export async function updateReview(req, res, next) {
 export async function deleteOneReview(req, res, next) {
   try {
     const moviedata = await deleteReview(req.params.id);
-     if (!moviedata) {
+    if (moviedata.length === 0) {
       return res.status(404).json({ error: "review not found" });
     }
-    res.json(moviedata);
+    res.json(
+    {message: "review deleted", id: req.params.id}, 
+    moviedata);
   } catch (err) {
     next(err);
   }

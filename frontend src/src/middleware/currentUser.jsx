@@ -8,7 +8,7 @@ export function currentUser()
         let currentUser = "Guest";
         if(accessToken)
         {
-            const currentUserWithQuotes = JSON.stringify(user.username);
+            const currentUserWithQuotes = JSON.stringify(user);
             const currentUserWithoutQuotes = currentUserWithQuotes.split('"').join('');
             return currentUserWithoutQuotes;
         }

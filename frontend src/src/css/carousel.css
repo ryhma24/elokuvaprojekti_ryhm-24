@@ -3,6 +3,10 @@
     position: relative; 
     margin: 2em;
 }
+.carousel .movie-card {
+    flex:0 0 auto;
+    
+}
 .carousel{
     width: 100%;
     overflow-x: auto;
