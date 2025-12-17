@@ -18,7 +18,8 @@ const host = process.env.DB_HOST
 
 //app.use(cors())
 app.use(cors({
-  origin: "https://elokuvaprojekti-ryhm-24-front2.onrender.com",
+  origin: ["https://elokuvaprojekti-ryhm-24-front2.onrender.com",
+            "localhost:5173"],
   credentials: true // Allow cookies
 }));
 app.use(express.json());
