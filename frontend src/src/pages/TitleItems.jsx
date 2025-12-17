@@ -24,11 +24,11 @@ const TitleItems = () => {
   const { reviewState, movieReviews, fetchReviewsByMovieId } = useReview();
   const { accessToken, user } = useAuth();
   const [showCommentForm, setShowCommentForm] = useState(false);
-
+  
   const [fetchedAvatarIndex, setIndex] = useState("")
   const [currentAvatar, setCurrentAvatar] =useState("")
 
-  async function deleteComment(idreviews, username) 
+  async function deleteComment(idreviews, username, idmovie) 
   {
     if(username === user){
     const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/reviews/${idreviews}`, {
@@ -38,7 +38,9 @@ const TitleItems = () => {
           "Authorization": `Bearer ${accessToken}`, "Content-Type": "application/json" 
         },
     });
-     console.log("deletecomment respone on: " + JSON.stringify(res))
+    console.log("deletecomment respone on: " + JSON.stringify(res))
+    fetchReviewsByMovieId(idmovie);
+
      return;
    }
     alert("You can delete your own comments only!")
@@ -164,7 +166,7 @@ const TitleItems = () => {
                           </section>
                       <section className="commentcontainer">
                       <p className="comment">{r.review}</p>
-                      <button onClick={() => {deleteComment(r.idreviews, r.username)}}>Delete comment</button>
+                      <button onClick={() => {deleteComment(r.idreviews, r.username, r.idmovie)}}>Delete comment</button>
                       </section>
                     </div>
                   ))
