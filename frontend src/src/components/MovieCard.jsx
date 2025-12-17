@@ -27,14 +27,15 @@ if(accessToken)
                     <FetchRating
                         vote_average={movie.vote_average}
                     />
-                    <FavouritesButton
+                    
+                    
+                </div>
+                <FavouritesButton
                         typeLabel={typeLabel}
                         movieId={movie.id}
                         favouriteState={favouriteState}
                         setFavouriteState={setFavouriteState}
                     />
-                    
-                </div>
             </div>
     </div>
 }
