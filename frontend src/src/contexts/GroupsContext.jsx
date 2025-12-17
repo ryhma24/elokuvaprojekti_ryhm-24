@@ -11,6 +11,8 @@ export function GroupsProvider({ children }) {
   const [currentGroup, setCurrentGroup] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [selectedMovieId, setSelectedMovieId] = useState(null);
+  const [selectedMovies, setSelectedMovies] = useState([]);
 
   // Get all groups (public)
   const fetchGroups = async () => {
@@ -285,6 +287,10 @@ export function GroupsProvider({ children }) {
     }
   };
 
+  function addMovieToGroup(movie) {
+    setSelectedMovies(prev => [...prev, movie]);
+  }
+
   const value = {
     groups,
     currentGroup,
@@ -302,6 +308,8 @@ export function GroupsProvider({ children }) {
     removeMember,
     setCurrentGroup,
     setError,
+    selectedMovies,
+    addMovieToGroup
   };
 
   return (

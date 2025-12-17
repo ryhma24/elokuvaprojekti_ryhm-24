@@ -45,7 +45,7 @@ export const ReviewProvider = ({ children }) => {
           }
         });
       const data = await res.json();
-
+      console.log("allmoviedata", data)
       if (Array.isArray(data)) {
         setMovieReviews(data);
       } else if (Array.isArray(data.reviews)) {

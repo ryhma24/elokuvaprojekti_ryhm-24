@@ -12,6 +12,7 @@ import star from '/src/icons/star.png'
 import sus from '/src/icons/suspicious.png'
 import wink from '/src/icons/wink.png'
 import yum from '/src/icons/yum.png'
+import smile from '/src/icons/smile.png'
 
 function Profile() {
     const navigate = useNavigate();
@@ -99,7 +100,7 @@ function Profile() {
 
    function setAvatar()
    {
-    const icons = ["crying", "dead", "lemon", "star", "suspicious", "wink", "yum"];
+    const icons = ["crying", "dead", "lemon", "star", "suspicious", "wink", "yum", "smile"];
     setCurrentAvatar(icons[fetchedAvatarIndex]);
    }
 
@@ -141,6 +142,7 @@ function Profile() {
                     <option value="4">Sus</option>
                     <option value="5">Wink</option>
                     <option value="6">Yum</option>
+                    <option value="7">smile</option>
                 </select>
                 <button type="submit">Submit</button>
             </form>

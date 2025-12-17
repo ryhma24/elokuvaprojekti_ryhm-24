@@ -123,7 +123,7 @@ export async function addAccount(req, res, next) {
 
     if(!validateEmail(email))
     {
-      res.status(400).json({ error: "Please use correct email format!"});
+      return res.status(400).json({ error: "Please use correct email format!"});
     }
 
     const user = await addOne(username, password, email);
