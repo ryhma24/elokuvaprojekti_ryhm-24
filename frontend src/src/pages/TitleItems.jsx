@@ -109,7 +109,9 @@ const TitleItems = () => {
                   setFavouriteState={setFavouriteState}
                 />
               </div>
-              <p>{data.overview}</p>
+              <div className="description">
+                <p>{data.overview}</p>
+              </div>
               <p>Release date: {data.release_date || data.first_air_date}</p>
               <div className="review">
                 <button 
@@ -185,8 +187,10 @@ const TitleItems = () => {
               <div className="icons-row">
                 <FetchRating vote_average={data.vote_average}/>
               </div>
-              <p>Description: {data.overview}</p>
-              <p>Release date: {data.release_date || data.first_air_date}</p>
+              <div className="description">
+                <p>Description: {data.overview}</p>
+              </div>
+                <p>Release date: {data.release_date || data.first_air_date}</p>
               <div className="all-reviews">
                 <h2>User Reviews</h2>
                 {Array.isArray(movieReviews) && movieReviews.length > 0 ? (

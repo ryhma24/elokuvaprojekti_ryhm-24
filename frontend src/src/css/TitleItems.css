@@ -1,6 +1,6 @@
 .titleinfo-container {
     display: flex;
-    gap: 2rem;
+    gap: 1vh;
     padding: 2rem;
     align-items: flex-start;
 }
@@ -8,6 +8,7 @@
 .titleinfo-left {
     flex: 1;
     max-width: 60%;
+    margin-left: 20vh;
 }
 
 .titleinfo-right img {
@@ -99,9 +100,10 @@ text-align: left;
     
 }
 
-.popup .popup-left {
-}
 
-.popup .popup-right {
+
+.description {
     display: flex;
+    word-wrap: break-word;
+    max-width: 600px;
 }
