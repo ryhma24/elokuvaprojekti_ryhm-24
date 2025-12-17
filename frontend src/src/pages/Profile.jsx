@@ -115,11 +115,12 @@ function Profile() {
             <NavBar />
         <div className="profilecontainer">
             <div className="baseinfo">
-                <h2>Account info:</h2>
+                
             <div className="infosplit">
-                <p>your username: {currentUser()}</p>
-                <p>Account status: {accStatus}</p>
-                <img src={`https://i.postimg.cc/${currentAvatar}.png`} width="128" height="128"></img>
+                <h2>Account info:</h2>
+                <p className="fieldText">Your username: {currentUser()}</p>
+                <p className="fieldText">Account status: {accStatus}</p>
+                <img className="profileImage" src={`https://i.postimg.cc/${currentAvatar}.png`} width="128" height="128"></img>
             <form onSubmit={chooseAvatar}>
                 <select 
                 value={selectedIcon} 
@@ -135,7 +136,7 @@ function Profile() {
                     <option value="6">Yum</option>
                     <option value="7">smile</option>
                 </select>
-                <button type="submit">Submit</button>
+                <button className="submitButton" type="submit">Submit</button>
             </form>
             </div>
 

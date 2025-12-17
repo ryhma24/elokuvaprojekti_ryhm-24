@@ -71,8 +71,10 @@ function AllSeries() {
                 ))}
 
             </div>
+            <div className="wrappernappi">
             <button className="nextPageButton" id="sivunappiPrev" onClick={previousPage}>Previous Page</button>
             <button className="nextPageButton" id="sivunappi" onClick={nextPage}>Next Page</button>
+            </div>
         </div>
     )
 }
